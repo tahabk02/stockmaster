@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  api:
+    build: ./backend
+    container_name: stockmaster-pro-backend
+    environment:
+      - PORT=3000
+      - MONGODB_URI=mongodb://mongo:27017/stockmaster-pro
+      - REDIS_URL=redis://redis:6379
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+      - redis # Ajoute ceci
+
+  mongo:
+    image: mongo:6
+    container_name: stockmaster-pro-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  # AJOUTE CE BLOC ICI
+  redis:
+    image: redis:7-alpine
+    container_name: stockmaster-pro-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  mongo-data:

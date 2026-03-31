@@ -1,0 +1,43 @@
+/* Arabic: أنماط CallOverlay الخاصة بالمكوّن
+   Français: Styles du CallOverlay pour le composant
+   English: CallOverlay component styles */
+:root {
+  --call-overlay-bg: #020617;
+}
+
+.call-overlay-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%) brightness(0.75);
+}
+
+.call-overlay-local {
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  width: 18rem;
+  aspect-ratio: 9/16;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.call-overlay-minimized {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.call-avatar-large {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 6rem;
+  overflow: hidden;
+}
+
+/* small helpers used in component when not using Tailwind */
+.call-btn-icon {
+  border-radius: 3.5rem;
+}

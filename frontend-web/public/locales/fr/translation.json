@@ -1,0 +1,972 @@
+{
+  "common": {
+    "success": "Opération Réussie",
+    "loading": "Synchronisation du Lattice...",
+    "create": "Créer",
+    "update": "Mettre à jour",
+    "delete": "Supprimer",
+    "view": "Voir Node",
+    "save": "Valider les Changements",
+    "cancel": "Abandonner",
+    "actions": "Belles Logiques",
+    "confirm": "Confirmer Séquence",
+    "search": "Scan Interception...",
+    "filter": "nbḍ al-filtara",
+    "export": "Extraction de Données",
+    "profile": "Identité Agent",
+    "logout": "Déauthentification",
+    "back": "Retour à l'Axe",
+    "active": "Actif",
+    "inactive": "Suspendu",
+    "noData": "Aucune Donnée Interceptée",
+    "status": "Statut",
+    "edit": "Modifier Pattern",
+    "submit": "Exécuter Protocole",
+    "empty": "Vide",
+    "invalidInput": "Incohérence Logique",
+    "download": "Téléchargement",
+    "lead": "Délai"
+  },
+  "nav": {
+    "dashboard": "HUD Commande",
+    "inventory": "Inventaire",
+    "sales": "Hub Signal",
+    "orders": "Registre",
+    "purchases": "Achats",
+    "suppliers": "Fournisseurs",
+    "clients": "Clients",
+    "settings": "Config Système",
+    "reports": "Rapports de Données",
+    "ai": "IA Neurale",
+    "team": "Orchestre Squad",
+    "finance": "Finances",
+    "logistics": "Flotte Commande",
+    "map": "Carte Neurale",
+    "legal": "Registre Légal",
+    "comms": "Hub Comms",
+    "hr": "Pouls RH",
+    "marketing": "Hub Marketing",
+    "infrastructure": "Infrastructure",
+    "saas": "Tiers SaaS",
+    "audit": "Logs Forensiques",
+    "jobs": "Orchestrateur de Tâches",
+    "production": "Hub Production",
+    "returns": "Centre Retours",
+    "expenses": "Registre Dépenses",
+    "links": "Liens Neuraux",
+    "scanner": "Scanner Optique",
+    "reels": "Signal Reels",
+    "intelligence": "Intel Stratégique",
+    "sections": {
+      "core": "Intelligence Centrale",
+      "admin": "Overlord Système",
+      "ops": "Ops Industrielles",
+      "commercial": "Actifs Commerciaux",
+      "growth": "Croissance",
+      "infra": "Infrastructure"
+    },
+    "finance_intel": "Intel Fiscal",
+    "quality": "Qualité Zénith",
+    "admin_console": "Console Commande",
+    "tenants": "Registre Nodes",
+    "restock": "Réappro Neural",
+    "ops_flow": "Flux Ops",
+    "invoices": "Coffre Factures",
+    "community": "Fil Marché",
+    "system_status": "Moniteur Système",
+    "docs": "Coffre Archives",
+    "my_subs": "Mes Abonnements"
+  },
+  "dashboard": {
+    "title": "Commande Zénith",
+    "subtitle": "Réseau Global v4.0",
+    "nodeActive": "Node Signal Actif",
+    "protocol": "Protocole Zenith v9.4",
+    "scan": "Scan Réseau",
+    "marketplace": "Marché",
+    "equity": "Résonance Equity",
+    "velocity": "Vélocité Node",
+    "revenue": "Revenu Quotidien",
+    "activeSignals": "Signaux Actifs",
+    "assetDensity": "Densité Actifs",
+    "systemHealth": "Santé Système",
+    "predictions": "Prédictions",
+    "aiProtocol": "Protocole IA v9.0",
+    "recentSignals": "Signaux Récents",
+    "viewStream": "Voir Flux",
+    "traceId": "ID Trace",
+    "entity": "Entité",
+    "value": "Valeur",
+    "protocolLabel": "Protocole",
+    "timestamp": "Horodatage",
+    "revenueFlow": "Flux Revenu",
+    "temporalResonance": "Résonance Financière Temporelle",
+    "forensic": {
+      "title": "Scan Profond Forensique",
+      "subtitle": "Analyse de Signal d'Entreprise",
+      "anomaly": "Scan Anomalie",
+      "integrity": "Intégrité Données",
+      "spectrum": "Analyses Spectre",
+      "penetration": "Pénétration Marché",
+      "liquidity": "Liquidité Actifs",
+      "ledger": "PROTOCOLE REGISTRE v9.2",
+      "share": "Partager",
+      "archive": "Archiver",
+      "archiving": "Archivage...",
+      "indexed": "Signal Indexé",
+      "sharing": "Partage...",
+      "copied": "Lien Copié",
+      "failed": "Échec"
+    },
+    "engine": {
+      "growth": "Croissance",
+      "risk": "Risque",
+      "report": "Rapport Forensique Complet"
+    }
+  },
+  "products": {
+    "title": "Registre d'Actifs",
+    "subtitle": "Node d'Inventaire Lattice",
+    "protocol": "Protocole d'Inventaire Neural",
+    "categories": "Catégories",
+    "add": "Provisionner Node",
+    "edit": "Modifier Pattern",
+    "fields": {
+      "name": "Identifiant",
+      "sku": "ID Signal",
+      "category": "Tier",
+      "price": "Évaluation",
+      "quantity": "Densité",
+      "location": "ID Zone",
+      "description": "Payload Données"
+    },
+    "messages": {
+      "outOfStock": "Signal Épuisé",
+      "lowStock": "Saturation Critique",
+      "alreadyExists": "Actif Déjà Indexé"
+    }
+  },
+  "sales": {
+    "title": "Hub Signal",
+    "terminal": "Terminal POS",
+    "registry": "Registre Historique",
+    "cart": "Buffer Signal",
+    "checkout": "Exécuter Transaction",
+    "total": "Flux Total",
+    "payment": "Méthode Protocole",
+    "customer": "Entité Cible",
+    "cash": "Papier_Fiat",
+    "card": "Carte_Logique",
+    "settle": "Commit Protocol",
+    "messages": {
+      "cartEmpty": "Buffer est Vide",
+      "success": "Transaction Commitée",
+      "processing": "Traitement du Signal..."
+    }
+  },
+  "purchases": {
+    "title": "Approvisionnement",
+    "subtitle": "Hub",
+    "meta": "Métadonnées Node",
+    "ref": "Référence Registre",
+    "partner": "Node Fournisseur",
+    "add": "Provisionner Actif",
+    "qty": "Quantité",
+    "unitPrice": "Prix d'Achat Unitaire",
+    "summary": "Résumé Manifeste",
+    "notes": "Contexte Stratégique",
+    "confirm": "Exécuter Approvisionnement",
+    "messages": {
+      "orderCreated": "Réapprovisionnement Stratégique Terminé",
+      "assetAdded": "Actif ajouté au manifeste",
+      "supplierRequired": "Échec de Sélection : Node Fournisseur requis",
+      "manifestEmpty": "Échec de Validation : Le manifeste est vide"
+    }
+  },
+  "suppliers": {
+    "title": "Réseau Fournisseurs",
+    "add": "Lier Nouveau Node",
+    "scanning": "Liaison au Réseau...",
+    "searchPlaceholder": "SCANNER L'IDENTIFIANT DU NODE...",
+    "fields": {
+      "name": "Nom Entité",
+      "phone": "Téléphone Signal",
+      "email": "Email Neural",
+      "address": "Géo-Localisation",
+      "debt": "Exposition Active"
+    }
+  },
+  "clients": {
+    "title": "Registre Clients",
+    "subtitle": "Lattice d'Entités Souveraines",
+    "add": "Autoriser Entité",
+    "registerNode": "Enregistrer Node",
+    "searchPlaceholder": "RECHERCHER_LATTICE_CLIENT_PAR_NOM_OU_TELEPHONE...",
+    "scanning": "Analyse du Registre Clients...",
+    "exportCSV": "Exporter CSV",
+    "stats": {
+      "active": "Nodes Actifs",
+      "exposure": "Exposition Globale"
+    },
+    "fields": {
+      "name": "Nom Agent",
+      "email": "Email Sécurisé",
+      "phone": "Ligne Directe",
+      "address": "Localisation Base",
+      "type": "Classe Entité",
+      "nodeAlias": "Alias du Node",
+      "architecture": "Architecture Entité",
+      "commsFreq": "Fréquence Comms",
+      "targetCoords": "Coordonnées Cibles",
+      "taxId": "ID Fiscal Forensique (ICE)",
+      "creditLimit": "Limite de Crédit Souveraine",
+      "individual": "INDIVIDU_ORGANIQUE",
+      "company": "HUB_INSTITUTIONNEL"
+    },
+    "messages": {
+      "accessFailure": "Échec d'Accès au Registre",
+      "fetchError": "Erreur de Récupération Forensique",
+      "broadcasting": "Diffusion du Protocole d'Identité...",
+      "updated": "Registre Mis à Jour",
+      "transmissionError": "Erreur de Transmission",
+      "terminationProtocol": "EXÉCUTER LE PROTOCOLE DE TERMINAISON ?",
+      "decommissioned": "Node Décommissionné",
+      "terminationBlocked": "Terminaison Bloquée",
+      "identityLocked": "IDENTITÉ VERROUILLÉE",
+      "fiscalFlow": "Flux Fiscal Total",
+      "orderCommits": "Commits de Commande",
+      "riskTelemetry": "Télémétrie de Risque",
+      "historyLogs": "Logs Historiques de Signal",
+      "noHistorical": "Aucun Signal Historique Trouvé",
+      "modInit": "Initialiser Modification"
+    }
+  },
+  "team": {
+    "title": "Commande Neurale",
+    "subtitle": "Orchestre Squad v2.0",
+    "add": "Intégrer Agent",
+    "search": "Décoder l'identité ou le cluster de l'agent...",
+    "loading": "Synchronisation de la Lattice Neurale...",
+    "hud": {
+      "stability": "Stabilité Lattice"
+    },
+    "tiers": {
+      "overlord": "Overlord",
+      "orchestrator": "Orchestrateur",
+      "operative": "Opératif"
+    },
+    "stats": {
+      "authTier": "Tier d'Auth",
+      "deployment": "Déploiement",
+      "authLevel": "NIVEAU",
+      "sector": "SECTEUR"
+    },
+    "actions": {
+      "scan": "Scan Forensique",
+      "reconfig": "Reconfigurer",
+      "commit": "Valider l'Identité",
+      "sync": "Synchroniser la Logique"
+    },
+    "modal": {
+      "onboard": "Intégrer Agent",
+      "onboardSub": "Protocole d'Expansion v2.0",
+      "reconfig": "Reconfigurer Logique",
+      "reconfigSub": "Protocole de Mise à jour Node actif"
+    },
+    "fields": {
+      "name": "Identifiant d'Identité",
+      "email": "Email Neural",
+      "auth": "Autorisation",
+      "cipher": "Chiffre d'Accès",
+      "tag": "Tag d'Emploi",
+      "roles": {
+        "STAFF": "Opératif",
+        "MANAGER": "Orchestrateur",
+        "ADMIN": "Overlord"
+      }
+    },
+    "toast": {
+      "onboarding": "Intégration de l'Agent...",
+      "syncOk": "Sync Identité OK",
+      "reconfiguring": "Reconfiguration de l'Agent...",
+      "reconfigOk": "Reconfig Logique OK",
+      "denied": "Reconfig Refusée"
+    }
+  },
+  "returns": {
+    "title": "Centre Retours",
+    "subtitle": "Logistique Inverse & RMA Node",
+    "add": "Ouvrir RMA",
+    "stats": {
+      "open": "RMAs Ouverts",
+      "rate": "Taux RMA",
+      "recovery": "Intelligence Récupération",
+      "refunds": "Remboursements Agrégés",
+      "success": "Taux de Succès"
+    },
+    "fields": {
+      "reference": "Référence RMA",
+      "reason": "Raison du Retour",
+      "type": "Type de Signal",
+      "orderId": "Cluster Commande",
+      "condition": "État de l'Actif",
+      "asset": "Sélection d'Actif",
+      "signature": "Signature Défaut"
+    },
+    "status": {
+      "PENDING": "SIGNAL_EN_ATTENTE",
+      "INSPECTING": "INSPECTION_CORE",
+      "APPROVED": "APPROBATION_LATTICE",
+      "REJECTED": "REJET_VOID",
+      "COMPLETED": "INDEX_TERMINE"
+    },
+    "types": {
+      "CUSTOMER_TO_VENDOR": "Signal Client",
+      "VENDOR_TO_SUPPLIER": "Signal Fournisseur"
+    },
+    "conditions": {
+      "OPENED": "NODE_OUVERT",
+      "DAMAGED": "CORE_ENDOMMAGE",
+      "DEFECTIVE": "LOGIQUE_DEFECTUEUSE",
+      "NEW": "ETAT_INITIAL"
+    },
+    "analytics": {
+      "title": "Analyse des Défauts",
+      "sync": "Sync Grille Qualité",
+      "defect1": "Défaut Structurel",
+      "defect2": "Manifeste Erroné",
+      "defect3": "Refus Client"
+    },
+    "toast": {
+      "linkLost": "Interruption Lattice RMA",
+      "incomplete": "Manifeste Incomplet",
+      "broadcasting": "Diffusion Signal RMA...",
+      "success": "Protocole RMA Initialisé",
+      "failed": "Signal Perdu"
+    },
+    "modal": {
+      "protocol": "Protocole d'Enregistrement de Défaut v1.0",
+      "scanOrder": "SCANNER CLUSTER COMMANDE",
+      "selectAsset": "SÉLECTIONNER ACTIF",
+      "defectPlaceholder": "Signature détaillée du défaut...",
+      "submit": "Commit Protocole RMA"
+    }
+  },
+  "expenses": {
+    "title": "Registre Dépenses",
+    "subtitle": "Surveillance et Suivi Fiscal Neural",
+    "add": "Enregistrer Burn",
+    "totalBurn": "Burn Total",
+    "efficiency": "Efficacité Fiscale",
+    "search": "Chercher dans le registre...",
+    "ledger": "Registre d'Activité",
+    "noRecords": "Aucun Enregistrement Trouvé",
+    "categories": {
+      "RENT": "Loyer Infrastructure",
+      "SALARY": "Compensation Neurale",
+      "MARKETING": "Expansion Signal",
+      "UTILITIES": "Énergie Lattice",
+      "OTHER": "Node Non Classé",
+      "SUPPLIES": "Actifs Matériels",
+      "TRAVEL": "Déplacement Géospatial"
+    },
+    "fields": {
+      "category": "Cluster Burn",
+      "amount": "Payload Valeur",
+      "description": "Descripteur Logique",
+      "date": "Node Temporel",
+      "method": "Circuit Paiement"
+    },
+    "toast": {
+      "syncing": "Diffusion du Signal Fiscal...",
+      "success": "Signal Enregistré",
+      "failure": "Refus Réseau",
+      "lost": "Interférence du Signal Fiscal",
+      "error_data": "Données Incomplètes",
+      "purge": "Purger le signal fiscal?",
+      "decoupling": "Découplage du Signal...",
+      "purged": "Signal Purgé",
+      "exporting": "Synthèse du Manifeste CSV...",
+      "exported": "Manifeste Exporté au Terminal",
+      "burnPayload": "Payload Burn"
+    },
+    "sidebar": {
+      "liquidity": "Liquidité Actifs",
+      "syncMatrix": "Sync Matrice Croissance",
+      "insight": "Aperçu Moteur",
+      "diagnostic": "Lancer Diagnostic Profond"
+    },
+    "inspector": {
+      "value": "Payload Valeur",
+      "temporal": "Logique Temporelle",
+      "circuit": "Circuit Paiement",
+      "receipt": "Générer Reçu",
+      "generating": "Génération du Voucher Fiscal...",
+      "syncOk": "Voucher Synchronisé",
+      "syncFail": "Échec Synthèse Voucher"
+    }
+  },
+  "billing": {
+    "title": "Nœud Facturation",
+    "subtitle": "Gestion Souveraine des Abonnements",
+    "currentPlan": "Protocole Actuel",
+    "usage": "Consommation Ressources",
+    "paymentMethod": "Circuit de Paiement",
+    "invoices": "Manifestes Fiscaux",
+    "upgrade": "Mettre à niveau Protocole",
+    "manage": "Gérer Config",
+    "nextBilling": "Prochain Cycle",
+    "amount": "Montant Payload",
+    "status": "Statut Signal",
+    "date": "Horodatage",
+    "plans": {
+      "starter": "STARTER_NODE",
+      "pro": "PRO_LATTICE",
+      "enterprise": "ZENITH_CORE"
+    },
+    "stats": {
+      "products": "Slots Actifs",
+      "users": "Sièges Agents",
+      "storage": "Bloc Stockage"
+    }
+  },
+  "settings": {
+    "title": "Config Système",
+    "subtitle": "Calibration de la Lattice Centrale",
+    "profile": "ADN Agent",
+    "branding": "Signal Corporate",
+    "billing": "Node Facturation",
+    "security": "Chiffrement & Confidentialité",
+    "subscriptions": "Overrides SaaS",
+    "languages": "Mapping Linguistique",
+    "theme": "Shift Thermique"
+  },
+  "ai": {
+    "title": "Intelligence Neurale",
+    "ask": "Prompt Liya...",
+    "sync": "Exécuter Sync Cognitive",
+    "terminal": "Logs Terminal",
+    "labs": {
+      "diagnostic": "Diagnostic Profond",
+      "vision": "Forensique Optique",
+      "supply": "Lattice Supply"
+    },
+    "chat": {
+      "welcome": "Interface Neurale v5.0 active. Comment puis-je assister votre stratégie aujourd'hui ?",
+      "thinking": "Calcul du Moteur Neural..."
+    }
+  },
+  "community": {
+    "title": "Fil Marché",
+    "broadcast": "Diffuser Signal",
+    "broadcastPlaceholder": "Chercher des signaux du Lattice...",
+    "messages": {
+      "consensusRecorded": "Consensus Enregistré",
+      "signalError": "Erreur Signal",
+      "insightPlaceholder": "Contribuer à l'insight du Registre...",
+      "threadActive": "Fil de Signal Actif",
+      "totalSignals": "Total Signaux"
+    },
+    "sidebar": {
+      "memberRegistry": "Registre des Membres",
+      "accessFullRegistry": "Accéder au Registre Complet",
+      "hotSignals": "Signaux Chauds"
+    },
+    "stories": {
+      "title": "Signaux Temporels",
+      "create": "Ajouter Story"
+    },
+    "posts": {
+      "reels": "Neural Reels",
+      "share": "Relais Signal",
+      "comment": "Saisie Insight"
+    }
+  },
+  "home": {
+    "hero": {
+      "system": "Lattice_Opérationnelle_v9.4",
+      "title": "Orchestrer la Grille.",
+      "tagline": "Le Système d'Exploitation Souverain pour les Chaînes d'Approvisionnement Industrielles",
+      "deploy": "Deploy_Deck",
+      "cta": "Initialiser le Déploiement",
+      "cta_alt": "Exécuter la Commande"
+    },
+    "modules": {
+      "neural": "Cognition Neurale",
+      "industrial": "Hub Production",
+      "logistics": "Flotte Commande",
+      "fiscal": "Intel Fiscal",
+      "hr": "Synthèse Squad",
+      "marketing": "Amplificateur Signal",
+      "legal": "Hub Contrats",
+      "vision": "Scanner Optique"
+    },
+    "features": {
+      "ledger": {
+        "title": "Registre_Actifs_Forensique",
+        "desc": "Traçabilité immuable à haut débit à travers tous les nœuds industriels."
+      },
+      "vision": {
+        "title": "Cognition_Neurale",
+        "desc": "Moteur d'IA prédictif calculant la résonance du marché et la vélocité des stocks."
+      },
+      "sync": {
+        "title": "Global_Pulse_Sync",
+        "desc": "Orchestration de l'écosystème en temps réel via des passerelles distribuées."
+      }
+    },
+    "footer": {
+      "nodeStatus": "Statut du Node",
+      "stable": "STABLE"
+    }
+  },
+  "invoices": {
+    "title": "Facturation",
+    "subtitle": "Node",
+    "totalYield": "Rendement Total",
+    "signalStatus": "Statut Signal",
+    "stats": {
+      "dispatched": "Factures Émises",
+      "avgValue": "Valeur Moyenne",
+      "efficiency": "Efficacité Paiement",
+      "latency": "Latence Temporelle"
+    },
+    "table": {
+      "ref": "Protocole Référence",
+      "client": "Node Client",
+      "value": "Payload Valeur",
+      "status": "Statut Logique",
+      "document": "Node Document"
+    },
+    "messages": {
+      "verified": "VÉRIFIÉ",
+      "validated": "VALIDÉ",
+      "walkIn": "Terminal Comptoir"
+    }
+  },
+  "fiscal": {
+    "title": "Intel Fiscal",
+    "subtitle": "Processeur Fiscal Neural",
+    "healthIndex": "Indice de Santé",
+    "trajectory": "Trajectoire des Revenus",
+    "burn": "Analyses du Burn",
+    "forecast": "Prévision IA",
+    "radar": "Diagnostic Vectoriel",
+    "ledger": "Registre Forensique",
+    "extraction": "Extraction",
+    "telemetry": "Télémétrie",
+    "forensicLogs": "Logs Forensiques",
+    "neuralProjection": "Projection Neurale",
+    "resonanceIndex": "Indice de Résonance",
+    "capitalVelocity": "Vélocité du Capital",
+    "booting": "Démarrage du Kernel Fiscal",
+    "oscillator": "Oscillateur Fiscal",
+    "temporalFlux": "Flux Financier Temporel",
+    "holographicActive": "Trajectoire Holographique Active",
+    "vectorDiagnostics": "Diagnostics Vectoriels",
+    "bandwidthCore": "Cœur à Haut Débit",
+    "stability": "Stabilité",
+    "liquidity": "Liquidité",
+    "burnTelemetry": "Télémétrie de Burn",
+    "allocationCore": "Cœur d'Allocation Neural",
+    "predictiveEnabled": "Modélisation Prédictive v2.4 Activée",
+    "registryTraceHub": "Hub de Trace de Registre",
+    "scanTraceId": "Scanner l'ID de Trace d'Entrée...",
+    "temporalNode": "Node Temporel",
+    "registryRef": "Réf Registre",
+    "payloadValue": "Valeur de Payload",
+    "logicStatus": "Statut Logique",
+    "deepLatticeParsing": "Analyse Profonde du Lattice",
+    "precisionIndex": "Indice de Précision",
+    "marketResonance": "Projection de Résonance du Marché",
+    "holographicVector": "Vecteur Holographique v4.0",
+    "liveCalculation": "Calcul en Temps Réel",
+    "logTerminal": "Terminal de Logs Central",
+    "extractionProtocol": "Protocole d'Extraction",
+    "stats": {
+      "revenue": "Revenu Total",
+      "cogs": "Coût des Marchandises",
+      "profit": "Bénéfice Net",
+      "tax": "Passif Fiscal",
+      "efficiency": "Note d'Efficacité",
+      "margin": "Efficacité de la Marge"
+    },
+    "nodes": {
+      "sourcing": "Coûts de Sourcing",
+      "ops": "Dépenses Opérationnelles",
+      "tax": "Réserve Fiscale",
+      "margin": "Indice de Marge"
+    }
+  },
+    "reports": {
+    "title": "Décision",
+    "subtitle": "Console",
+    "node": "Node d'Analyse",
+    "stable": "Signal Stable",
+    "signature": "Signature d'Audit",
+    "verified": "Vérifié.",
+    "compliance": "Conformité Forensique",
+    "institutionalMargin": "Marge Institutionnelle",
+    "resourceEfficiency": "Efficacité des Ressources",
+    "capitalRotation": "Rotation du Capital",
+    "protocol": "Protocole",
+    "resonanceMatrix": "Matrice de Résonance de Rendement",
+    "temporalSignal": "Signal de Cash-flow Temporel Agrégé",
+    "latticeCost": "Coût de Lattice Direct",
+    "assetAllocation": "Allocation d'Actifs",
+    "velocityScan": "Scan de Vélocité des Stocks",
+    "fluxOptimization": "Optimisation des Flux.",
+    "efficiencyIncreased": "L'efficacité de la rotation a augmenté de 14,8 % sur le cluster primaire au cours de ce cycle fiscal.",
+    "turnoverIndex": "INDICE DE ROTATION",
+    "nodeAccuracy": "PRÉCISION DU NODE",
+    "healthAudit": "Audit de Santé du Registre",
+    "assetDesignation": "Désignation de l'Actif",
+    "nodeState": "État du Node",
+    "velocitySignal": "Signal de Vélocité",
+    "payloadYield": "Rendement du Payload",
+    "integrity": "Intégrité",
+    "forensicTracking": "Suivi d'Actifs Forensique Deep-Link",
+    "strategicAnalysis": "Analyse Stratégique Neurale",
+    "executeSignal": "EXÉCUTER SIGNAL",
+    "neuralResonance": "Résonance Neurale.",
+    "latticeConfidence": "Confiance du Lattice",
+    "strategicVectors": "Les vecteurs stratégiques sont parfaitement alignés. Le cœur neural suggère l'initialisation d'un node d'expansion du marché agressif.",
+    "forensicAudit": "Piste d'Audit Forensique",
+    "dataIntegrity": "Intégrité des Données",
+    "clusterCompliance": "Conformité du Cluster",
+    "securityRegistry": "Registre de Sécurité",
+    "hardened": "Endurci",
+    "nominalState": "ÉTAT NOMINAL",
+    "auditPulse": "Pouls d'Audit Neural"
+  },
+    "quality": {
+    "title": "Qualité",
+    "subtitle": "Node d'Assurance Haute Fidélité v9.4",
+    "record": "Enregistrer Inspection",
+    "stats": {
+      "passed": "Total Validés",
+      "compliance": "Taux de Conformité"
+    },
+    "fields": {
+      "asset": "Entité d'Actif",
+      "batch": "Identifiant de Lot",
+      "score": "Score de Conformité",
+      "notes": "Intelligence Diagnostique",
+      "deploy": "Déployer la Vérification"
+    },
+    "messages": {
+      "scanning": "Analyse de la Matrice...",
+      "noData": "Aucune Inspection Indexée",
+      "linkLost": "Lien de la Matrice Qualité Perdu",
+      "missingAsset": "Référence d'Actif Manquante",
+      "indexing": "Indexation du Node d'Inspection...",
+      "syncOk": "Protocole d'Inspection Synchronisé",
+      "syncError": "Erreur de Synchronisation du Lattice",
+      "pass": "SIG_PASS",
+      "fail": "SIG_FAIL",
+      "warn": "SIG_WARN",
+      "nominal": "NOMINAL_OK",
+      "scanComplete": "LATTICE_SCAN_COMPLETE",
+      "telemetryLocked": "TELEMETRY_LOCKED",
+      "warnings": "Avertissements",
+      "criticalFail": "Échec Critique"
+    },
+    "hud": {
+      "integrity": "Intégrité Globale",
+      "telemetry": "Télémétrie d'Inspection",
+      "variance": "Variance de Lot",
+      "sensor": "Santé des Capteurs",
+      "anomaly": "Taux d'Anomalie"
+    }
+  },
+    "admin": {
+    "title": "Admin",
+    "subtitle": "Console",
+    "booting": "Démarrage de la Console Admin",
+    "syncingLattice": "Synchronisation du Lattice...",
+    "syncingLattices": "Synchronisation des Lattices...",
+    "clusterNodes": "Nœuds du Cluster",
+    "networkMRR": "MRR du Réseau",
+    "nodeAgents": "Agents de Nœud",
+    "globalAssets": "Actifs Globaux",
+    "scanInstance": "Scanner l'Instance...",
+    "nodeActive": "NŒUD_ACTIF",
+    "suspended": "SUSPENDU",
+    "assetSaturation": "Saturation des Actifs",
+    "agentAllocation": "Allocation des Agents",
+    "nodeControl": "Contrôle du Nœud",
+    "clusterLoad": "Charge du Cluster",
+    "enginePulse": "Pouls du Moteur",
+    "globalHealth": "Santé Globale",
+    "revenue": {
+      "expansion": "Expansion des Revenus",
+      "growthSignal": "INTERCEPTION DU SIGNAL DE CROISSANCE INTER-TENANT"
+    },
+    "cluster": {
+      "topology": "Topologie du Cluster",
+      "nodeLattice": "Lattice des Nœuds"
+    },
+    "infra": {
+      "clusterResources": "Ressources du Cluster",
+      "telemetryFeed": "FLUX DE TÉLÉMÉTRIE D'INFRASTRUCTURE",
+      "highAvailability": "Haute Disponibilité",
+      "apiLattice": "Lattice API",
+      "neuralSchema": "Schéma Neural",
+      "storageCore": "Cœur de Stockage"
+    },
+    "status": {
+      "optimal": "OPTIMAL",
+      "active": "ACTIF"
+    },
+    "deck": {
+      "title": "Plateau de Commande",
+      "manageAgents": "Gérer les Agents",
+      "globalNodeAccess": "ACCÈS GLOBAL AU NŒUD",
+      "nodeTopology": "Topologie du Nœud",
+      "clusterControl": "CONTRÔLE D'INSTANCE DU CLUSTER",
+      "signalAlerts": "Alertes de Signal",
+      "stateMonitor": "MONITEUR D'ÉTAT CRITIQUE",
+      "executeReport": "Exécuter le Rapport"
+    },
+    "modal": {
+      "instanceConfig": "Configuration de l'Instance",
+      "saasTiersStatus": "Tiers & Statut SaaS",
+      "resourceReallocation": "Réallocation des Ressources",
+      "assetCapacity": "Capacité d'Actifs",
+      "agentQuota": "Quota d'Agents",
+      "liveSignal": "Signal en Direct",
+      "nodeUptime": "Disponibilité du Nœud",
+      "latencyPulse": "Pouls de Latence",
+      "reallocateInstance": "Réallouer l'Instance",
+      "syncProtocolOverrides": "Synchronisation des Overrides de Protocole...",
+      "plans": {
+        "free": "PROTOCOLE GRATUIT",
+        "pro": "PRO AMÉLIORÉ",
+        "enterprise": "ZENITH ENTREPRISE"
+      },
+      "statuses": {
+        "active": "SIGNAL_ACTIF",
+        "trial": "MODE_ESSAI",
+        "pastDue": "ÉCHÉANCE_DÉPASSÉE_CRITIQUE",
+        "canceled": "ANNULÉ_VIDE"
+      }
+    },
+    "hud": {
+      "systemOverlord": "Overlord Système",
+      "saasCoreCommand": "Commandement Central du Cœur SaaS",
+      "globalHealth": "Santé Globale",
+      "systemYield": "Rendement Système",
+      "syncRegistry": "Sync Registre",
+      "prime": "PRIME"
+    }
+  },
+  "audit": {
+    "title": "Registre Audit.",
+    "subtitle": "Registre de Traçabilité Forensique",
+    "desc": "Surveillance immuable des événements de sécurité et interception de signaux forensiques.",
+    "stats": {
+      "integrity": "Intégrité du Lattice",
+      "signals": "Signaux Interceptés",
+      "events": "Événements"
+    },
+    "filter": {
+      "placeholder": "DÉCODER AGENT DE SÉCURITÉ, ACTION OU ÉVÉNEMENT..."
+    },
+    "purge": {
+      "button": "Purger",
+      "confirm": "Purger l'intégralité du registre forensique ? Cette action est irréversible.",
+      "loading": "Purge des signaux de sécurité...",
+      "success": "Registre forensique effacé",
+      "error": "Niveau d'autorisation insuffisant"
+    },
+    "export": {
+      "loading": "Synthèse du manifeste de sécurité...",
+      "success": "Manifeste exporté",
+      "error": "Protocole d'exportation interrompu"
+    },
+    "table": {
+      "timing": "Horodatage",
+      "agent": "Agent",
+      "protocol": "Protocole",
+      "payload": "Payload",
+      "node": "Node",
+      "scanning": "Scan en cours...",
+      "noSignals": "Aucun signal forensique",
+      "system": "SYSTÈME"
+    },
+    "toast": {
+      "interrupted": "Lien de sécurité interrompu"
+    }
+  },
+  "jobs": {
+    "title": "Console Jobs.",
+    "subtitle": "OS_v9.4",
+    "stats": {
+      "total": "Total",
+      "active": "Actifs",
+      "failed": "Échoués",
+      "done": "Terminés"
+    },
+    "actions": {
+      "initialize": "INITIALISER",
+      "dispatch": "DÉPLOYER"
+    },
+    "card": {
+      "latency": "Latence",
+      "id": "ID",
+      "buffer": "Buffer"
+    },
+    "terminal": {
+      "title": "Process_DeepScan",
+      "interceptionId": "ID_INTERCEPTION",
+      "decrypting": "Déchiffrement du flux de signaux...",
+      "targetCluster": "Cluster Cible",
+      "authSignature": "Signature d'Auth",
+      "verifiedAgent": "AGENT_VÉRIFIÉ",
+      "logicStream": "Logic_Stream_Handshake",
+      "criticalFailure": "ÉCHEC_CRITIQUE",
+      "awaiting": "En attente de signal...",
+      "forensicProtocol": "Protocole de registre forensique",
+      "syncInterval": "Sync_Interval",
+      "integritySeal": "Integrity_Seal_Active"
+    },
+    "toast": {
+      "initializing": "Initialisation du signal...",
+      "dispatched": "Signal déployé",
+      "failed": "Échec de synchronisation",
+      "syncing": "Synchronisation du lattice global...",
+      "allActive": "Tous les nœuds sont actifs",
+      "syncFailure": "Échec de synchronisation globale"
+    }
+  },
+  "stockLedger": {
+    "title": "Historique",
+    "subtitle": "Forensique.",
+    "sync": "Sync État Inventaire v4.0",
+    "stats": {
+      "volume": "Volume 24h",
+      "integrity": "Intégrité",
+      "registrySize": "Taille Registre",
+      "nodes": "Nodes"
+    },
+    "actions": {
+      "refresh": "Registre Profond",
+      "placeholder": "DÉCODER REGISTRE PAR ACTIF / SKU / RAISON..."
+    },
+    "table": {
+      "signature": "Signature Node",
+      "id": "Identification",
+      "protocol": "Protocole Mouvement",
+      "payload": "Delta Payload",
+      "reference": "Référence Forensique",
+      "incoming": "Payload Entrant",
+      "outgoing": "Payload Sortant",
+      "terminated": "Actif Terminé",
+      "auto": "Protocole Auto",
+      "tsRegistry": "TS-Registre"
+    },
+    "legend": {
+      "injected": "Actif Injecté",
+      "extracted": "Actif Extrait",
+      "pulse": "Sync Pulse"
+    }
+  },
+  "production": {
+    "title": "Hub Production",
+    "subtitle": "Assemblage Industriel & Synthèse Logique",
+    "add": "Nouveau Signal",
+    "stats": {
+      "active": "Hubs Actifs",
+      "yield": "Efficacité Rendement"
+    },
+    "filter": {
+      "placeholder": "SCANNER LOGS D'ASSEMBLAGE..."
+    },
+    "card": {
+      "target": "Cible: {{count}} Unités",
+      "finalize": "Finaliser",
+      "syncOk": "Sync OK"
+    },
+    "sidebar": {
+      "library": "Bibliothèque de Rendement",
+      "nodes": "Nodes: {{count}}",
+      "integrity": "Intégrité du Processus",
+      "accuracy": "Précision Formule",
+      "throughput": "Débit"
+    },
+    "modal": {
+      "title": "Nouveau Signal de Production",
+      "selectFormula": "SÉLECTIONNER FORMULE D'ASSEMBLAGE",
+      "targetUnits": "Unités cibles...",
+      "submit": "Déployer Synthèse"
+    },
+    "toast": {
+      "linkLost": "Lien Lattice Production Perdu",
+      "incomplete": "Données Incomplètes",
+      "synthesizing": "Synthèse en cours...",
+      "dispatched": "Ordre Déployé",
+      "error": "Erreur Lattice",
+      "finalizing": "Finalisation...",
+      "indexed": "Actif Indexé",
+      "failed": "Échec de Séquence"
+    },
+    "fields": {
+      "formula": "FORMULE D'ASSEMBLAGE",
+      "quantity": "QUANTITÉ CIBLE"
+    }
+  },
+  "restock": {
+    "title": "Réappro",
+    "subtitle": "Neural.",
+    "tagline": "Optimisation de la chaîne d'approvisionnement pilotée par l'IA.",
+    "velocity": "Vélocité",
+    "targetPO": "Cible BC",
+    "vendorPulse": "Pouls Fournisseur",
+    "totalValuation": "Valuation Totale Est.",
+    "high": "Haute",
+    "active": "Actif",
+    "latency": "Latence",
+    "idle": "Inactif"
+  },
+  "tasks": {
+    "title": "Flux Opérationnel",
+    "subtitle": "Gestion des Tâches Lattice",
+    "add": "Initialiser Séquence",
+    "stats": {
+      "active": "Protocoles Actifs",
+      "velocity": "Débit"
+    },
+    "columns": {
+      "TODO": "À_FAIRE",
+      "IN_PROGRESS": "EN_COURS",
+      "REVIEW": "RÉVISION",
+      "DONE": "TERMINÉ"
+    },
+    "toast": {
+      "shifted": "Tâche déplacée vers {{status}}",
+      "syncLost": "Registre Workflow Perdu",
+      "syncOk": "Séquence Synchronisée",
+      "syncFail": "Échec de Synchronisation Lattice",
+      "idMissing": "Identifiant Manquant"
+    },
+    "modal": {
+      "synthesizing": "Synthèse de la Séquence...",
+      "identifier": "Identifiant",
+      "priority": "Priorité",
+      "agent": "Agent",
+      "submit": "Valider Séquence",
+      "close": "Fermer Protocole",
+      "nominal": "Paramètres opérationnels nominaux.",
+      "purge": "Purger ?"
+    },
+    "search": "RECHERCHE...",
+    "syncing": "Synchronisation de la Matrice..."
+  },
+  "errors": {
+    "networkError": "Signal Interrompu",
+    "serverError": "Échec du Lattice",
+    "unauthorized": "Accès Refusé",
+    "validation": "Incohérence Logique",
+    "invalidData": "Données Opérationnelles Incomplètes"
+  }
+}

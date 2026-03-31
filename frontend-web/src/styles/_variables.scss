@@ -1,0 +1,29 @@
+/* Arabic: المتغيرات الأساسية – ألوان وحجوم */
+/* Français: Variables principales – couleurs, espacements */
+/* English: Core design tokens – colors, spacing, typography */
+
+// Core design tokens
+$brand-indigo: #6366f1;
+$brand-cyan: #06b6d4;
+$brand-emerald: #10b981;
+$brand-rose: #ef4444;
+$bg-dark: #020617;
+$glass-bg: rgba(255, 255, 255, 0.06);
+
+// Spacing & sizes
+$radius-lg: 2.5rem;
+$radius-xl: 3.5rem;
+$shadow-neon: 0 0 120px rgba(99, 102, 241, 0.12);
+
+// Typography
+$font-sans:
+  "Inter",
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  Roboto,
+  "Helvetica Neue",
+  Arial;
+$mono:
+  ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New",
+  monospace;

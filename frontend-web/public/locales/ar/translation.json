@@ -1,0 +1,948 @@
+{
+  "common": {
+    "success": "تمت العملية بنجاح",
+    "loading": "جاري المزامنة...",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "delete": "حذف",
+    "view": "عرض العقدة",
+    "save": "تأكيد التغييرات",
+    "cancel": "إلغاء",
+    "actions": "بوابات المنطق",
+    "confirm": "تأكيد التسلسل",
+    "search": "مسح اعتراض...",
+    "filter": "نبض الفلترة",
+    "export": "استخراج البيانات",
+    "profile": "هوية الوكيل",
+    "logout": "إلغاء المصادقة",
+    "back": "العودة إلى المحور",
+    "active": "نشط",
+    "inactive": "معلق",
+    "noData": "لم يتم اعتراض بيانات",
+    "status": "الحالة",
+    "edit": "تعديل النمط",
+    "submit": "تنفيذ البروتوكول",
+    "empty": "فراغ",
+    "invalidInput": "عدم تطابق منطقي",
+    "download": "جاري التحميل",
+    "lead": "المهلة"
+  },
+  "nav": {
+    "dashboard": "لوحة القيادة",
+    "inventory": "المخزون",
+    "sales": "مركز الإشارة",
+    "orders": "السجل",
+    "purchases": "المشتريات",
+    "suppliers": "الموردين",
+    "clients": "العملاء",
+    "settings": "تكوين النظام",
+    "reports": "تقارير البيانات",
+    "ai": "الذكاء الاصطناعي",
+    "team": "أوركسترا الفريق",
+    "finance": "المالية",
+    "logistics": "قيادة الأسطول",
+    "map": "الخريطة العصبية",
+    "legal": "السجل القانوني",
+    "comms": "مركز الاتصالات",
+    "hr": "نبض الموارد البشرية",
+    "marketing": "مركز التسويق",
+    "infrastructure": "البنية التحتية",
+    "saas": "فئات SaaS",
+    "audit": "سجلات الأدلة الجنائية",
+    "jobs": "منسق المهام",
+    "production": "مركز الإنتاج",
+    "returns": "مركز المرتجعات",
+    "expenses": "دفتر المصاريف",
+    "links": "الروابط العصبية",
+    "scanner": "الماسح الضوئي",
+    "reels": "إشارات ريلز",
+    "intelligence": "الذكاء الاستراتيجي",
+    "sections": {
+      "core": "الذكاء المركزي",
+      "admin": "نظام التحكم",
+      "ops": "العمليات الصناعية",
+      "commercial": "الأصول التجارية",
+      "growth": "النمو",
+      "infra": "البنية التحتية"
+    },
+    "finance_intel": "الذكاء المالي",
+    "quality": "قمة الجودة",
+    "admin_console": "لوحة القيادة",
+    "tenants": "سجل العقد",
+    "restock": "إعادة التزويد العصبي",
+    "ops_flow": "تدفق العمليات",
+    "invoices": "خزنة الفواتير",
+    "community": "تغذية السوق",
+    "system_status": "مراقب النظام",
+    "docs": "خزنة الأرشيف",
+    "my_subs": "اشتراكاتي"
+  },
+  "dashboard": {
+    "title": "قيادة الزينيث",
+    "subtitle": "شبكة العقد العالمية v4.0",
+    "nodeActive": "عقدة الإشارة نشطة",
+    "protocol": "بروتوكول إدارة زينيث v9.4",
+    "scan": "مسح الشبكة",
+    "marketplace": "المتجر",
+    "equity": "رنين حقوق الملكية",
+    "velocity": "سرعة العقدة",
+    "revenue": "الإيرادات اليومية",
+    "activeSignals": "الإشارات النشطة",
+    "assetDensity": "كثافة الأصول",
+    "systemHealth": "صحة النظام",
+    "predictions": "التوقعات",
+    "aiProtocol": "بروتوكول الذكاء الاصطناعي v9.0",
+    "recentSignals": "الإشارات الأخيرة",
+    "viewStream": "عرض البث",
+    "traceId": "معرف التتبع",
+    "entity": "الكيان",
+    "value": "القيمة",
+    "protocolLabel": "البروتوكول",
+    "timestamp": "الطابع الزمني",
+    "revenueFlow": "تدفق الإيرادات",
+    "temporalResonance": "الرنين المالي الزمني",
+    "forensic": {
+      "title": "المسح الجنائي العميق",
+      "subtitle": "تحليل إشارات المؤسسة",
+      "anomaly": "مسح الشذوذ",
+      "integrity": "سلامة البيانات",
+      "spectrum": "تحليلات الطيف",
+      "penetration": "اختراق السوق",
+      "liquidity": "سيولة الأصول",
+      "ledger": "سجل البروتوكول v9.2",
+      "share": "مشاركة",
+      "archive": "أرشفة",
+      "archiving": "جاري الأرشفة...",
+      "indexed": "تم فهرسة الإشارة",
+      "sharing": "جاري المشاركة...",
+      "copied": "تم نسخ الرابط",
+      "failed": "فشل"
+    },
+    "engine": {
+      "growth": "النمو",
+      "risk": "المخاطر",
+      "report": "تقرير جنائي كامل"
+    }
+  },
+  "products": {
+    "title": "سجل الأصول",
+    "subtitle": "عقدة مخزون الشبكة",
+    "protocol": "بروتوكول المخزون العصبي",
+    "categories": "الفئات",
+    "add": "تزويد عقدة",
+    "edit": "تعديل النمط",
+    "fields": {
+      "name": "المعرف",
+      "sku": "معرف الإشارة",
+      "category": "الفئة",
+      "price": "التقييم",
+      "quantity": "الكثافة",
+      "location": "معرف المنطقة",
+      "description": "حمولة البيانات"
+    },
+    "messages": {
+      "outOfStock": "نفاد الإشارة",
+      "lowStock": "تشبع حرج",
+      "alreadyExists": "الأصل مفهرس بالفعل"
+    }
+  },
+  "sales": {
+    "title": "مركز الإشارة",
+    "terminal": "محطة البيع",
+    "registry": "سجل التاريخ",
+    "cart": "عازل الإشارة",
+    "checkout": "تنفيذ المعاملة",
+    "total": "إجمالي التدفق",
+    "payment": "طريقة البروتوكول",
+    "customer": "الكيان المستهدف",
+    "cash": "نقد_ورقي",
+    "card": "بطاقة_منطقية",
+    "settle": "تأكيد البروتوكول",
+    "messages": {
+      "cartEmpty": "الحافظة فارغة",
+      "success": "تم تأكيد المعاملة",
+      "processing": "جاري معالجة الإشارة..."
+    }
+  },
+  "purchases": {
+    "title": "المشتريات",
+    "subtitle": "مركز",
+    "meta": "بيانات العقدة",
+    "ref": "مرجع السجل",
+    "partner": "عقدة المورد",
+    "add": "تزويد أصل",
+    "qty": "الكمية",
+    "unitPrice": "سعر الشراء الوحدة",
+    "summary": "ملخص البيان",
+    "notes": "السياق الاستراتيجي",
+    "confirm": "تنفيذ المشتريات",
+    "messages": {
+      "orderCreated": "اكتملت عملية إعادة التزويد الاستراتيجية",
+      "assetAdded": "تم إضافة الأصل إلى البيان",
+      "supplierRequired": "فشل الاختيار: عقدة المورد مطلوبة",
+      "manifestEmpty": "فشل التحقق: البيان فارغ"
+    }
+  },
+  "suppliers": {
+    "title": "شبكة الموردين",
+    "add": "ربط عقدة جديدة",
+    "scanning": "جاري الربط بالشبكة...",
+    "searchPlaceholder": "مسح معرف العقدة...",
+    "fields": {
+      "name": "اسم الكيان",
+      "phone": "هاتف الإشارة",
+      "email": "البريد العصبي",
+      "address": "الموقع الجغرافي",
+      "debt": "التعرض النشط"
+    }
+  },
+  "clients": {
+    "title": "سجل العملاء",
+    "subtitle": "شبكة الكيانات السيادية",
+    "add": "ترخيص الكيان",
+    "registerNode": "تسجيل عقدة",
+    "searchPlaceholder": "البحث في شبكة العملاء بالاسم أو الهاتف...",
+    "scanning": "جاري فحص سجل العملاء...",
+    "exportCSV": "تصدير CSV",
+    "stats": {
+      "active": "العقد النشطة",
+      "exposure": "التعرض العالمي"
+    },
+    "fields": {
+      "name": "اسم الوكيل",
+      "email": "بريد آمن",
+      "phone": "خط مباشر",
+      "address": "موقع القاعدة",
+      "type": "فئة الكيان",
+      "nodeAlias": "اسم مستعار للعقدة",
+      "architecture": "بنية الكيان",
+      "commsFreq": "تردد الاتصالات",
+      "targetCoords": "إحداثيات الهدف",
+      "taxId": "معرف الضريبة الجنائي (ICE)",
+      "creditLimit": "حد الائتمان السيادي",
+      "individual": "فرد_عضوي",
+      "company": "محور_مؤسسي"
+    },
+    "messages": {
+      "accessFailure": "فشل الوصول إلى السجل",
+      "fetchError": "خطأ في جلب البيانات الجنائية",
+      "broadcasting": "بث بروتوكول الهوية...",
+      "updated": "تم تحديث السجل",
+      "transmissionError": "خطأ في الإرسال",
+      "terminationProtocol": "تنفيذ بروتوكول الإنهاء؟",
+      "decommissioned": "تم إيقاف تشغيل العقدة",
+      "terminationBlocked": "تم حظر الإنهاء",
+      "identityLocked": "تم قفل الهوية",
+      "fiscalFlow": "إجمالي التدفق المالي",
+      "orderCommits": "تأكيدات الطلب",
+      "riskTelemetry": "قياس المخاطر عن بعد",
+      "historyLogs": "سجلات تاريخ الإشارة",
+      "noHistorical": "لم يتم العثور على إشارات تاريخية",
+      "modInit": "بدء التعديل"
+    }
+  },
+  "team": {
+    "title": "القيادة العصبية",
+    "subtitle": "أوركسترا الفريق v2.0",
+    "add": "إضافة وكيل",
+    "search": "فك شفرة هوية الوكيل أو المجموعة...",
+    "loading": "جاري مزامنة الشبكة العصبية...",
+    "hud": {
+      "stability": "استقرار الشبكة"
+    },
+    "tiers": {
+      "overlord": "الحاكم",
+      "orchestrator": "المنسق",
+      "operative": "العامل"
+    },
+    "stats": {
+      "authTier": "فئة المصادقة",
+      "deployment": "الانتشار",
+      "authLevel": "المستوى",
+      "sector": "القطاع"
+    },
+    "actions": {
+      "scan": "مسح جنائي",
+      "reconfig": "تعديل التكوين",
+      "commit": "تأكيد الهوية",
+      "sync": "مزامنة المنطق"
+    },
+    "modal": {
+      "onboard": "إضافة وكيل",
+      "onboardSub": "بروتوكول التوسع v2.0",
+      "reconfig": "إعادة تكوين المنطق",
+      "reconfigSub": "بروتوكول تحديث العقدة نشط"
+    },
+    "fields": {
+      "name": "معرف الهوية",
+      "email": "البريد العصبي",
+      "auth": "الترخيص",
+      "cipher": "شفرة الوصول",
+      "tag": "علامة التوظيف",
+      "roles": {
+        "STAFF": "عامل",
+        "MANAGER": "منسق",
+        "ADMIN": "الحاكم"
+      }
+    },
+    "toast": {
+      "onboarding": "جاري إضافة الوكيل...",
+      "syncOk": "مزامنة الهوية تم بنجاح",
+      "reconfiguring": "جاري إعادة تكوين الوكيل...",
+      "reconfigOk": "إعادة تكوين المنطق تم بنجاح",
+      "denied": "تم رفض إعادة التكوين"
+    }
+  },
+  "returns": {
+    "title": "مركز المرتجعات",
+    "subtitle": "اللوجستيات العكسية وعقدة RMA",
+    "add": "فتح RMA",
+    "stats": {
+      "open": "طلبات RMA المفتوحة",
+      "rate": "معدل RMA",
+      "recovery": "ذكاء الاسترداد",
+      "refunds": "إجمالي المستردات",
+      "success": "معدل النجاح"
+    },
+    "fields": {
+      "reference": "مرجع RMA",
+      "reason": "سبب الإرجاع",
+      "type": "نوع الإشارة",
+      "orderId": "مجموعة الطلب",
+      "condition": "حالة الأصل",
+      "asset": "اختيار الأصل",
+      "signature": "توقيع العيب"
+    },
+    "status": {
+      "PENDING": "إشارة_معلقة",
+      "INSPECTING": "فحص_النواة",
+      "APPROVED": "موافقة_الشبكة",
+      "REJECTED": "رفض_فراغ",
+      "COMPLETED": "فهرس_مكتمل"
+    },
+    "types": {
+      "CUSTOMER_TO_VENDOR": "إشارة العميل",
+      "VENDOR_TO_SUPPLIER": "إشارة المورد"
+    },
+    "conditions": {
+      "OPENED": "عقدة_مفتوحة",
+      "DAMAGED": "نواة_تالفة",
+      "DEFECTIVE": "منطق_معيب",
+      "NEW": "حالة_بكر"
+    },
+    "analytics": {
+      "title": "تحليلات العيوب",
+      "sync": "مزامنة شبكة الجودة",
+      "defect1": "عيب هيكلي",
+      "defect2": "بيان خاطئ",
+      "defect3": "رفض العميل"
+    },
+    "toast": {
+      "linkLost": "انقطاع شبكة RMA",
+      "incomplete": "البيان غير مكتمل",
+      "broadcasting": "جاري بث إشارة RMA...",
+      "success": "تم بدء بروتوكول RMA",
+      "failed": "فقدت الإشارة"
+    },
+    "modal": {
+      "protocol": "بروتوكول تسجيل العيوب v1.0",
+      "scanOrder": "مسح مجموعة الطلب",
+      "selectAsset": "اختر الأصل",
+      "defectPlaceholder": "توقيع العيب المفصل...",
+      "submit": "تأكيد بروتوكول RMA"
+    }
+  },
+  "expenses": {
+    "title": "سجل المصاريف",
+    "subtitle": "المراقبة والتتبع المالي العصبي",
+    "add": "تسجيل إنفاق",
+    "totalBurn": "إجمالي الإنفاق",
+    "efficiency": "الكفاءة المالية",
+    "search": "بحث في السجل...",
+    "ledger": "سجل النشاط",
+    "noRecords": "لم يتم العور على سجلات",
+    "categories": {
+      "RENT": "إيجار البنية التحتية",
+      "SALARY": "التعويض العصبي",
+      "MARKETING": "توسيع الإشارة",
+      "UTILITIES": "طاقة الشبكة",
+      "OTHER": "عقدة غير مصنفة",
+      "SUPPLIES": "أصول الأجهزة",
+      "TRAVEL": "التحول الجيومكاني"
+    },
+    "fields": {
+      "category": "مجموعة الإنفاق",
+      "amount": "حمولة القيمة",
+      "description": "الوصف المنطقي",
+      "date": "العقدة الزمنية",
+      "method": "دائرة الدفع"
+    },
+    "toast": {
+      "syncing": "بث إشارة مالية...",
+      "success": "تم تسجيل الإشارة",
+      "failure": "رفض الشبكة",
+      "lost": "تداخل في الإشارة المالية",
+      "error_data": "البيانات غير مكتملة",
+      "purge": "تطهير الإشارة المالية؟",
+      "decoupling": "جاري فك ربط الإشارة...",
+      "purged": "تم تطهير الإشارة",
+      "exporting": "جاري تركيب بيان CSV...",
+      "exported": "تم تصدير البيان إلى المحطة",
+      "burnPayload": "حمولة الإنفاق"
+    },
+    "sidebar": {
+      "liquidity": "سيولة الأصول",
+      "syncMatrix": "مزامنة مصفوفة النمو",
+      "insight": "رؤية المحرك",
+      "diagnostic": "تشغيل تشخيص عميق"
+    },
+    "inspector": {
+      "value": "حمولة القيمة",
+      "temporal": "المنطق الزمني",
+      "circuit": "دائرة الدفع",
+      "receipt": "إنشاء إيصال",
+      "generating": "جاري إنشاء قسيمة مالية...",
+      "syncOk": "تم مزامنة القسيمة",
+      "syncFail": "فشل تركيب القسيمة"
+    }
+  },
+  "settings": {
+    "title": "تكوين النظام",
+    "subtitle": "معايرة المحور المركزي",
+    "profile": "الحمض النووي للوكيل",
+    "branding": "إشارة الشركات",
+    "billing": "عقدة الفوترة",
+    "security": "التشفير والخصوصية",
+    "subscriptions": "تجاوزات SaaS",
+    "languages": "الرسم اللغوي",
+    "theme": "التحول الحراري"
+  },
+  "ai": {
+    "title": "الذكاء العصبي",
+    "ask": "مطالبة ليا...",
+    "sync": "تنفيذ المزامنة المعرفية",
+    "terminal": "سجلات المحطة",
+    "labs": {
+      "diagnostic": "تشخيص عميق",
+      "vision": "جنايات بصرية",
+      "supply": "شبكة التوريد"
+    },
+    "chat": {
+      "welcome": "الواجهة العصبية v5.0 نشطة. كيف يمكنني مساعدتك اليوم؟",
+      "thinking": "محرك الأعصاب قيد الحساب..."
+    }
+  },
+  "community": {
+    "title": "تغذية السوق",
+    "broadcast": "بث إشارة",
+    "broadcastPlaceholder": "البحث في إشارات الشبكة...",
+    "messages": {
+      "consensusRecorded": "تم تسجيل التوافق",
+      "signalError": "خطأ في الإشارة",
+      "insightPlaceholder": "المساهمة برؤية في السجل...",
+      "threadActive": "خيط الإشارة نشط",
+      "totalSignals": "إجمالي الإشارات"
+    },
+    "sidebar": {
+      "memberRegistry": "سجل الأعضاء",
+      "accessFullRegistry": "الوصول إلى السجل الكامل",
+      "hotSignals": "إشارات ساخنة"
+    },
+    "stories": {
+      "title": "إشارات زمنية",
+      "create": "إضافة قصة"
+    },
+    "posts": {
+      "reels": "ريلز عصبية",
+      "share": "تتابع الإشارة",
+      "comment": "إدخال رؤية"
+    }
+  },
+  "home": {
+    "hero": {
+      "system": "Operational_Lattice_v9.4 // نشط",
+      "title": "تنسيق الشبكة.",
+      "tagline": "نظام التشغيل السيادي لسلاسل التوريد الصناعية",
+      "deploy": "بدء_النشر",
+      "cta": "بدء النشر",
+      "cta_alt": "تنفيذ الأمر الآن"
+    },
+    "modules": {
+      "neural": "الإدراك العصبي",
+      "industrial": "مركز الإنتاج",
+      "logistics": "قيادة الأسطول",
+      "fiscal": "الذكاء المالي",
+      "hr": "توليف الفريق",
+      "marketing": "مضخم الإشارة",
+      "legal": "مركز العقود",
+      "vision": "الماسح الضوئي"
+    },
+    "features": {
+      "ledger": {
+        "title": "دفتر_الأصول_الجنائي",
+        "desc": "تتبع غير قابل للتغيير وعالي النطاق عبر جميع العقد الصناعية."
+      },
+      "vision": {
+        "title": "الإدراك_العصبي",
+        "desc": "محرك ذكاء اصطناعي تنبؤي يحسب رنين السوق وسرعة المخزون."
+      },
+      "sync": {
+        "title": "مزامنة_النبض_العالمي",
+        "desc": "تنسيق النظام البيئي في الوقت الفعلي من خلال البوابات الموزعة."
+      }
+    },
+    "footer": {
+      "nodeStatus": "حالة العقدة",
+      "stable": "مستقر"
+    }
+  },
+  "invoices": {
+    "title": "الفواتير",
+    "subtitle": "عقدة",
+    "totalYield": "إجمالي العائد",
+    "signalStatus": "حالة الإشارة",
+    "stats": {
+      "dispatched": "الفواتير المرسلة",
+      "avgValue": "متوسط القيمة",
+      "efficiency": "كفاءة الدفع",
+      "latency": "الزمن الانتقالي"
+    },
+    "table": {
+      "ref": "بروتوكول المرجع",
+      "client": "عقدة العميل",
+      "value": "حمولة القيمة",
+      "status": "الحالة المنطقية",
+      "document": "عقدة المستند"
+    },
+    "messages": {
+      "verified": "تم التحقق",
+      "validated": "تم التصديق",
+      "walkIn": "محطة البيع المباشر"
+    }
+  },
+  "fiscal": {
+    "title": "الذكاء المالي",
+    "subtitle": "معالج مالي عصبي",
+    "healthIndex": "مؤشر الصحة",
+    "trajectory": "مسار الإيرادات",
+    "burn": "تحليلات الإنفاق",
+    "forecast": "توقعات الذكاء الاصطناعي",
+    "radar": "تشخيص متجهي",
+    "ledger": "سجل الأدلة الجنائية",
+    "extraction": "استخراج",
+    "telemetry": "القياس عن بعد",
+    "forensicLogs": "سجلات الأدلة الجنائية",
+    "neuralProjection": "التحليل العصبي التنبؤي",
+    "resonanceIndex": "مؤشر الرنين",
+    "capitalVelocity": "سرعة رأس المال",
+    "booting": "بدء تشغيل النواة المالية",
+    "oscillator": "المذبذب المالي",
+    "temporalFlux": "التدفق المالي الزمني",
+    "holographicActive": "المسار الهولوغرافي نشط",
+    "vectorDiagnostics": "التشخيص المتجهي",
+    "bandwidthCore": "النواة عالية النطاق",
+    "stability": "الاستقرار",
+    "liquidity": "السيولة",
+    "burnTelemetry": "قياس الإنفاق عن بعد",
+    "allocationCore": "نواة التوزيع العصبي",
+    "predictiveEnabled": "النمذجة التنبؤية v2.4 نشطة",
+    "registryTraceHub": "مركز تتبع السجل",
+    "scanTraceId": "مسح معرف تتبع الإدخال...",
+    "temporalNode": "العقدة الزمنية",
+    "registryRef": "مرجع السجل",
+    "payloadValue": "قيمة الحمولة",
+    "logicStatus": "الحالة المنطقية",
+    "deepLatticeParsing": "تحليل الشبكة العميق",
+    "precisionIndex": "مؤشر الدقة",
+    "marketResonance": "إسقاط رنين السوق",
+    "holographicVector": "المتجه الهولوغرافي v4.0",
+    "liveCalculation": "حساب مباشر",
+    "logTerminal": "محطة السجلات المركزية",
+    "extractionProtocol": "بروتوكول الاستخراج",
+    "stats": {
+      "revenue": "إجمالي الإيرادات",
+      "cogs": "تكلفة البضائع المباعة",
+      "profit": "صافي الربح",
+      "tax": "المسؤولية الضريبية",
+      "efficiency": "تصنيف الكفاءة",
+      "margin": "كفاءة الهامش"
+    },
+    "nodes": {
+      "sourcing": "تكاليف التوريد",
+      "ops": "المصاريف التشغيلية",
+      "tax": "احتياطي الضرائب",
+      "margin": "مؤشر الهامش"
+    }
+  },
+    "reports": {
+    "title": "القرار",
+    "subtitle": "وحدة التحكم",
+    "node": "عقدة التحليلات",
+    "stable": "إشارة مستقرة",
+    "signature": "توقيع التدقيق",
+    "verified": "تم التحقق.",
+    "compliance": "الامتثال الجنائي",
+    "institutionalMargin": "الهامش المؤسسي",
+    "resourceEfficiency": "كفاءة الموارد",
+    "capitalRotation": "دوران رأس المال",
+    "protocol": "بروتوكول",
+    "resonanceMatrix": "مصفوفة رنين العائد",
+    "temporalSignal": "إشارة التدفق النقدي الزمني المجمعة",
+    "latticeCost": "تكلفة الشبكة المباشرة",
+    "assetAllocation": "توزيع الأصول",
+    "velocityScan": "مسح سرعة المخزون",
+    "fluxOptimization": "تحسين التدفق.",
+    "efficiencyIncreased": "زادت كفاءة الدوران بنسبة 14.8٪ عبر المجموعة الأساسية في هذه الدورة المالية.",
+    "turnoverIndex": "مؤشر الدوران",
+    "nodeAccuracy": "دقة العقدة",
+    "healthAudit": "تدقيق صحة السجل",
+    "assetDesignation": "تسمية الأصل",
+    "nodeState": "حالة العقدة",
+    "velocitySignal": "إشارة السرعة",
+    "payloadYield": "عائد الحمولة",
+    "integrity": "النزاهة",
+    "forensicTracking": "تتبع الأصول الجنائية للارتباط العميق",
+    "strategicAnalysis": "التحليل الاستراتيجي العصبي",
+    "executeSignal": "تنفيذ الإشارة",
+    "neuralResonance": "الرنين العصبي.",
+    "latticeConfidence": "ثقة الشبكة",
+    "strategicVectors": "المتجهات الاستراتيجية متوافقة تماماً. يقترح القلب العصبي تهيئة عقدة توسع السوق الهجومية.",
+    "forensicAudit": "مسار التدقيق الجنائي",
+    "dataIntegrity": "سلامة البيانات",
+    "clusterCompliance": "امتثال المجموعة",
+    "securityRegistry": "سجل الأمن",
+    "hardened": "محصن",
+    "nominalState": "الحالة الاسمية",
+    "auditPulse": "نبض التدقيق العصبي"
+  },
+    "quality": {
+    "title": "الجودة",
+    "subtitle": "عقدة ضمان عالية الدقة v9.4",
+    "record": "تسجيل الفحص",
+    "stats": {
+      "passed": "إجمالي الناجح",
+      "compliance": "معدل الامتثال"
+    },
+    "fields": {
+      "asset": "كيان الأصل",
+      "batch": "معرف الدفعة",
+      "score": "درجة الامتثال",
+      "notes": "ذكاء التشخيص",
+      "deploy": "نشر التحقق"
+    },
+    "messages": {
+      "scanning": "مسح المصفوفة...",
+      "noData": "لا توجد عمليات فحص مفهرسة",
+      "linkLost": "فقد الارتباط بمصفوفة الجودة",
+      "missingAsset": "مرجع الأصل مفقود",
+      "indexing": "فهرسة عقدة الفحص...",
+      "syncOk": "تم مزامنة بروتوكول الفحص",
+      "syncError": "خطأ في مزامنة الشبكة",
+      "pass": "SIG_PASS",
+      "fail": "SIG_FAIL",
+      "warn": "SIG_WARN",
+      "nominal": "NOMINAL_OK",
+      "scanComplete": "LATTICE_SCAN_COMPLETE",
+      "telemetryLocked": "TELEMETRY_LOCKED",
+      "warnings": "تحذيرات",
+      "criticalFail": "فشل حرج"
+    },
+    "hud": {
+      "integrity": "النزاهة العالمية",
+      "telemetry": "القياس عن بعد للفحص",
+      "variance": "تباين الدفعة",
+      "sensor": "صحة المستشعر",
+      "anomaly": "معدل الشذوذ"
+    }
+  },
+    "admin": {
+    "title": "المسؤول",
+    "subtitle": "وحدة التحكم",
+    "booting": "بدء تشغيل وحدة تحكم المسؤول",
+    "syncingLattice": "جاري مزامنة الشبكة...",
+    "syncingLattices": "جاري مزامنة الشبكات...",
+    "clusterNodes": "عقد العنقود",
+    "networkMRR": "MRR الشبكة",
+    "nodeAgents": "وكلاء العقدة",
+    "globalAssets": "الأصول العالمية",
+    "scanInstance": "مسح المثيل...",
+    "nodeActive": "عقدة_نشطة",
+    "suspended": "معلق",
+    "assetSaturation": "تشبع الأصول",
+    "agentAllocation": "توزيع الوكلاء",
+    "nodeControl": "التحكم في العقدة",
+    "clusterLoad": "حمولة العنقود",
+    "enginePulse": "نبض المحرك",
+    "globalHealth": "الصحة العالمية",
+    "revenue": {
+      "expansion": "توسيع الإيرادات",
+      "growthSignal": "اعتراض إشارة النمو عبر المستأجرين"
+    },
+    "cluster": {
+      "topology": "طوبولوجيا العنقود",
+      "nodeLattice": "شبكة العقد"
+    },
+    "infra": {
+      "clusterResources": "موارد العنقود",
+      "telemetryFeed": "تغذية القياس عن بعد للبنية التحتية",
+      "highAvailability": "توفر عالي",
+      "apiLattice": "شبكة API",
+      "neuralSchema": "المخطط العصبي",
+      "storageCore": "نواة التخزين"
+    },
+    "status": {
+      "optimal": "مثالي",
+      "active": "نشط"
+    },
+    "deck": {
+      "title": "وحدة التحكم",
+      "manageAgents": "إدارة الوكلاء",
+      "globalNodeAccess": "وصول العقدة العالمية",
+      "nodeTopology": "طوبولوجيا العقدة",
+      "clusterControl": "التحكم في مثيل العنقود",
+      "signalAlerts": "تنبيهات الإشارة",
+      "stateMonitor": "مراقب الحالة الحرجة",
+      "executeReport": "تنفيذ التقرير"
+    },
+    "modal": {
+      "instanceConfig": "تكوين المثيل",
+      "saasTiersStatus": "فئات وحالة SaaS",
+      "resourceReallocation": "إعادة تخصيص الموارد",
+      "assetCapacity": "سعة الأصول",
+      "agentQuota": "حصة الوكلاء",
+      "liveSignal": "إشارة مباشرة",
+      "nodeUptime": "وقت تشغيل العقدة",
+      "latencyPulse": "نبض التأخير",
+      "reallocateInstance": "إعادة تخصيص المثيل",
+      "syncProtocolOverrides": "جاري مزامنة تجاوزات البروتوكول...",
+      "plans": {
+        "free": "بروتوكول مجاني",
+        "pro": "برو محسّن",
+        "enterprise": "زينيث للمؤسسات"
+      },
+      "statuses": {
+        "active": "إشارة_نشطة",
+        "trial": "وضع_تجريبي",
+        "pastDue": "استحقاق_متأخر_حرج",
+        "canceled": "ملغي_فراغ"
+      }
+    },
+    "hud": {
+      "systemOverlord": "نظام التحكم",
+      "saasCoreCommand": "القيادة المركزية لجوهر SaaS",
+      "globalHealth": "الصحة العالمية",
+      "systemYield": "عائد النظام",
+      "syncRegistry": "مزامنة السجل",
+      "prime": "رئيسي"
+    }
+  },
+  "audit": {
+    "title": "سجل التدقيق.",
+    "subtitle": "دفتر التتبع الجنائي",
+    "desc": "مراقبة أحداث أمنية غير قابلة للتغيير واعتراض الإشارات الجنائية.",
+    "stats": {
+      "integrity": "نزاهة الشبكة",
+      "signals": "الإشارات التي تم اعتراضها",
+      "events": "أحداث"
+    },
+    "filter": {
+      "placeholder": "فك تشفر وكيل الأمن أو الإجراء أو الحدث..."
+    },
+    "purge": {
+      "button": "تطهير",
+      "confirm": "تطهير السجل الجنائي بالكامل؟ هذا الإجراء غير قابل للتراجع.",
+      "loading": "جاري تطهير إشارات الأمن...",
+      "success": "تم مسح السجل الجنائي",
+      "error": "مستوى التفويض غير كافٍ"
+    },
+    "export": {
+      "loading": "جاري تركيب بيان الأمن...",
+      "success": "تم تصدير البيان",
+      "error": "انقطع بروتوكول التصدير"
+    },
+    "table": {
+      "timing": "التوقيت",
+      "agent": "الوكيل",
+      "protocol": "البروتوكول",
+      "payload": "الحمولة",
+      "node": "العقدة",
+      "scanning": "جاري المسح...",
+      "noSignals": "لا توجد إشارات جنائية",
+      "system": "النظام"
+    },
+    "toast": {
+      "interrupted": "انقطع رابط الأمن"
+    }
+  },
+  "jobs": {
+    "title": "وحدة تحكم المهام.",
+    "subtitle": "OS_v9.4",
+    "stats": {
+      "total": "الإجمالي",
+      "active": "نشط",
+      "failed": "فاشل",
+      "done": "مكتمل"
+    },
+    "actions": {
+      "initialize": "تهيئة",
+      "dispatch": "إرسال"
+    },
+    "card": {
+      "latency": "التأخير",
+      "id": "المعرف",
+      "buffer": "المخزن المؤقت"
+    },
+    "terminal": {
+      "title": "مسح_عميق_للعملية",
+      "interceptionId": "معرف_الاعتراض",
+      "decrypting": "جاري فك تشفير تدفق الإشارة...",
+      "targetCluster": "المجموعة المستهدفة",
+      "authSignature": "توقيع المصادقة",
+      "verifiedAgent": "وكيل_معتمد",
+      "logicStream": "مصافحة_تدفق_المنطق",
+      "criticalFailure": "فشل_حرج",
+      "awaiting": "في انتظار الإشارة...",
+      "forensicProtocol": "بروتوكول السجل الجنائي",
+      "syncInterval": "فاصل_المزامنة",
+      "integritySeal": "ختم_النزاهة_نشط"
+    },
+    "toast": {
+      "initializing": "جاري تهيئة الإشارة...",
+      "dispatched": "تم إرسال الإشارة",
+      "failed": "فشلت المصافحة",
+      "syncing": "جاري مزامنة الشبكة العالمية...",
+      "allActive": "جميع العقد نشطة",
+      "syncFailure": "فشل المزامنة العالمية"
+    }
+  },
+  "stockLedger": {
+    "title": "التاريخ",
+    "subtitle": "الجنائي.",
+    "sync": "مزامنة حالة المخزون v4.0",
+    "stats": {
+      "volume": "حجم 24 ساعة",
+      "integrity": "النزاهة",
+      "registrySize": "حجم السجل",
+      "nodes": "العقد"
+    },
+    "actions": {
+      "refresh": "سجل عميق",
+      "placeholder": "فك تشفير السجل حسب الأصل / SKU / السبب..."
+    },
+    "table": {
+      "signature": "توقيع العقدة",
+      "id": "التعريف",
+      "protocol": "بروتوكول الحركة",
+      "payload": "دلتا الحمولة",
+      "reference": "مرجع جنائي",
+      "incoming": "حمولة واردة",
+      "outgoing": "حمولة صادرة",
+      "terminated": "أصل منتهي",
+      "auto": "بروتوكول تلقائي",
+      "tsRegistry": "سجل TS"
+    },
+    "legend": {
+      "injected": "تم حقن الأصل",
+      "extracted": "تم استخراج الأصل",
+      "pulse": "نبض المزامنة"
+    }
+  },
+  "production": {
+    "title": "مركز الإنتاج",
+    "subtitle": "التجميع الصناعي والتركيب المنطقي",
+    "add": "إشارة جديدة",
+    "stats": {
+      "active": "المراكز النشطة",
+      "yield": "كفاءة العائد"
+    },
+    "filter": {
+      "placeholder": "مسح سجلات التجميع..."
+    },
+    "card": {
+      "target": "المستهدف: {{count}} وحدات",
+      "finalize": "إنهاء",
+      "syncOk": "تمت المزامنة"
+    },
+    "sidebar": {
+      "library": "مكتبة العائد",
+      "nodes": "العقد: {{count}}",
+      "integrity": "نزاهة العملية",
+      "accuracy": "دقة الصيغة",
+      "throughput": "الإنتاجية"
+    },
+    "modal": {
+      "title": "إشارة إنتاج جديدة",
+      "selectFormula": "اختر صيغة التجميع",
+      "targetUnits": "الوحدات المستهدفة...",
+      "submit": "نشر التركيب"
+    },
+    "toast": {
+      "linkLost": "فقد الاتصال بشبكة الإنتاج",
+      "incomplete": "بيانات غير مكتملة",
+      "synthesizing": "جاري التركيب...",
+      "dispatched": "تم إرسال الطلب",
+      "error": "خطأ في الشبكة",
+      "finalizing": "جاري الإنهاء...",
+      "indexed": "تم فهرسة الأصل",
+      "failed": "فشل التسلسل"
+    },
+    "fields": {
+      "formula": "صيغة التجميع",
+      "quantity": "الكمية المستهدفة"
+    }
+  },
+  "restock": {
+    "title": "إعادة التزويد",
+    "subtitle": "العصبي.",
+    "tagline": "تحسين سلسلة التوريد المدفوع بالذكاء الاصطناعي.",
+    "velocity": "السرعة",
+    "targetPO": "أمر الشراء المستهدف",
+    "vendorPulse": "نبض المورد",
+    "totalValuation": "إجمالي التقييم المقدر",
+    "high": "عالية",
+    "active": "نشط",
+    "latency": "تأخير",
+    "idle": "خامل"
+  },
+  "tasks": {
+    "title": "تدفق العمليات",
+    "subtitle": "إدارة مهام الشبكة",
+    "add": "بدء التسلسل",
+    "stats": {
+      "active": "البروتوكولات النشطة",
+      "velocity": "الإنتاجية"
+    },
+    "columns": {
+      "TODO": "للقيام_بها",
+      "IN_PROGRESS": "قيد_التنفيذ",
+      "REVIEW": "مراجعة",
+      "DONE": "مكتمل"
+    },
+    "toast": {
+      "shifted": "تم نقل المهمة إلى {{status}}",
+      "syncLost": "فقد سجل سير العمل",
+      "syncOk": "تم مزامنة التسلسل",
+      "syncFail": "فشلت مزامنة الشبكة",
+      "idMissing": "المعرف مفقود"
+    },
+    "modal": {
+      "synthesizing": "جاري تركيب التسلسل...",
+      "identifier": "المعرف",
+      "priority": "الأولوية",
+      "agent": "الوكيل",
+      "submit": "تأكيد التسلسل",
+      "close": "إغلاق البروتوكول",
+      "nominal": "المعلمات التشغيلية طبيعية.",
+      "purge": "تطهير؟"
+    },
+    "search": "بحث...",
+    "syncing": "جاري مزامنة المصفوفة..."
+  },
+  "errors": {
+    "networkError": "انقطاع الإشارة",
+    "serverError": "فشل الشبكة",
+    "unauthorized": "تم رفض الوصول",
+    "validation": "عدم تطابق منطقي",
+    "invalidData": "بيانات التشغيل غير مكتملة"
+  }
+}

@@ -1,0 +1,31 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+@use "./utilities" as *;
+
+// Component partials
+@use "./components/call-overlay" as *;
+
+// Bridge variables to CSS custom properties for runtime usage
+:root {
+  --brand-indigo: #{$brand-indigo};
+  --brand-cyan: #{$brand-cyan};
+  --brand-emerald: #{$brand-emerald};
+  --bg-dark: #{$bg-dark};
+}
+
+// Minimal global resets for styles that Tailwind doesn't cover
+html,
+body,
+#root {
+  height: 100%;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+// Example usage class for mixing with Tailwind utilities
+.glass-card-custom {
+  @include glass($glass-bg, $radius-lg);
+}

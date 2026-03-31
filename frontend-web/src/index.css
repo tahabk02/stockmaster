@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bebas Neue", sans-serif;
+  --font-mono: "Space Mono", monospace;
+  --font-sans: "DM Sans", sans-serif;
+}
+
+:root {
+  --indigo: #4F46E5;
+  --indigo-l: #818CF8;
+  --indigo-d: #3730A3;
+  --emerald: #10B981;
+  --amber: #F59E0B;
+  
+  /* LIGHT THEME (LABORATORY) */
+  --bg: #F8FAFC;
+  --bg2: #FFFFFF;
+  --bg3: #F1F5F9;
+  --border: rgba(0, 0, 0, 0.08);
+  --border2: rgba(79, 70, 229, 0.2);
+  --text: #0F172A;
+  --muted: #64748B;
+}
+
+.dark {
+  /* DARK THEME (STEALTH) */
+  --bg: #06060F;
+  --bg2: #0C0C1A;
+  --bg3: #111127;
+  --border: rgba(255, 255, 255, 0.06);
+  --border2: rgba(79, 70, 229, 0.3);
+  --text: #F1F0FF;
+  --muted: #6B6B8A;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* --- THEME SPECIFIC OVERLAYS --- */
+.scanline-overlay::before {
+  content: " ";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 1000;
+  animation: scanline 10s linear infinite;
+  opacity: 0.3;
+}
+
+.dark .scanline-overlay::before {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  opacity: 1;
+}
+
+@keyframes scanline {
+  from { background-position: 0 0; }
+  to { background-position: 0 100%; }
+}
+
+.grid-bg {
+  background-image: 
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black, transparent 85%);
+}
+
+.chamfer-btn {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+
+.chamfer-sm {
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+.ticker-animate {
+  animation: ticker-move 40s linear infinite;
+}
+
+@keyframes ticker-move {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@layer utilities {
+  .text-stroke {
+    -webkit-text-stroke: 1.5px var(--text);
+    color: transparent;
+  }
+}

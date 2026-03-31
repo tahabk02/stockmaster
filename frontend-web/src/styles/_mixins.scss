@@ -1,0 +1,24 @@
+/*** Arabic: mixins قابلة لإعادة الاستخدام (محاذاة، زجاج، ظل)
+    Français: mixins réutilisables (centrage, glass, ombre)
+    English: reusable mixins (center, glass, neon-shadow) */
+@use "sass:map";
+
+@mixin center($dir: row) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin glass($bg: $glass-bg, $radius: $radius-lg) {
+  background: $bg;
+  backdrop-filter: blur(10px);
+  border-radius: $radius;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@mixin neon-shadow($clr) {
+  box-shadow:
+    0 0 20px rgba($clr, 0.15),
+    0 10px 60px rgba($clr, 0.06);
+}

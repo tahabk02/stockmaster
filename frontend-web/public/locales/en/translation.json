@@ -1,0 +1,972 @@
+{
+  "common": {
+    "success": "Operation Successful",
+    "loading": "Syncing Lattice...",
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete",
+    "view": "View Node",
+    "save": "Commit Changes",
+    "cancel": "Abort",
+    "actions": "Logic Gates",
+    "confirm": "Confirm Sequence",
+    "search": "Interception Scan...",
+    "filter": "Filter Pulse",
+    "export": "Data Extraction",
+    "profile": "Agent Identity",
+    "logout": "Deauthenticate",
+    "back": "Return to Axis",
+    "active": "Active",
+    "inactive": "Suspended",
+    "noData": "No Data Intercepted",
+    "status": "Status",
+    "edit": "Modify Pattern",
+    "submit": "Execute Protocol",
+    "empty": "Void",
+    "invalidInput": "Logic Mismatch",
+    "download": "Downloading",
+    "lead": "Lead"
+  },
+  "nav": {
+    "dashboard": "Command HUD",
+    "inventory": "Inventory",
+    "sales": "Signal Hub",
+    "orders": "Registry",
+    "purchases": "Purchases",
+    "suppliers": "Suppliers",
+    "clients": "Clients",
+    "settings": "System Config",
+    "reports": "Data Reports",
+    "ai": "Neural AI",
+    "team": "Squad Orchestra",
+    "finance": "Finances",
+    "logistics": "Fleet Command",
+    "map": "Neural Map",
+    "legal": "Legal Registry",
+    "comms": "Comms Hub",
+    "hr": "HR Pulse",
+    "marketing": "Marketing Hub",
+    "infrastructure": "Infrastructure",
+    "saas": "SaaS Tiers",
+    "audit": "Forensic Logs",
+    "jobs": "Job Orchestrator",
+    "production": "Production Hub",
+    "returns": "Returns Center",
+    "expenses": "Expense Ledger",
+    "links": "Neural Links",
+    "scanner": "Optical Scanner",
+    "reels": "Signal Reels",
+    "intelligence": "Strategic Intel",
+    "sections": {
+      "core": "Core Intel",
+      "admin": "System Overlord",
+      "ops": "Industrial Ops",
+      "commercial": "Commercial Assets",
+      "growth": "Growth",
+      "infra": "Infrastructure"
+    },
+    "finance_intel": "Fiscal Intel",
+    "quality": "Quality Zenith",
+    "admin_console": "Command Deck",
+    "tenants": "Node Registry",
+    "restock": "Neural Restock",
+    "ops_flow": "Ops Flow",
+    "invoices": "Invoice Vault",
+    "community": "Market Feed",
+    "system_status": "System Monitor",
+    "docs": "Archive Vault",
+    "my_subs": "My Subscriptions"
+  },
+  "dashboard": {
+    "title": "Zenith Command",
+    "subtitle": "Global Node Network v4.0",
+    "nodeActive": "Signal Node Active",
+    "protocol": "Zenith Management Protocol v9.4",
+    "scan": "Lattice Scan",
+    "marketplace": "Marketplace",
+    "equity": "Equity Resonance",
+    "velocity": "Node Velocity",
+    "revenue": "Daily Revenue",
+    "activeSignals": "Active Signals",
+    "assetDensity": "Asset Density",
+    "systemHealth": "System Health",
+    "predictions": "Predictions",
+    "aiProtocol": "AI Protocol v9.0",
+    "recentSignals": "Recent Signals",
+    "viewStream": "View Stream",
+    "traceId": "Trace ID",
+    "entity": "Entity",
+    "value": "Value",
+    "protocolLabel": "Protocol",
+    "timestamp": "Timestamp",
+    "revenueFlow": "Revenue Flow",
+    "temporalResonance": "Temporal Financial Resonance",
+    "forensic": {
+      "title": "Forensic Deep Scan",
+      "subtitle": "Enterprise Signal Analysis",
+      "anomaly": "Anomaly Scan",
+      "integrity": "Data Integrity",
+      "spectrum": "Spectrum Analytics",
+      "penetration": "Market Penetration",
+      "liquidity": "Asset Liquidity",
+      "ledger": "PROTOCOL LEDGER v9.2",
+      "share": "Share",
+      "archive": "Archive",
+      "archiving": "Archiving...",
+      "indexed": "Signal Indexed",
+      "sharing": "Sharing...",
+      "copied": "Link Copied",
+      "failed": "Failed"
+    },
+    "engine": {
+      "growth": "Growth",
+      "risk": "Risk",
+      "report": "Full Forensic Report"
+    }
+  },
+  "products": {
+    "title": "Asset Registry",
+    "subtitle": "Lattice Inventory Node",
+    "protocol": "Neural Inventory Protocol",
+    "categories": "Categories",
+    "add": "Provision Node",
+    "edit": "Modify Pattern",
+    "fields": {
+      "name": "Identifier",
+      "sku": "Signal SKU",
+      "category": "Tier",
+      "price": "Valuation",
+      "quantity": "Density",
+      "location": "Zone ID",
+      "description": "Data Payload"
+    },
+    "messages": {
+      "outOfStock": "Signal Exhausted",
+      "lowStock": "Saturation Critical",
+      "alreadyExists": "Asset Already Indexed"
+    }
+  },
+  "sales": {
+    "title": "Signal Hub",
+    "terminal": "POS Terminal",
+    "registry": "History Registry",
+    "cart": "Signal Buffer",
+    "checkout": "Execute Transaction",
+    "total": "Total Flux",
+    "payment": "Protocol Method",
+    "customer": "Target Entity",
+    "cash": "Paper_Fiat",
+    "card": "Logic_Card",
+    "settle": "Commit Protocol",
+    "messages": {
+      "cartEmpty": "Buffer is Void",
+      "success": "Transaction Committed",
+      "processing": "Processing Signal..."
+    }
+  },
+  "purchases": {
+    "title": "Procurement",
+    "subtitle": "Hub",
+    "meta": "Node Metadata",
+    "ref": "Registry Reference",
+    "partner": "Supplier Node",
+    "add": "Provision Asset",
+    "qty": "Quantity",
+    "unitPrice": "Unit Buy Rate",
+    "summary": "Manifest Summary",
+    "notes": "Strategic Context",
+    "confirm": "Execute Procurement",
+    "messages": {
+      "orderCreated": "Strategic Re-stock Complete",
+      "assetAdded": "Asset added to manifest",
+      "supplierRequired": "Selection Failure: Supplier Node required",
+      "manifestEmpty": "Validation Failure: Manifest is empty"
+    }
+  },
+  "suppliers": {
+    "title": "Supplier Network",
+    "add": "Link New Node",
+    "scanning": "Linking Network...",
+    "searchPlaceholder": "SCAN NODE IDENTIFIER...",
+    "fields": {
+      "name": "Entity Name",
+      "phone": "Signal Phone",
+      "email": "Neural Email",
+      "address": "Geo-Location",
+      "debt": "Active Exposure"
+    }
+  },
+  "clients": {
+    "title": "Client Registry",
+    "subtitle": "Sovereign Entity Lattice",
+    "add": "Authorize Entity",
+    "registerNode": "Register Node",
+    "searchPlaceholder": "SEARCH_CLIENT_LATTICE_BY_NAME_OR_PHONE...",
+    "scanning": "Scanning Client Registry...",
+    "exportCSV": "Export CSV",
+    "stats": {
+      "active": "Active Nodes",
+      "exposure": "Global Exposure"
+    },
+    "fields": {
+      "name": "Agent Name",
+      "email": "Secure Email",
+      "phone": "Direct Line",
+      "address": "Base Location",
+      "type": "Entity Class",
+      "nodeAlias": "Node Alias Name",
+      "architecture": "Entity Architecture",
+      "commsFreq": "Comms Frequency",
+      "targetCoords": "Target Coordinates",
+      "taxId": "Forensic Tax ID (ICE)",
+      "creditLimit": "Sovereign Credit Limit",
+      "individual": "ORGANIC_INDIVIDUAL",
+      "company": "INSTITUTIONAL_HUB"
+    },
+    "messages": {
+      "accessFailure": "Registry Access Failure",
+      "fetchError": "Forensic Fetch Error",
+      "broadcasting": "Broadcasting Identity Protocol...",
+      "updated": "Registry Updated",
+      "transmissionError": "Transmission Error",
+      "terminationProtocol": "EXECUTE TERMINATION PROTOCOL?",
+      "decommissioned": "Node Decommissioned",
+      "terminationBlocked": "Termination Blocked",
+      "identityLocked": "IDENTITY LOCKED",
+      "fiscalFlow": "Total Fiscal Flow",
+      "orderCommits": "Order Commits",
+      "riskTelemetry": "Risk Telemetry",
+      "historyLogs": "Signal History Logs",
+      "noHistorical": "No Historical Signals Found",
+      "modInit": "Initialize Modification"
+    }
+  },
+  "team": {
+    "title": "Neural Command",
+    "subtitle": "Squad Orchestra v2.0",
+    "add": "Onboard Agent",
+    "search": "Decode Agent Identity or Cluster...",
+    "loading": "Syncing Neural Lattice...",
+    "hud": {
+      "stability": "Lattice Stability"
+    },
+    "tiers": {
+      "overlord": "Overlord",
+      "orchestrator": "Orchestrator",
+      "operative": "Operative"
+    },
+    "stats": {
+      "authTier": "Auth Tier",
+      "deployment": "Deployment",
+      "authLevel": "LEVEL",
+      "sector": "SECTOR"
+    },
+    "actions": {
+      "scan": "Forensic Scan",
+      "reconfig": "Reconfig",
+      "commit": "Commit Identity",
+      "sync": "Synchronize Logic"
+    },
+    "modal": {
+      "onboard": "Onboard Agent",
+      "onboardSub": "Expansion Protocol v2.0",
+      "reconfig": "Reconfig Logic",
+      "reconfigSub": "Node Update Protocol active"
+    },
+    "fields": {
+      "name": "Identity Identifier",
+      "email": "Neural Email",
+      "auth": "Authorization",
+      "cipher": "Access Cipher",
+      "tag": "Employment Tag",
+      "roles": {
+        "STAFF": "Operative",
+        "MANAGER": "Orchestrator",
+        "ADMIN": "Overlord"
+      }
+    },
+    "toast": {
+      "onboarding": "Onboarding Agent...",
+      "syncOk": "Identity Sync OK",
+      "reconfiguring": "Reconfiguring Agent...",
+      "reconfigOk": "Logic Reconfig OK",
+      "denied": "Reconfig Denied"
+    }
+  },
+  "returns": {
+    "title": "Returns Center",
+    "subtitle": "Reverse Logistics & RMA Node",
+    "add": "Open RMA",
+    "stats": {
+      "open": "Open RMAs",
+      "rate": "RMA Rate",
+      "recovery": "Recovery Intelligence",
+      "refunds": "Aggregated Refunds",
+      "success": "Success Rate"
+    },
+    "fields": {
+      "reference": "RMA Reference",
+      "reason": "Return Reason",
+      "type": "Signal Type",
+      "orderId": "Order Cluster",
+      "condition": "Asset Condition",
+      "asset": "Asset Selection",
+      "signature": "Defect Signature"
+    },
+    "status": {
+      "PENDING": "PENDING_SIGNAL",
+      "INSPECTING": "INSPECTING_CORE",
+      "APPROVED": "APPROVED_LATTICE",
+      "REJECTED": "REJECTED_VOID",
+      "COMPLETED": "COMPLETED_INDEX"
+    },
+    "types": {
+      "CUSTOMER_TO_VENDOR": "Client Signal",
+      "VENDOR_TO_SUPPLIER": "Supplier Signal"
+    },
+    "conditions": {
+      "OPENED": "OPENED_NODE",
+      "DAMAGED": "DAMAGED_CORE",
+      "DEFECTIVE": "DEFECTIVE_LOGIC",
+      "NEW": "PRISTINE_STATE"
+    },
+    "analytics": {
+      "title": "Defect Analytics",
+      "sync": "Sync Quality Grid",
+      "defect1": "Structural Defect",
+      "defect2": "Wrong Manifest",
+      "defect3": "Client Refusal"
+    },
+    "toast": {
+      "linkLost": "RMA Lattice Interruption",
+      "incomplete": "Manifest Incomplete",
+      "broadcasting": "Broadcasting RMA Signal...",
+      "success": "RMA Protocol Initialized",
+      "failed": "Signal Lost"
+    },
+    "modal": {
+      "protocol": "Defect Registration Protocol v1.0",
+      "scanOrder": "SCAN ORDER CLUSTER",
+      "selectAsset": "SELECT ASSET",
+      "defectPlaceholder": "Detailed defect signature...",
+      "submit": "Commit RMA Protocol"
+    }
+  },
+  "expenses": {
+    "title": "Expense Ledger",
+    "subtitle": "Neural Fiscal Monitoring & Tracking",
+    "add": "Record Burn",
+    "totalBurn": "Total Burn",
+    "efficiency": "Fiscal Efficiency",
+    "search": "Search Ledger...",
+    "ledger": "Activity Ledger",
+    "noRecords": "No Records Found",
+    "categories": {
+      "RENT": "Infrastructure Rent",
+      "SALARY": "Neural Compensation",
+      "MARKETING": "Signal Expansion",
+      "UTILITIES": "Lattice Power",
+      "OTHER": "Unclassified Node",
+      "SUPPLIES": "Hardware Assets",
+      "TRAVEL": "Geospatial Shift"
+    },
+    "fields": {
+      "category": "Burn Cluster",
+      "amount": "Value Payload",
+      "description": "Logical Descriptor",
+      "date": "Temporal Node",
+      "method": "Payment Circuit"
+    },
+    "toast": {
+      "syncing": "Broadcasting Fiscal Signal...",
+      "success": "Signal Recorded",
+      "failure": "Network Refusal",
+      "lost": "Fiscal Signal Interference",
+      "error_data": "Data Incomplete",
+      "purge": "Purge fiscal signal?",
+      "decoupling": "Decoupling Signal...",
+      "purged": "Signal Purged",
+      "exporting": "Synthesizing CSV Manifest...",
+      "exported": "Manifest Exported to Terminal",
+      "burnPayload": "Burn Payload"
+    },
+    "sidebar": {
+      "liquidity": "Asset Liquidity",
+      "syncMatrix": "Sync Growth Matrix",
+      "insight": "Engine Insight",
+      "diagnostic": "Run Deep Diagnostic"
+    },
+    "inspector": {
+      "value": "Value Payload",
+      "temporal": "Temporal Logic",
+      "circuit": "Payment Circuit",
+      "receipt": "Generate Receipt",
+      "generating": "Generating Fiscal Voucher...",
+      "syncOk": "Voucher Synchronized",
+      "syncFail": "Voucher Synthesis Failed"
+    }
+  },
+  "billing": {
+    "title": "Billing Node",
+    "subtitle": "Sovereign Subscription Management",
+    "currentPlan": "Current Protocol",
+    "usage": "Resource Consumption",
+    "paymentMethod": "Payment Circuit",
+    "invoices": "Fiscal Manifests",
+    "upgrade": "Upgrade Protocol",
+    "manage": "Manage Config",
+    "nextBilling": "Next Cycle",
+    "amount": "Payload Amount",
+    "status": "Signal Status",
+    "date": "Timestamp",
+    "plans": {
+      "starter": "STARTER_NODE",
+      "pro": "PRO_LATTICE",
+      "enterprise": "ZENITH_CORE"
+    },
+    "stats": {
+      "products": "Asset Slots",
+      "users": "Agent Seats",
+      "storage": "Storage Block"
+    }
+  },
+  "settings": {
+    "title": "System Config",
+    "subtitle": "Core Lattice Calibration",
+    "profile": "Agent DNA",
+    "branding": "Corporate Signal",
+    "billing": "Billing Node",
+    "security": "Encryption & Privacy",
+    "subscriptions": "SaaS Overrides",
+    "languages": "Linguistic Mapping",
+    "theme": "Thermal Shift"
+  },
+  "ai": {
+    "title": "Neural Intelligence",
+    "ask": "Prompt Liya...",
+    "sync": "Execute Cognitive Sync",
+    "terminal": "Terminal Logs",
+    "labs": {
+      "diagnostic": "Deep Diagnostic",
+      "vision": "Optical Forensics",
+      "supply": "Supply Lattice"
+    },
+    "chat": {
+      "welcome": "Neural Interface v5.0 active. How can I assist your strategy today?",
+      "thinking": "Neural Engine Computing..."
+    }
+  },
+  "community": {
+    "title": "Market Feed",
+    "broadcast": "Broadcast Signal",
+    "broadcastPlaceholder": "Search Lattice Signals...",
+    "messages": {
+      "consensusRecorded": "Consensus Recorded",
+      "signalError": "Signal Error",
+      "insightPlaceholder": "Contribute Insight to Registry...",
+      "threadActive": "Signal Thread Active",
+      "totalSignals": "Total Signals"
+    },
+    "sidebar": {
+      "memberRegistry": "Member Registry",
+      "accessFullRegistry": "Access Full Registry",
+      "hotSignals": "Hot Signals"
+    },
+    "stories": {
+      "title": "Temporal Signals",
+      "create": "Add Story"
+    },
+    "posts": {
+      "reels": "Neural Reels",
+      "share": "Relay Signal",
+      "comment": "Input Insight"
+    }
+  },
+  "home": {
+    "hero": {
+      "system": "Operational_Lattice_v9.4",
+      "title": "Orchestrate the Grid.",
+      "tagline": "The Sovereign Operating System for Industrial Supply Chains",
+      "deploy": "Deploy_Deck",
+      "cta": "Initialize Deployment",
+      "cta_alt": "Execute Command Now"
+    },
+    "modules": {
+      "neural": "Neural Cognition",
+      "industrial": "Production Hub",
+      "logistics": "Fleet Command",
+      "fiscal": "Financial Intel",
+      "hr": "Squad Synthesis",
+      "marketing": "Signal Amplifier",
+      "legal": "Contract Hub",
+      "vision": "Optical Scanner"
+    },
+    "features": {
+      "ledger": {
+        "title": "Forensic_Asset_Ledger",
+        "desc": "Immutable high-bandwidth traceability across all industrial nodes."
+      },
+      "vision": {
+        "title": "Neural_Cognition",
+        "desc": "Predictive AI engine calculating market resonance and stock velocity."
+      },
+      "sync": {
+        "title": "Global_Pulse_Sync",
+        "desc": "Real-time ecosystem orchestration through distributed gateways."
+      }
+    },
+    "footer": {
+      "nodeStatus": "Node Status",
+      "stable": "STABLE"
+    }
+  },
+  "invoices": {
+    "title": "Billing",
+    "subtitle": "Node",
+    "totalYield": "Total Yield",
+    "signalStatus": "Signal Status",
+    "stats": {
+      "dispatched": "Invoices Dispatched",
+      "avgValue": "Avg. Order Value",
+      "efficiency": "Payment Efficiency",
+      "latency": "Temporal Latency"
+    },
+    "table": {
+      "ref": "Reference Protocol",
+      "client": "Client Node",
+      "value": "Value Payload",
+      "status": "Logic Status",
+      "document": "Document Node"
+    },
+    "messages": {
+      "verified": "VERIFIED",
+      "validated": "VALIDATED",
+      "walkIn": "Walk-in Terminal"
+    }
+  },
+  "fiscal": {
+    "title": "Fiscal Intel",
+    "subtitle": "Neural Fiscal Processor",
+    "healthIndex": "Health Index",
+    "trajectory": "Revenue Trajectory",
+    "burn": "Burn Analytics",
+    "forecast": "AI Forecast",
+    "radar": "Vector Diagnostic",
+    "ledger": "Forensic Ledger",
+    "extraction": "Extraction",
+    "telemetry": "Telemetry",
+    "forensicLogs": "Forensic Logs",
+    "neuralProjection": "Neural Projection",
+    "resonanceIndex": "Resonance Index",
+    "capitalVelocity": "Capital Velocity",
+    "booting": "Booting Fiscal Kernel",
+    "oscillator": "Fiscal Oscillator",
+    "temporalFlux": "Temporal Financial Flux",
+    "holographicActive": "Holographic Trajectory Active",
+    "vectorDiagnostics": "Vector Diagnostics",
+    "bandwidthCore": "High-Bandwidth Core",
+    "stability": "Stability",
+    "liquidity": "Liquidity",
+    "burnTelemetry": "Burn Telemetry",
+    "allocationCore": "Neural Allocation Core",
+    "predictiveEnabled": "Predictive Modeling v2.4 Enabled",
+    "registryTraceHub": "Registry Trace Hub",
+    "scanTraceId": "Scan Entry Trace ID...",
+    "temporalNode": "Temporal Node",
+    "registryRef": "Registry Ref",
+    "payloadValue": "Payload Value",
+    "logicStatus": "Logic Status",
+    "deepLatticeParsing": "Deep Lattice Parsing",
+    "precisionIndex": "Precision Index",
+    "marketResonance": "Market Resonance Projection",
+    "holographicVector": "Holographic Vector v4.0",
+    "liveCalculation": "Live Calculation",
+    "logTerminal": "Core Log Terminal",
+    "extractionProtocol": "Extraction Protocol",
+    "stats": {
+      "revenue": "Total Revenue",
+      "cogs": "Cost of Goods",
+      "profit": "Net Profit",
+      "tax": "Tax Liability",
+      "efficiency": "Efficiency Rating",
+      "margin": "Margin Efficiency"
+    },
+    "nodes": {
+      "sourcing": "Sourcing Costs",
+      "ops": "Operating Exp",
+      "tax": "Tax Reserve",
+      "margin": "Margin Index"
+    }
+  },
+    "reports": {
+    "title": "Decision",
+    "subtitle": "Console",
+    "node": "Analytics Node",
+    "stable": "Signal Stable",
+    "signature": "Audit Signature",
+    "verified": "Verified.",
+    "compliance": "Forensic Compliance",
+    "institutionalMargin": "Institutional Margin",
+    "resourceEfficiency": "Resource Efficiency",
+    "capitalRotation": "Capital Rotation",
+    "protocol": "Protocol",
+    "resonanceMatrix": "Yield Resonance Matrix",
+    "temporalSignal": "Aggregated Temporal Cash-flow Signal",
+    "latticeCost": "Direct Lattice Cost",
+    "assetAllocation": "Asset Allocation",
+    "velocityScan": "Stock Velocity Scan",
+    "fluxOptimization": "Flux Optimization.",
+    "efficiencyIncreased": "Turnover efficiency increased by 14.8% across the primary cluster this fiscal cycle.",
+    "turnoverIndex": "TURNOVER INDEX",
+    "nodeAccuracy": "NODE ACCURACY",
+    "healthAudit": "Registry Health Audit",
+    "assetDesignation": "Asset Designation",
+    "nodeState": "Node State",
+    "velocitySignal": "Velocity Signal",
+    "payloadYield": "Payload Yield",
+    "integrity": "Integrity",
+    "forensicTracking": "Deep-Link Forensic Asset Tracking",
+    "strategicAnalysis": "Neural Strategic Analysis",
+    "executeSignal": "EXECUTE SIGNAL",
+    "neuralResonance": "Neural Resonance.",
+    "latticeConfidence": "Lattice Confidence",
+    "strategicVectors": "Strategic vectors are fully aligned. Neural core suggests aggressive market expansion node initialization.",
+    "forensicAudit": "Forensic Audit Trail",
+    "dataIntegrity": "Data Integrity",
+    "clusterCompliance": "Cluster Compliance",
+    "securityRegistry": "Security Registry",
+    "hardened": "Hardened",
+    "nominalState": "NOMINAL STATE",
+    "auditPulse": "Neural Audit Pulse"
+  },
+    "quality": {
+    "title": "Quality",
+    "subtitle": "High-Fidelity Assurance Node v9.4",
+    "record": "Record Inspection",
+    "stats": {
+      "passed": "Total Passed",
+      "compliance": "Compliance Rate"
+    },
+    "fields": {
+      "asset": "Asset Entity",
+      "batch": "Batch Identifier",
+      "score": "Compliance Score",
+      "notes": "Diagnostic Intelligence",
+      "deploy": "Deploy Verification"
+    },
+    "messages": {
+      "scanning": "Scanning Matrix...",
+      "noData": "No Inspections Indexed",
+      "linkLost": "Quality Matrix Link Lost",
+      "missingAsset": "Asset Reference Missing",
+      "indexing": "Indexing Inspection Node...",
+      "syncOk": "Inspection Protocol Synchronized",
+      "syncError": "Lattice Synchronization Error",
+      "pass": "SIG_PASS",
+      "fail": "SIG_FAIL",
+      "warn": "SIG_WARN",
+      "nominal": "NOMINAL_OK",
+      "scanComplete": "LATTICE_SCAN_COMPLETE",
+      "telemetryLocked": "TELEMETRY_LOCKED",
+      "warnings": "Warnings",
+      "criticalFail": "Critical Fail"
+    },
+    "hud": {
+      "integrity": "Global Integrity",
+      "telemetry": "Inspection Telemetry",
+      "variance": "Batch Variance",
+      "sensor": "Sensor Health",
+      "anomaly": "Anomaly Rate"
+    }
+  },
+    "admin": {
+    "title": "Admin",
+    "subtitle": "Console",
+    "booting": "Booting Admin Console",
+    "syncingLattice": "Syncing Lattice...",
+    "syncingLattices": "Syncing Lattices...",
+    "clusterNodes": "Cluster Nodes",
+    "networkMRR": "Network MRR",
+    "nodeAgents": "Node Agents",
+    "globalAssets": "Global Assets",
+    "scanInstance": "Scan Instance...",
+    "nodeActive": "NODE_ACTIVE",
+    "suspended": "SUSPENDED",
+    "assetSaturation": "Asset Saturation",
+    "agentAllocation": "Agent Allocation",
+    "nodeControl": "Node Control",
+    "clusterLoad": "Cluster Load",
+    "enginePulse": "Engine Pulse",
+    "globalHealth": "Global Health",
+    "revenue": {
+      "expansion": "Revenue Expansion",
+      "growthSignal": "CROSS-TENANT GROWTH SIGNAL INTERCEPTION"
+    },
+    "cluster": {
+      "topology": "Cluster Topology",
+      "nodeLattice": "Node Lattice"
+    },
+    "infra": {
+      "clusterResources": "Cluster Resources",
+      "telemetryFeed": "INFRASTRUCTURE TELEMETRY FEED",
+      "highAvailability": "High Availability",
+      "apiLattice": "API Lattice",
+      "neuralSchema": "Neural Schema",
+      "storageCore": "Storage Core"
+    },
+    "status": {
+      "optimal": "OPTIMAL",
+      "active": "ACTIVE"
+    },
+    "deck": {
+      "title": "Command Deck",
+      "manageAgents": "Manage Agents",
+      "globalNodeAccess": "GLOBAL NODE ACCESS",
+      "nodeTopology": "Node Topology",
+      "clusterControl": "CLUSTER INSTANCE CONTROL",
+      "signalAlerts": "Signal Alerts",
+      "stateMonitor": "CRITICAL STATE MONITOR",
+      "executeReport": "Execute Report"
+    },
+    "modal": {
+      "instanceConfig": "Instance Configuration",
+      "saasTiersStatus": "SaaS Tiers & Status",
+      "resourceReallocation": "Resource Reallocation",
+      "assetCapacity": "Asset Capacity",
+      "agentQuota": "Agent Quota",
+      "liveSignal": "Live Signal",
+      "nodeUptime": "Node Uptime",
+      "latencyPulse": "Latency Pulse",
+      "reallocateInstance": "Reallocate Instance",
+      "syncProtocolOverrides": "Syncing Protocol Overrides...",
+      "plans": {
+        "free": "FREE PROTOCOL",
+        "pro": "PRO ENHANCED",
+        "enterprise": "ENTERPRISE ZENITH"
+      },
+      "statuses": {
+        "active": "ACTIVE_SIGNAL",
+        "trial": "TRIAL_MODE",
+        "pastDue": "PAST_DUE_CRITICAL",
+        "canceled": "CANCELED_VOID"
+      }
+    },
+    "hud": {
+      "systemOverlord": "System Overlord",
+      "saasCoreCommand": "SaaS Core Central Command",
+      "globalHealth": "Global Health",
+      "systemYield": "System Yield",
+      "syncRegistry": "Sync Registry",
+      "prime": "PRIME"
+    }
+  },
+  "audit": {
+    "title": "Audit Registry.",
+    "subtitle": "Forensic Traceability Ledger",
+    "desc": "Immutable security event monitoring and forensic signal interception.",
+    "stats": {
+      "integrity": "Lattice Integrity",
+      "signals": "Signals Intercepted",
+      "events": "Events"
+    },
+    "filter": {
+      "placeholder": "DECODE SECURITY AGENT, ACTION OR EVENT..."
+    },
+    "purge": {
+      "button": "Purge",
+      "confirm": "Purge entire forensic registry? This action is irreversible.",
+      "loading": "Purging Security Signals...",
+      "success": "Forensic Ledger Cleared",
+      "error": "Authorization Level Insufficient"
+    },
+    "export": {
+      "loading": "Synthesizing Security Manifest...",
+      "success": "Manifest Exported",
+      "error": "Export Protocol Interrupted"
+    },
+    "table": {
+      "timing": "Timing",
+      "agent": "Agent",
+      "protocol": "Protocol",
+      "payload": "Payload",
+      "node": "Node",
+      "scanning": "Scanning...",
+      "noSignals": "No Forensic Signals",
+      "system": "SYSTEM"
+    },
+    "toast": {
+      "interrupted": "Security Link Interrupted"
+    }
+  },
+  "jobs": {
+    "title": "Job Console.",
+    "subtitle": "OS_v9.4",
+    "stats": {
+      "total": "Total",
+      "active": "Active",
+      "failed": "Failed",
+      "done": "Done"
+    },
+    "actions": {
+      "initialize": "INITIALIZE",
+      "dispatch": "DISPATCH"
+    },
+    "card": {
+      "latency": "Latency",
+      "id": "ID",
+      "buffer": "Buffer"
+    },
+    "terminal": {
+      "title": "Process_DeepScan",
+      "interceptionId": "INTERCEPTION_ID",
+      "decrypting": "Decrypting Signal Stream...",
+      "targetCluster": "Target Cluster",
+      "authSignature": "Auth Signature",
+      "verifiedAgent": "VERIFIED_AGENT",
+      "logicStream": "Logic_Stream_Handshake",
+      "criticalFailure": "CRITICAL_FAILURE",
+      "awaiting": "Awaiting Signal...",
+      "forensicProtocol": "Forensic Registry Protocol",
+      "syncInterval": "Sync_Interval",
+      "integritySeal": "Integrity_Seal_Active"
+    },
+    "toast": {
+      "initializing": "Initializing Signal...",
+      "dispatched": "Signal Dispatched",
+      "failed": "Handshake Failed",
+      "syncing": "Synchronizing Global Lattice...",
+      "allActive": "All Nodes Active",
+      "syncFailure": "Global Sync Failure"
+    }
+  },
+  "stockLedger": {
+    "title": "Forensic",
+    "subtitle": "History.",
+    "sync": "Inventory State Sync v4.0",
+    "stats": {
+      "volume": "Volume 24h",
+      "integrity": "Integrity",
+      "registrySize": "Registry Size",
+      "nodes": "Nodes"
+    },
+    "actions": {
+      "refresh": "Deep Ledger",
+      "placeholder": "DECODE REGISTRY BY ASSET / SKU / REASON..."
+    },
+    "table": {
+      "signature": "Node Signature",
+      "id": "Identification",
+      "protocol": "Movement Protocol",
+      "payload": "Payload Delta",
+      "reference": "Forensic Reference",
+      "incoming": "Payload Incoming",
+      "outgoing": "Payload Outgoing",
+      "terminated": "Terminated Asset",
+      "auto": "Auto Protocol",
+      "tsRegistry": "TS-Registry"
+    },
+    "legend": {
+      "injected": "Asset Injected",
+      "extracted": "Asset Extracted",
+      "pulse": "Sync Pulse"
+    }
+  },
+  "production": {
+    "title": "Production Hub",
+    "subtitle": "Industrial Assembly & Logic Synthesis",
+    "add": "New Signal",
+    "stats": {
+      "active": "Active Hubs",
+      "yield": "Yield Efficiency"
+    },
+    "filter": {
+      "placeholder": "SCAN ASSEMBLY LOGS..."
+    },
+    "card": {
+      "target": "Target: {{count}} Units",
+      "finalize": "Finalize",
+      "syncOk": "Sync OK"
+    },
+    "sidebar": {
+      "library": "Yield Library",
+      "nodes": "Nodes: {{count}}",
+      "integrity": "Process Integrity",
+      "accuracy": "Formula Accuracy",
+      "throughput": "Throughput"
+    },
+    "modal": {
+      "title": "New Production Signal",
+      "selectFormula": "SELECT ASSEMBLY FORMULA",
+      "targetUnits": "Target units...",
+      "submit": "Deploy Synthesis"
+    },
+    "toast": {
+      "linkLost": "Production Lattice Link Lost",
+      "incomplete": "Data Incomplete",
+      "synthesizing": "Synthesizing...",
+      "dispatched": "Order Dispatched",
+      "error": "Lattice Error",
+      "finalizing": "Finalizing...",
+      "indexed": "Asset Indexed",
+      "failed": "Sequence Failed"
+    },
+    "fields": {
+      "formula": "ASSEMBLY FORMULA",
+      "quantity": "TARGET QUANTITY"
+    }
+  },
+  "restock": {
+    "title": "Neural",
+    "subtitle": "Restock.",
+    "tagline": "AI-Driven Supply Chain Optimization.",
+    "velocity": "Velocity",
+    "targetPO": "Target PO",
+    "vendorPulse": "Vendor Pulse",
+    "totalValuation": "Est. Total Valuation",
+    "high": "High",
+    "active": "Active",
+    "latency": "Latency",
+    "idle": "Idle"
+  },
+  "tasks": {
+    "title": "Operational Flow",
+    "subtitle": "Lattice Task Management",
+    "add": "Initialize Sequence",
+    "stats": {
+      "active": "Active Protocols",
+      "velocity": "Throughput"
+    },
+    "columns": {
+      "TODO": "TO_DO",
+      "IN_PROGRESS": "IN_PROGRESS",
+      "REVIEW": "REVIEW",
+      "DONE": "DONE"
+    },
+    "toast": {
+      "shifted": "Task shifted to {{status}}",
+      "syncLost": "Workflow Registry Lost",
+      "syncOk": "Sequence Synchronized",
+      "syncFail": "Lattice Synchronization Failed",
+      "idMissing": "Identifier Missing"
+    },
+    "modal": {
+      "synthesizing": "Synthesizing Sequence...",
+      "identifier": "Identifier",
+      "priority": "Priority",
+      "agent": "Agent",
+      "submit": "Commit Sequence",
+      "close": "Close Protocol",
+      "nominal": "Operational parameters nominal.",
+      "purge": "Purge?"
+    },
+    "search": "SEARCH...",
+    "syncing": "Syncing Matrix..."
+  },
+  "errors": {
+    "networkError": "Signal Interrupted",
+    "serverError": "Lattice Failure",
+    "unauthorized": "Access Denied",
+    "validation": "Logic Mismatch",
+    "invalidData": "Operational Data Incomplete"
+  }
+}
