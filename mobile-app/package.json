@@ -9,6 +9,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
+  "expo-router": {
+    "appDir": "src/app"
+  },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
     "@expo/vector-icons": "^15.1.1",
@@ -19,6 +22,7 @@
     "@types/three": "^0.183.1",
     "axios": "^1.13.4",
     "expo": "~54.0.33",
+    "expo-av": "~16.0.8",
     "expo-blur": "~15.0.8",
     "expo-camera": "~17.0.10",
     "expo-constants": "~18.0.13",
@@ -50,6 +54,7 @@
     "react-native-vector-icons": "^10.3.0",
     "react-native-web": "^0.21.0",
     "react-native-worklets": "0.5.1",
+    "socket.io-client": "^4.8.3",
     "three": "^0.183.2",
     "zustand": "^5.0.11"
   },

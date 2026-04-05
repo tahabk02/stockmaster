@@ -1,372 +1,735 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
-  StyleSheet,
-  TouchableOpacity,
   ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
   StatusBar,
-  RefreshControl,
   Platform,
-  ActivityIndicator,
-  Dimensions
+  Image,
+  FlatList,
+  useWindowDimensions,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
-import { 
-  Barcode, 
-  List, 
-  Package, 
-  TrendingUp,
-  Bell,
-  Cpu,
-  Activity,
-  Zap,
-  Globe,
-  LayoutGrid,
-  ShoppingCart,
-  ChevronRight,
-  ArrowRightLeft,
-  Users,
-  Truck,
-  Settings,
-  ShieldCheck,
-  UserCheck,
-  Receipt,
-  MessageSquare,
-  RefreshCw,
-  User,
-  Layers,
-  Search,
-  MoreVertical,
-  Plus
-} from "lucide-react-native";
-import { useAppTheme, normalize } from "../theme";
-import Animated, { 
-  FadeInUp, 
-  FadeInDown, 
-  FadeIn, 
-  useSharedValue, 
-  useAnimatedStyle, 
-  withTiming, 
-  withRepeat, 
-  withSequence 
+import Animated, {
+  FadeInDown,
+  FadeInUp,
+  FadeInRight,
 } from "react-native-reanimated";
-import { useAuthStore } from "../store/auth.store";
-import * as Haptics from 'expo-haptics';
-import api from "../api/client";
+import {
+  Zap,
+  Package,
+  Truck,
+  Receipt,
+  BarChart3,
+  Shield,
+  Activity,
+  Cpu,
+  ArrowRight,
+} from "lucide-react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import * as Haptics from "expo-haptics";
+import { useRouter } from "expo-router";
+import { useAppTheme, normalize } from "../theme";
 import { PulseIndicator } from "../components/PulseIndicator";
-import { ThreeHero } from "../components/ThreeHero";
-import { sqliteService } from "../services/sqlite.service";
-import { GlassCard } from "../components/GlassCard";
-import { LinearGradient } from 'expo-linear-gradient';
+import { ImageDetailModal } from "../components/ImageDetailModal";
 
-import { useTranslation } from "react-i18next";
+const SLIDER_IMAGES = [
+  {
+    id: "1",
+    url: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200",
+    title: "LOGISTICS_HUB",
+    code: "0x82A_ALPHA",
+    desc: "TERMINAL DE DISTRIBUTION AUTOMATISÉ v4.2",
+  },
+  {
+    id: "2",
+    url: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200",
+    title: "NEURAL_CORE",
+    code: "LATTICE_SYNC",
+    desc: "ARCHITECTURE PROCESSEUR TEMPS-RÉEL",
+  },
+  {
+    id: "3",
+    url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200",
+    title: "GLOBAL_DATA",
+    code: "PLANETARY_MESH",
+    desc: "RÉSEAU DE SYNCHRONISATION PLANÉTAIRE",
+  },
+  {
+    id: "4",
+    url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200",
+    title: "CYBER_AXIS",
+    code: "JWT_ISOLATION",
+    desc: "PROTOCOLE DE SÉCURITÉ MILITAIRE",
+  },
+];
 
-const { width } = Dimensions.get('window');
+const SlideItem = ({ item, isActive, openAsset, width, height }: any) => {
+  const { colors } = useAppTheme();
 
-export default function HomePage() {
-  const { t } = useTranslation();
-  const router = useRouter();
-  const theme = useAppTheme();
-  const { user, isInitialized } = useAuthStore();
-  const [refreshing, setRefreshing] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState<any>({ totalItems: 0, totalStockValue: 0, lowStockCount: 0, dailyRevenue: 0 });
-  const [signal, setSignal] = useState<any>(null);
-
-  const { colors, isDarkMode, spacing, typography, roundness } = theme;
-
-  const fetchStats = useCallback(async () => {
-    try {
-      const { data } = await api.get("dashboard/stats");
-      if (data.success) {
-        setStats(data.data);
-        setSignal(data.data.latestSignal);
+  return (
+    <TouchableOpacity
+      activeOpacity={1}
+      style={[styles.slide, { width, height: height * 0.7 }]}
+      onPress={() =>
+        openAsset({
+          image: item.url,
+          title: item.title,
+          subtitle: item.desc,
+          details: [
+            "Signal Alpha Detecté",
+            "Lattice v4 Sync",
+            "Forensic Data Active",
+          ],
+          tags: ["CORE", "PRO"],
+        })
       }
-    } catch (e: any) {
-      const localProducts = await sqliteService.getAllProducts();
-      setStats({
-        totalItems: localProducts.length,
-        totalStockValue: localProducts.reduce((sum: number, p: any) => sum + (p.price * p.quantity), 0),
-        lowStockCount: localProducts.filter((p: any) => p.quantity < 5).length,
-        dailyRevenue: 0
-      });
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isInitialized) fetchStats();
-  }, [isInitialized, fetchStats]);
-
-  const handlePress = async (path: string) => {
-    if (Platform.OS !== "web") await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    router.push(path as any);
-  };
-
-  if (loading) return (
-    <View style={[styles.center, { backgroundColor: colors.background }]}>
-       <PulseIndicator color={colors.primary} size={normalize(40)} />
-       <Text style={[styles.loadingText, { color: colors.primary, ...typography.pro }]}>INITIALIZING_CORE...</Text>
-    </View>
-  );
-
-  return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <StatusBar barStyle="light-content" />
-      
-      {/* 1. ULTRA PRO HEADER */}
-      <View style={[styles.header, { backgroundColor: '#000' }]}>
-         <SafeAreaView>
-            <View style={styles.headerContent}>
-               <View>
-                  <View style={styles.headerTopRow}>
-                     <ShieldCheck color={colors.accent} size={14} />
-                     <Text style={[styles.protocolLabel, { color: colors.accent, ...typography.pro }]}>PROTOCOL_MASTER_V4</Text>
-                  </View>
-                  <Text style={[styles.welcomeText, { color: '#fff', ...typography.pro, fontSize: normalize(20) }]}>{user?.name?.toUpperCase() || "ADMIN_UNIT"}</Text>
-               </View>
-               <View style={styles.headerActions}>
-                  <TouchableOpacity onPress={() => handlePress("/notifications")} style={styles.headerBtn}>
-                     <Bell color="#fff" size={20} />
-                     <View style={[styles.badge, { backgroundColor: colors.danger }]} />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => handlePress("/profile")} style={styles.avatarBtn}>
-                     <User color="#fff" size={20} />
-                  </TouchableOpacity>
-               </View>
-            </View>
-         </SafeAreaView>
-      </View>
-
-      <ScrollView 
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 150 }}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={fetchStats} tintColor={colors.primary} />}
-      >
-        {/* 2. CINEMATIC ANALYTICS HERO */}
-        <Animated.View entering={FadeInUp.delay(200)} style={styles.heroSection}>
-           <ThreeHero color={colors.primary} />
-           <LinearGradient colors={['rgba(0,0,0,0.8)', 'transparent', 'rgba(0,0,0,0.8)']} style={StyleSheet.absoluteFill} />
-           
-           <View style={styles.heroOverlay}>
-              <View style={styles.mainStatsRow}>
-                 <GlassCard variant="transparent" style={styles.mainStatCard}>
-                    <Text style={[styles.statLabel, { color: colors.textLight, ...typography.pro, fontSize: 8 }]}>ASSET_TOTAL</Text>
-                    <Text style={[styles.statValue, { color: '#fff', ...typography.pro, fontSize: 24 }]}>{stats.totalItems}</Text>
-                    <View style={styles.trendRow}>
-                       <TrendingUp size={10} color={colors.accent} />
-                       <Text style={[styles.trendText, { color: colors.accent }]}>+2.4%</Text>
-                    </View>
-                 </GlassCard>
-                 <GlassCard variant="transparent" style={styles.mainStatCard}>
-                    <Text style={[styles.statLabel, { color: colors.textLight, ...typography.pro, fontSize: 8 }]}>MARKET_VAL</Text>
-                    <Text style={[styles.statValue, { color: '#fff', ...typography.pro, fontSize: 24 }]}>{(stats.totalStockValue / 1000).toFixed(1)}K</Text>
-                    <Text style={[styles.unitText, { color: colors.textLight }]}>MAD_PROTOCOL</Text>
-                 </GlassCard>
-              </View>
-           </View>
-        </Animated.View>
-
-        <View style={styles.body}>
-           {/* 3. NEURAL INTELLIGENCE SIGNAL */}
-           <Animated.View entering={FadeIn.delay(400)}>
-              <Text style={[styles.sectionTitle, { color: colors.textLight, ...typography.pro, marginBottom: 12 }]}>NEURAL_FEED_ACTIVE</Text>
-              <GlassCard variant="primary" intensity={40} style={styles.signalCard}>
-                 <View style={styles.signalHeader}>
-                    <Cpu size={14} color={colors.primary} />
-                    <Text style={[styles.signalStatus, { color: colors.primary, ...typography.pro }]}>LIVE_TELEMETRY</Text>
-                    <View style={styles.spacer} />
-                    <PulseIndicator color={colors.primary} size={6} />
-                 </View>
-                 <Text style={[styles.signalMsg, { color: colors.text, fontWeight: '800', fontSize: 13 }]}>
-                   {signal ? `[${signal.type}] ${signal.product} - LATTICE_SYNC_SUCCESS` : "ALL_SYSTEMS_OPTIMAL_STBY"}
-                 </Text>
-                 <View style={styles.signalFooter}>
-                    <Activity size={10} color={colors.textLight} />
-                    <Text style={[styles.signalTime, { color: colors.textLight }]}>LATENCY: 14MS | CONFIDENCE: 99.8%</Text>
-                 </View>
-              </GlassCard>
-           </Animated.View>
-
-           {/* 4. COMMAND PROTOCOL GRID */}
-           <View style={styles.protocolSection}>
-              <View style={styles.sectionHeader}>
-                 <Text style={[styles.sectionTitle, { color: colors.textLight, ...typography.pro }]}>COMMAND_PROTOCOLS</Text>
-                 <TouchableOpacity style={styles.moreBtn}>
-                    <MoreVertical size={16} color={colors.textLight} />
-                 </TouchableOpacity>
-              </View>
-              
-              <View style={styles.grid}>
-                 <ProtocolCard 
-                    title="INVENTORY" 
-                    icon={<Package size={24} color={colors.primary} />} 
-                    onPress={() => handlePress("/inventory")} 
-                    theme={theme} 
-                 />
-                 <ProtocolCard 
-                    title="SCANNER" 
-                    icon={<Barcode size={24} color={colors.accent} />} 
-                    onPress={() => handlePress("/scan")} 
-                    theme={theme} 
-                 />
-                 <ProtocolCard 
-                    title="ORDERS" 
-                    icon={<ShoppingCart size={24} color={colors.warning} />} 
-                    onPress={() => handlePress("/orders")} 
-                    theme={theme} 
-                 />
-                 <ProtocolCard 
-                    title="LOGISTICS" 
-                    icon={<Truck size={24} color="#8b5cf6" />} 
-                    onPress={() => handlePress("/logistics")} 
-                    theme={theme} 
-                 />
-                 <ProtocolCard 
-                    title="FINANCIAL" 
-                    icon={<Receipt size={24} color="#f43f5e" />} 
-                    onPress={() => handlePress("/expenses")} 
-                    theme={theme} 
-                 />
-                 <ProtocolCard 
-                    title="ANALYTICS" 
-                    icon={<TrendingUp size={24} color="#10b981" />} 
-                    onPress={() => handlePress("/analytics")} 
-                    theme={theme} 
-                 />
-              </View>
-           </View>
-
-           {/* 5. QUICK ACCESS ASSETS */}
-           <View style={styles.quickAccess}>
-              <Text style={[styles.sectionTitle, { color: colors.textLight, ...typography.pro, marginBottom: 16 }]}>QUICK_REGISTRY</Text>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
-                 <QuickItem label="SUPPLIERS" icon={<Globe size={18} color="#fff" />} color="#f59e0b" onPress={() => handlePress("/suppliers")} theme={theme} />
-                 <QuickItem label="CLIENTS" icon={<Users size={18} color="#fff" />} color="#06b6d4" onPress={() => handlePress("/clients")} theme={theme} />
-                 <QuickItem label="PRODUCTION" icon={<Settings size={18} color="#fff" />} color="#ec4899" onPress={() => handlePress("/production")} theme={theme} />
-                 <QuickItem label="QUALITY" icon={<ShieldCheck size={18} color="#fff" />} color="#10b981" onPress={() => handlePress("/quality")} theme={theme} />
-              </ScrollView>
-           </View>
-        </View>
-      </ScrollView>
-
-      {/* 6. NEURAL NAVIGATION DOCK */}
-      <View style={styles.navigationDock}>
-         <GlassCard variant="dark" intensity={60} style={styles.dockInner}>
-            <DockIcon icon={<LayoutGrid size={22} />} active={true} theme={theme} />
-            <DockIcon icon={<Layers size={22} />} theme={theme} onPress={() => handlePress("/inventory")} />
-            <TouchableOpacity style={[styles.centerScanBtn, { backgroundColor: colors.primary }]} onPress={() => handlePress("/scan")}>
-               <Barcode color="#fff" size={28} />
-            </TouchableOpacity>
-            <DockIcon icon={<MessageSquare size={22} />} theme={theme} onPress={() => handlePress("/chat")} />
-            <DockIcon icon={<Settings size={22} />} theme={theme} onPress={() => handlePress("/profile")} />
-         </GlassCard>
-      </View>
-    </View>
-  );
-}
-
-const ProtocolCard = ({ title, icon, onPress, theme }: any) => {
-  const scale = useSharedValue(1);
-  
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }]
-  }));
-
-  const handlePressIn = () => {
-    scale.value = withTiming(1.05, { duration: 150 });
-  };
-
-  const handlePressOut = () => {
-    scale.value = withTiming(1, { duration: 150 });
-  };
-
-  return (
-    <TouchableOpacity 
-      onPress={onPress} 
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      activeOpacity={0.9} 
-      style={styles.protocolCardWrapper}
     >
-      <Animated.View style={animatedStyle}>
-        <GlassCard variant="transparent" intensity={15} style={styles.protocolCard}>
-          <View style={[styles.protocolIconBox, { borderColor: theme.colors.border + '20', borderWidth: 1 }]}>{icon}</View>
-          <Text style={[styles.protocolTitle, { color: theme.colors.text, ...theme.typography.pro, fontSize: 8 }]}>{title}</Text>
-          <View style={[styles.cardPulse, { backgroundColor: theme.colors.primary + '20' }]}>
-             <PulseIndicator color={theme.colors.primary} size={4} />
-          </View>
-        </GlassCard>
-      </Animated.View>
+      <Image source={{ uri: item.url }} style={styles.slideImage} />
+      <LinearGradient
+        colors={[
+          "rgba(6, 6, 15, 0.2)",
+          "rgba(6, 6, 15, 0.6)",
+          "rgba(6, 6, 15, 1)",
+        ]}
+        style={StyleSheet.absoluteFill}
+      />
+
+      <View style={styles.slideContent}>
+        {isActive && (
+          <Animated.View entering={FadeInDown.duration(800).delay(300)}>
+            <View style={styles.slideCodeRow}>
+              <View
+                style={[styles.codeBadge, { backgroundColor: colors.primary }]}
+              >
+                <Text style={styles.codeText}>{item.code}</Text>
+              </View>
+              <View style={styles.codeLine} />
+            </View>
+            <Text style={[styles.slideTitle, { fontSize: normalize(36) }]}>
+              {item.title}
+            </Text>
+            <Animated.Text
+              entering={FadeInRight.duration(800).delay(500)}
+              style={styles.slideDesc}
+            >
+              {item.desc}
+            </Animated.Text>
+          </Animated.View>
+        )}
+      </View>
     </TouchableOpacity>
   );
 };
 
-const QuickItem = ({ label, icon, color, onPress, theme }: any) => (
-  <TouchableOpacity onPress={onPress} style={styles.quickItemWrapper}>
-     <View style={[styles.quickIcon, { backgroundColor: color }]}>{icon}</View>
-     <Text style={[styles.quickLabel, { ...theme.typography.pro, fontSize: 8 }]}>{label}</Text>
-  </TouchableOpacity>
-);
+const FeatureCard = ({
+  num,
+  title,
+  subtitle,
+  icon: Icon,
+  image,
+  onPress,
+  cardWidth,
+}: any) => {
+  const { colors } = useAppTheme();
+  return (
+    <TouchableOpacity
+      activeOpacity={0.9}
+      onPress={onPress}
+      style={[
+        styles.featureCard,
+        { width: cardWidth, borderColor: "rgba(255,255,255,0.05)" },
+      ]}
+    >
+      <Image source={{ uri: image }} style={styles.featureImage} />
+      <LinearGradient
+        colors={["rgba(0,0,0,0.8)", "transparent"]}
+        style={StyleSheet.absoluteFill}
+      />
+      <View style={styles.featureContent}>
+        <Text style={styles.featureNum}>{num}</Text>
+        <View style={styles.featureIconWrapper}>
+          <Icon size={normalize(18)} color={colors.primary} />
+        </View>
+        <Text
+          style={[
+            styles.featureTitle,
+            { color: "#fff", fontSize: normalize(14) },
+          ]}
+        >
+          {title}
+        </Text>
+        <Text style={styles.featureSubtitle}>{subtitle}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
-const DockIcon = ({ icon, active, theme, onPress }: any) => (
-  <TouchableOpacity style={styles.dockIcon} onPress={onPress}>
-    {React.cloneElement(icon, { color: active ? theme.colors.primary : '#fff', opacity: active ? 1 : 0.4 })}
-  </TouchableOpacity>
-);
+export default function LandingPage() {
+  const { colors, isDarkMode } = useAppTheme();
+  const { width, height } = useWindowDimensions();
+  const router = useRouter();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const flatListRef = useRef<FlatList>(null);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedAsset, setSelectedAsset] = useState<any>(null);
+
+  const openAsset = (asset: any) => {
+    setSelectedAsset(asset);
+    setModalVisible(true);
+    if (Platform.OS !== "web")
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  };
+
+  const handleNavigate = (path: any) => {
+    if (Platform.OS !== "web")
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push(path);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nextIndex = (activeIndex + 1) % SLIDER_IMAGES.length;
+      flatListRef.current?.scrollToIndex({ index: nextIndex, animated: true });
+      setActiveIndex(nextIndex);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [activeIndex]);
+
+  const numColumns = width > 600 ? 3 : 2;
+  const cardWidth =
+    (width - normalize(60) - (numColumns - 1) * normalize(15)) / numColumns;
+
+  return (
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkMode ? "#06060F" : colors.background },
+      ]}
+    >
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
+
+      {/* FIXED PRO NAV */}
+      <View style={styles.fixedNav}>
+        <View style={styles.navLogo}>
+          <Zap size={20} color={colors.primary} />
+          <Text style={styles.navLogoText}>
+            STOCKMASTER <Text style={{ color: colors.primary }}>PRO.</Text>
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={[styles.navDeployBtn, { backgroundColor: colors.primary }]}
+          onPress={() => handleNavigate("/login")}
+        >
+          <Text style={styles.navDeployText}>DÉPLOYER ↗</Text>
+        </TouchableOpacity>
+      </View>
+
+      <ImageDetailModal
+        isVisible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        {...selectedAsset}
+      />
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
+        {/* 1. HERO SLIDER */}
+        <View style={[styles.heroSection, { height: height * 0.7 }]}>
+          <FlatList
+            ref={flatListRef}
+            data={SLIDER_IMAGES}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={(e) => {
+              const index = Math.round(e.nativeEvent.contentOffset.x / width);
+              setActiveIndex(index);
+            }}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => (
+              <SlideItem
+                item={item}
+                isActive={index === activeIndex}
+                openAsset={openAsset}
+                width={width}
+                height={height}
+              />
+            )}
+          />
+
+          <SafeAreaView style={styles.heroOverlay} pointerEvents="box-none">
+            <Animated.View
+              entering={FadeInUp.duration(1000)}
+              style={styles.heroContent}
+              pointerEvents="box-none"
+            >
+              <View style={styles.topHUD}>
+                <View style={styles.proBadge}>
+                  <Activity size={normalize(10)} color={colors.primary} />
+                  <Text
+                    style={[styles.proBadgeText, { fontSize: normalize(7) }]}
+                  >
+                    OS_CORE_ACTIVE
+                  </Text>
+                </View>
+                <View style={styles.pagination}>
+                  {SLIDER_IMAGES.map((_, i) => (
+                    <View
+                      key={i}
+                      style={[
+                        styles.dot,
+                        {
+                          backgroundColor:
+                            i === activeIndex
+                              ? colors.primary
+                              : "rgba(255,255,255,0.2)",
+                          width:
+                            i === activeIndex ? normalize(16) : normalize(4),
+                        },
+                      ]}
+                    />
+                  ))}
+                </View>
+              </View>
+
+              <View style={styles.heroTextGroup}>
+                <Text
+                  style={[styles.heroTitleSmall, { fontSize: normalize(10) }]}
+                >
+                  COMMAND_CENTER
+                </Text>
+                <TouchableOpacity style={styles.secondaryBtn}>
+                  <ArrowRight size={normalize(16)} color="#fff" />
+                </TouchableOpacity>
+              </View>
+            </Animated.View>
+          </SafeAreaView>
+        </View>
+
+        {/* 2. TELEMETRY BAR */}
+        <View style={styles.telemetryBar}>
+          <View style={styles.telemetryHeader}>
+            <Cpu size={normalize(12)} color={colors.primary} />
+            <Text style={[styles.telemetryLabel, { fontSize: normalize(8) }]}>
+              SYSTEM_TELEMETRY
+            </Text>
+            <View style={styles.spacer} />
+            <PulseIndicator color={colors.primary} size={normalize(4)} />
+          </View>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={[
+              styles.statsScroll,
+              { paddingHorizontal: normalize(30) },
+            ]}
+          >
+            {[
+              {
+                l: "ASSETS",
+                v: "50K+",
+                d: "STABLE",
+                img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=400",
+              },
+              {
+                l: "UPTIME",
+                v: "99.9%",
+                d: "ACTIVE",
+                img: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=400",
+              },
+              {
+                l: "NODES",
+                v: "840+",
+                d: "OPTIMAL",
+                img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400",
+              },
+            ].map((stat, i) => (
+              <TouchableOpacity
+                key={i}
+                style={[styles.statItem, { width: normalize(110) }]}
+                onPress={() =>
+                  openAsset({
+                    image: stat.img,
+                    title: stat.l,
+                    subtitle: stat.v,
+                  })
+                }
+              >
+                <Text style={[styles.statLabel, { fontSize: normalize(7) }]}>
+                  {stat.l}
+                </Text>
+                <Text style={[styles.statValue, { fontSize: normalize(16) }]}>
+                  {stat.v}
+                </Text>
+                <Text
+                  style={[
+                    styles.statDelta,
+                    { color: colors.primary, fontSize: normalize(7) },
+                  ]}
+                >
+                  {stat.d}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* 3. CORE MODULES */}
+        <View style={[styles.section, { padding: normalize(30) }]}>
+          <View style={styles.sectionHeader}>
+            <Text style={[styles.sectionLabel, { fontSize: normalize(8) }]}>
+              // PROTOCOL_MODULES
+            </Text>
+            <Text style={[styles.sectionTitle, { fontSize: normalize(28) }]}>
+              CORE <Text style={{ color: colors.primary }}>ARCHITECTURE.</Text>
+            </Text>
+          </View>
+
+          <View style={styles.featuresGrid}>
+            <FeatureCard
+              num="01"
+              title="STOCKS"
+              subtitle="Matrice d'inventaire."
+              icon={Package}
+              image="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600"
+              onPress={() =>
+                openAsset({
+                  image:
+                    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800",
+                  title: "STOCKS",
+                  subtitle: "v4.2 Active",
+                })
+              }
+              cardWidth={cardWidth}
+            />
+            <FeatureCard
+              num="02"
+              title="CRM"
+              subtitle="Réseau partenaires."
+              icon={Truck}
+              image="https://images.unsplash.com/photo-1556740734-7f9a2b7a0f42?q=80&w=600"
+              onPress={() =>
+                openAsset({
+                  image:
+                    "https://images.unsplash.com/photo-1556740734-7f9a2b7a0f42?q=80&w=800",
+                  title: "CRM",
+                  subtitle: "Secured",
+                })
+              }
+              cardWidth={cardWidth}
+            />
+            <FeatureCard
+              num="03"
+              title="FINANCE"
+              subtitle="Automatisation flux."
+              icon={Receipt}
+              image="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=600"
+              onPress={() =>
+                openAsset({
+                  image:
+                    "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800",
+                  title: "FINANCE",
+                  subtitle: "Automatic",
+                })
+              }
+              cardWidth={cardWidth}
+            />
+            <FeatureCard
+              num="04"
+              title="ANALYTICS"
+              subtitle="Vision prédictive."
+              icon={BarChart3}
+              image="https://images.unsplash.com/photo-1551288049-bbda4865cda1?q=80&w=600"
+              onPress={() =>
+                openAsset({
+                  image:
+                    "https://images.unsplash.com/photo-1551288049-bbda4865cda1?q=80&w=800",
+                  title: "ANALYTICS",
+                  subtitle: "Predictive",
+                })
+              }
+              cardWidth={cardWidth}
+            />
+          </View>
+        </View>
+
+        {/* 4. SECURITY BLOCK */}
+        <View
+          style={[
+            styles.securitySection,
+            { padding: normalize(40), margin: normalize(30) },
+          ]}
+        >
+          <Shield
+            size={normalize(40)}
+            color={colors.primary}
+            style={{ marginBottom: normalize(20) }}
+          />
+          <Text style={[styles.securityTitle, { fontSize: normalize(24) }]}>
+            SECURITY <Text style={{ color: colors.primary }}>JWT.</Text>
+          </Text>
+          <Text style={[styles.securityDesc, { fontSize: normalize(9) }]}>
+            ISOLATION DES LOCATAIRES ET CHIFFREMENT DE NIVEAU MILITAIRE AES-256.
+          </Text>
+          <TouchableOpacity
+            style={[
+              styles.securityBtn,
+              { borderColor: colors.primary, padding: normalize(15) },
+            ]}
+            onPress={() => handleNavigate("/login")}
+          >
+            <Text
+              style={[
+                styles.securityBtnText,
+                { color: colors.primary, fontSize: normalize(9) },
+              ]}
+            >
+              ACCÉDER AU PROTOCOLE ↗
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ height: normalize(120) }} />
+      </ScrollView>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  loadingText: { marginTop: 20, letterSpacing: 2 },
-  
-  header: { paddingBottom: 20, borderBottomLeftRadius: 32, borderBottomRightRadius: 32 },
-  headerContent: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, paddingTop: 10 },
-  headerTopRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 },
-  protocolLabel: { fontSize: 8, letterSpacing: 1 },
-  headerActions: { flexDirection: 'row', gap: 12, alignItems: 'center' },
-  headerBtn: { width: 40, height: 40, borderRadius: 12, backgroundColor: 'rgba(255,255,255,0.05)', justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)' },
-  avatarBtn: { width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.1)', justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: 'rgba(255,255,255,0.2)' },
-  badge: { position: 'absolute', top: 10, right: 10, width: 8, height: 8, borderRadius: 4, borderWidth: 2, borderColor: '#000' },
-  
-  heroSection: { height: 280, marginTop: -20, zIndex: -1 },
-  heroOverlay: { ...StyleSheet.absoluteFillObject, justifyContent: 'flex-end', padding: 24, paddingBottom: 40 },
-  mainStatsRow: { flexDirection: 'row', gap: 12 },
-  mainStatCard: { flex: 1, padding: 16, borderRadius: 24 },
-  trendRow: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4 },
-  trendText: { fontSize: 10, fontWeight: '900' },
-  unitText: { fontSize: 7, fontWeight: '900', marginTop: 4, opacity: 0.5 },
-  
-  body: { paddingHorizontal: 24, marginTop: -20 },
-  sectionTitle: { fontSize: 10, letterSpacing: 2 },
-  signalCard: { borderRadius: 24, padding: 16 },
-  signalHeader: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 },
-  signalStatus: { fontSize: 9, letterSpacing: 1 },
+  scrollContent: { padding: 0 },
   spacer: { flex: 1 },
-  signalFooter: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 12, opacity: 0.4 },
-  signalTime: { fontSize: 8, fontWeight: '900' },
-  
-  protocolSection: { marginTop: 32 },
-  sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
-  protocolCardWrapper: { width: (width - 48 - 20) / 3 },
-  protocolCard: { height: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 24 },
-  protocolIconBox: { width: 44, height: 44, borderRadius: 14, backgroundColor: 'rgba(255,255,255,0.03)', justifyContent: 'center', alignItems: 'center', marginBottom: 10 },
-  protocolTitle: { letterSpacing: 1 },
-  cardPulse: { position: 'absolute', top: 12, right: 12, width: 12, height: 12, borderRadius: 6, justifyContent: 'center', alignItems: 'center' },
-  quickAccess: { marginTop: 32 },
 
-  horizontalScroll: { gap: 20, paddingRight: 40 },
-  quickItemWrapper: { alignItems: 'center', gap: 8 },
-  quickIcon: { width: 50, height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center', shadowOpacity: 0.3, shadowRadius: 10, elevation: 5 },
-  quickLabel: { letterSpacing: 1, opacity: 0.6 },
-  
-  navigationDock: { position: 'absolute', bottom: 30, left: 24, right: 24 },
-  dockInner: { height: 72, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', borderRadius: 36, paddingHorizontal: 10 },
-  dockIcon: { width: 44, height: 44, justifyContent: 'center', alignItems: 'center' },
-  centerScanBtn: { width: 56, height: 56, borderRadius: 28, justifyContent: 'center', alignItems: 'center', marginTop: -40, shadowOpacity: 0.5, shadowRadius: 15, elevation: 20, borderWidth: 4, borderColor: 'rgba(2, 6, 23, 0.8)' }
+  // FIXED NAV
+  fixedNav: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    height: 80,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    paddingBottom: 15,
+    backgroundColor: "rgba(6, 6, 15, 0.8)",
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255, 255, 255, 0.05)",
+  },
+  navLogo: { flexDirection: "row", alignItems: "center", gap: 8 },
+  navLogoText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "900",
+    letterSpacing: -0.5,
+    fontStyle: "italic",
+  },
+  navDeployBtn: { paddingHorizontal: 15, paddingVertical: 8, borderRadius: 8 },
+  navDeployText: { color: "#fff", fontSize: 10, fontWeight: "900" },
+
+  // SLIDER
+  heroSection: { width: "100%" },
+  slide: { height: "100%" },
+  slideImage: { ...StyleSheet.absoluteFillObject },
+  slideContent: { position: "absolute", bottom: 140, left: 30, right: 30 },
+  slideCodeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginBottom: 10,
+  },
+  codeBadge: { paddingHorizontal: 8, paddingVertical: 2, borderRadius: 4 },
+  codeText: {
+    color: "#fff",
+    fontSize: 8,
+    fontWeight: "900",
+    fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
+  },
+  codeLine: { height: 1, flex: 1, backgroundColor: "rgba(255,255,255,0.2)" },
+  slideTitle: {
+    fontWeight: "900",
+    color: "#fff",
+    textTransform: "uppercase",
+    letterSpacing: -1,
+  },
+  slideDesc: {
+    color: "rgba(255,255,255,0.6)",
+    fontSize: 10,
+    fontWeight: "700",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+    marginTop: 5,
+  },
+
+  // OVERLAY
+  heroOverlay: { flex: 1, justifyContent: "flex-end", padding: 30 },
+  heroContent: { marginBottom: 20 },
+  topHUD: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  proBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    backgroundColor: "rgba(255,255,255,0.05)",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.1)",
+  },
+  proBadgeText: {
+    color: "rgba(255,255,255,0.5)",
+    fontWeight: "900",
+    letterSpacing: 1,
+  },
+  pagination: { flexDirection: "row", gap: 4 },
+  dot: { height: 4, borderRadius: 2 },
+
+  heroTextGroup: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  heroTitleSmall: {
+    fontWeight: "900",
+    color: "rgba(255,255,255,0.3)",
+    letterSpacing: 2,
+  },
+  heroActions: { flexDirection: "row", gap: 10 },
+  primaryBtn: {
+    paddingHorizontal: normalize(24),
+    paddingVertical: normalize(14),
+    borderRadius: normalize(12),
+    minWidth: normalize(140),
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#6366f1",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.4,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+  primaryBtnText: {
+    color: "#fff",
+    fontWeight: "900",
+    fontStyle: "italic",
+    textTransform: "uppercase",
+  },
+  secondaryBtn: {
+    width: normalize(48),
+    height: normalize(48),
+    borderRadius: normalize(12),
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.15)",
+    backgroundColor: "rgba(255,255,255,0.05)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  // TELEMETRY
+  telemetryBar: {
+    paddingVertical: 20,
+    backgroundColor: "#080812",
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,0.05)",
+  },
+  telemetryHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    paddingHorizontal: 30,
+    marginBottom: 15,
+  },
+  telemetryLabel: { color: "#6366f1", fontWeight: "900", letterSpacing: 2 },
+  statsScroll: { gap: 15 },
+  statItem: {
+    padding: 15,
+    backgroundColor: "rgba(255,255,255,0.02)",
+    borderRadius: 12,
+    borderLeftWidth: 2,
+    borderLeftColor: "#6366f1",
+  },
+  statLabel: {
+    color: "rgba(255,255,255,0.3)",
+    fontWeight: "900",
+    marginBottom: 4,
+  },
+  statValue: { fontWeight: "900", color: "#fff" },
+  statDelta: { fontWeight: "900", marginTop: 4 },
+
+  // FEATURES
+  section: { width: "100%" },
+  sectionHeader: { marginBottom: 25 },
+  sectionLabel: {
+    color: "#6366f1",
+    fontWeight: "900",
+    letterSpacing: 2,
+    marginBottom: 5,
+  },
+  sectionTitle: {
+    fontWeight: "900",
+    textTransform: "uppercase",
+    color: "#fff",
+  },
+  featuresGrid: { flexDirection: "row", flexWrap: "wrap", gap: 15 },
+  featureCard: {
+    height: normalize(180),
+    borderRadius: 16,
+    overflow: "hidden",
+    borderWidth: 1,
+  },
+  featureImage: { ...StyleSheet.absoluteFillObject, opacity: 0.3 },
+  featureContent: { flex: 1, padding: 15, justifyContent: "flex-end" },
+  featureNum: {
+    position: "absolute",
+    top: 12,
+    right: 12,
+    color: "rgba(255,255,255,0.1)",
+    fontSize: 10,
+    fontWeight: "900",
+  },
+  featureIconWrapper: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    backgroundColor: "rgba(99, 102, 241, 0.1)",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  featureTitle: { fontWeight: "900", marginBottom: 2 },
+  featureSubtitle: {
+    color: "rgba(255,255,255,0.4)",
+    fontSize: 7,
+    fontWeight: "700",
+  },
+
+  // SECURITY
+  securitySection: {
+    borderRadius: 24,
+    backgroundColor: "#0C0C1A",
+    borderWidth: 1,
+    borderColor: "rgba(99, 102, 241, 0.1)",
+  },
+  securityTitle: { color: "#fff", fontWeight: "900", marginBottom: 10 },
+  securityDesc: {
+    color: "rgba(255,255,255,0.4)",
+    fontWeight: "700",
+    letterSpacing: 1,
+    lineHeight: 14,
+    marginBottom: 25,
+  },
+  securityBtn: { borderRadius: 10, borderWidth: 1, alignItems: "center" },
+  securityBtnText: { fontWeight: "900", letterSpacing: 1 },
 });

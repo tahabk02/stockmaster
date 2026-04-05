@@ -238,13 +238,21 @@ export class ProductController {
 
       const updatedProduct = await Product.findOneAndUpdate(filter, updateData, { new: true }).populate("category");
 
+      // Logic Revision: SNAPSHOT DIFFERENTIAL
+      const changes: any = {};
+      for (const key in req.body) {
+        if (JSON.stringify((product as any)[key]) !== JSON.stringify((updateData as any)[key])) {
+          changes[key] = { from: (product as any)[key], to: (updateData as any)[key] };
+        }
+      }
+
       // Forensic Signal
       await AuditService.log(
         tenantId,
         req.user._id,
         AuditAction.ASSET_UPDATED,
         `Asset Configuration Reallocated: ${product.name}`,
-        { productId: id, changes: Object.keys(req.body) }
+        { productId: id, changes }
       );
 
       res.status(200).json({ success: true, data: updatedProduct });

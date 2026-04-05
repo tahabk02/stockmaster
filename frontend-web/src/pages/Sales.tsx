@@ -130,41 +130,41 @@ export const Sales = () => {
   });
 
   return (
-    <div className={cn("flex flex-col h-[calc(100vh-100px)] bg-[#f8fafc] dark:bg-[#020205] overflow-hidden transition-all rounded-[3.5rem] border border-slate-100 dark:border-white/5 shadow-2xl relative", isRtl ? 'text-right' : 'text-left')}>
+    <div className={cn("flex flex-col h-[calc(100vh-100px)] bg-slate-50 dark:bg-[#020205] overflow-hidden transition-all rounded-[3.5rem] border border-slate-100 dark:border-white/5 shadow-sm dark:shadow-2xl relative", isRtl ? 'text-right' : 'text-left')}>
       <div className="absolute inset-0 grid-pattern opacity-[0.03] dark:opacity-[0.08] pointer-events-none" />
       
       <header className="h-20 bg-white/80 dark:bg-[#020205]/80 backdrop-blur-3xl border-b border-slate-100 dark:border-white/5 flex items-center justify-between px-8 shrink-0 z-30 transition-all">
         <div className={cn("flex items-center gap-10", isRtl && "flex-row-reverse")}>
            <div className={cn("flex flex-col min-w-0", isRtl && "text-right")}>
               <h2 className="text-xl font-black uppercase italic text-slate-900 dark:text-white tracking-tighter leading-none truncate">
-                 Signal <span className="text-indigo-600">Hub.</span>
+                 Signal <span className="text-emerald-600">Hub.</span>
               </h2>
               <div className={cn("flex items-center gap-2 mt-2", isRtl && "flex-row-reverse")}>
-                 <div className="w-1 h-1 bg-indigo-500 rounded-full animate-pulse" />
+                 <div className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse" />
                  <span className="text-[7px] font-black text-slate-400 uppercase tracking-[0.5em] truncate italic">{tenant?.name || "STOCKMASTER"}_NODE_v9.4</span>
               </div>
            </div>
 
-           <div className={cn("flex bg-slate-100 dark:bg-white/5 p-1.5 rounded-2xl border border-transparent dark:border-white/5 shadow-inner", isRtl && "flex-row-reverse")}>
+           <div className={cn("flex bg-slate-100 dark:bg-white/5 p-1.5 rounded-2xl border border-slate-200 dark:border-white/5 shadow-inner", isRtl && "flex-row-reverse")}>
              <button 
                 onClick={() => setActiveTab("TERMINAL")} 
                 className={cn(
                   "px-6 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all border-none relative overflow-hidden group",
-                  activeTab === "TERMINAL" ? "bg-slate-950 dark:bg-white text-white dark:text-black shadow-2xl scale-105" : "text-slate-500 hover:text-indigo-500 bg-transparent"
+                  activeTab === "TERMINAL" ? "bg-white dark:bg-white text-slate-900 dark:text-black shadow-md scale-105" : "text-slate-500 hover:text-emerald-600 dark:hover:text-white bg-transparent"
                 )}
              >
                 <span className="relative z-10">{t('sales.terminal')}</span>
-                {activeTab === "TERMINAL" && <div className="absolute inset-0 bg-indigo-600 opacity-20 animate-pulse pointer-events-none" />}
+                {activeTab === "TERMINAL" && <div className="absolute inset-0 bg-emerald-600 opacity-10 animate-pulse pointer-events-none" />}
              </button>
              <button 
                 onClick={() => setActiveTab("REGISTRY")} 
                 className={cn(
                   "px-6 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all border-none relative overflow-hidden",
-                  activeTab === "REGISTRY" ? "bg-slate-950 dark:bg-white text-white dark:text-black shadow-2xl scale-105" : "text-slate-500 hover:text-indigo-500 bg-transparent"
+                  activeTab === "REGISTRY" ? "bg-white dark:bg-white text-slate-900 dark:text-black shadow-md scale-105" : "text-slate-500 hover:text-emerald-600 dark:hover:text-white bg-transparent"
                 )}
              >
                 <span className="relative z-10">{t('sales.registry')}</span>
-                {activeTab === "REGISTRY" && <div className="absolute inset-0 bg-indigo-600 opacity-20 animate-pulse pointer-events-none" />}
+                {activeTab === "REGISTRY" && <div className="absolute inset-0 bg-emerald-600 opacity-10 animate-pulse pointer-events-none" />}
              </button>
            </div>
         </div>
@@ -181,8 +181,8 @@ export const Sales = () => {
            <button 
              onClick={() => setIsCartOpen(!isCartOpen)} 
              className={cn(
-               "relative p-4 rounded-2xl transition-all border border-transparent active:scale-95 shadow-pro group",
-               isCartOpen ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-50 dark:bg-white/5 text-slate-400 hover:border-indigo-500/30'
+               "relative p-4 rounded-2xl transition-all border border-transparent active:scale-95 shadow-sm group",
+               isCartOpen ? 'bg-emerald-600 text-white shadow-emerald-500/40' : 'bg-white dark:bg-white/5 text-slate-400 border-slate-100 dark:border-white/10'
              )}
            >
               <ShoppingCart size={22} className="group-hover:rotate-12 transition-transform" />
@@ -200,10 +200,10 @@ export const Sales = () => {
           <div className="p-8 space-y-6 shrink-0 bg-white/30 dark:bg-white/[0.02] backdrop-blur-3xl border-b border-slate-100 dark:border-white/5 relative">
              <div className={cn("flex flex-col xl:flex-row gap-4", isRtl && "xl:flex-row-reverse")}>
                 <div className="relative flex-[3] group">
-                   <Search className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors", isRtl ? "right-6" : "left-6")} size={20} />
+                   <Search className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600 transition-colors", isRtl ? "right-6" : "left-6")} size={20} />
                    <input 
                       placeholder={activeTab === 'TERMINAL' ? "SCAN_PRODUCT_LATTICE_NODE..." : "SCAN_TRANSACTION_ID_TRACE..."} 
-                      className={cn("w-full bg-white dark:bg-black/40 rounded-[1.8rem] border border-slate-100 dark:border-white/10 py-5 text-[11px] font-black uppercase tracking-[0.2em] outline-none focus:ring-4 focus:ring-indigo-500/10 shadow-inner transition-all italic", isRtl ? "pr-16 text-right" : "pl-16 pr-6")} 
+                      className={cn("pro-input w-full", isRtl ? "pr-16 text-right" : "pl-16 pr-6")} 
                       value={searchTerm} 
                       onChange={(e)=>setSearchTerm(e.target.value)} 
                    />
@@ -213,13 +213,14 @@ export const Sales = () => {
                       <MapPin className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors", isRtl ? "right-6" : "left-6")} size={20} />
                       <input 
                          placeholder="ZONE_ID..." 
-                         className={cn("w-full bg-white dark:bg-black/40 rounded-[1.8rem] border border-slate-100 dark:border-white/10 py-5 text-[11px] font-black uppercase tracking-[0.2em] outline-none focus:ring-4 focus:ring-emerald-500/10 shadow-inner transition-all italic", isRtl ? "pr-16 text-right" : "pl-16 pr-6")} 
+                         className={cn("pro-input w-full", isRtl ? "pr-16 text-right" : "pl-16 pr-6")} 
                          value={locationSearch} 
                          onChange={(e)=>setLocationSearch(e.target.value)} 
                       />
                    </div>
                 )}
              </div>
+
              {activeTab === 'TERMINAL' && (
                <div className={cn("flex flex-col gap-4", isRtl && "items-end")}>
                   <div className="flex items-center justify-between w-full">

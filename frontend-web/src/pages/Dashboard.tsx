@@ -63,19 +63,32 @@ export const Dashboard = () => {
   );
 
   return (
-    <div className={cn("w-full space-y-6 pb-16 animate-reveal text-slate-900 dark:text-slate-100", isRtl ? "text-right" : "text-left")}>
+    <div className={cn("w-full space-y-6 pb-12 animate-reveal text-slate-900 dark:text-slate-100 relative", isRtl ? "text-right" : "text-left")}>
+      {/* Ambient Backdrop - Ultra Pro Detail */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1]">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/5 blur-[120px] rounded-full animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-500/5 blur-[120px] rounded-full animate-pulse-slow" />
+      </div>
+
       <DashboardHUD t={t} isVendor={isVendor} currentTime={currentTime} stockValue={stats.stockValue} isRtl={isRtl} storeName={tenant?.name} />
 
       <DashboardStatCards stats={stats} systemHealth={systemHealth} t={t} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        <div className="md:col-span-2">
+      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+        <div className="xl:col-span-2">
           <RevenueFlow data={stats.chartData} isRtl={isRtl} t={t} />
         </div>
-        <PredictiveEngine t={t} isRtl={isRtl} />
-        <LegalHealthHUD t={t} isRtl={isRtl} />
+        <div className="xl:col-span-1">
+          <PredictiveEngine t={t} isRtl={isRtl} />
+        </div>
+        <div className="xl:col-span-1">
+          <LegalHealthHUD t={t} isRtl={isRtl} />
+        </div>
       </div>
-      <RecentSignals orders={stats.recentOrders} isRtl={isRtl} t={t} />
+      
+      <div className="pt-2">
+        <RecentSignals orders={stats.recentOrders} isRtl={isRtl} t={t} />
+      </div>
     </div>
   );
 };

@@ -14,7 +14,8 @@ router.put("/tenants/:id/plan", SaaSController.updateTenantPlan);
 router.get("/stats", SaaSController.getGlobalStats);
 
 // Routes pour l'utilisateur lambda (pour s'abonner)
-// These routes are not role-protected by SUPER_ADMIN, only authMiddleware and subscriptionGuard.
-router.post("/create-checkout-session", authMiddleware, subscriptionGuard, SaaSController.createCheckoutSession);
+// These routes are not role-protected by SUPER_ADMIN, only authMiddleware.
+router.post("/create-checkout-session", authMiddleware, SaaSController.createCheckoutSession);
+router.post("/create-payment-intent", authMiddleware, SaaSController.createPaymentIntent);
 
 export default router;

@@ -1,10 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { HomeScreen } from "../screens/HomeScreen";
 import { ScanScreen } from "../screens/ScanScreen";
 import { OfflineSync } from "../screens/OfflineSync";
-import { ProductDetail } from "../screens/ProductDetail"; // زدناها حيت كاينة فالتصويرة ديالك
-import { Camera, RefreshCcw, Package } from "lucide-react-native";
+import { ProductDetail } from "../screens/ProductDetail";
+import { Camera, RefreshCcw, LayoutDashboard } from "lucide-react-native";
 import { theme } from "../theme";
 
 const Tab = createBottomTabNavigator();
@@ -43,11 +44,11 @@ export const AppNavigator = () => {
       }}
     >
       <Tab.Screen
-        name="Inventory"
-        component={OfflineSync}
+        name="Dashboard"
+        component={HomeScreen}
         options={{
-          tabBarIcon: ({ color }) => <Package size={24} color={color} />,
-          tabBarLabel: "Stock",
+          tabBarIcon: ({ color }) => <LayoutDashboard size={24} color={color} />,
+          tabBarLabel: "Home",
         }}
       />
       <Tab.Screen

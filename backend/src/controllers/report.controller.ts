@@ -187,7 +187,7 @@ export const reportController = {
       
       const response = await AIService.processChatQuery(tenantId || "MAIN-PLATFORM", query);
       
-      res.status(200).json({ success: true, response });
+      res.status(200).json({ success: true, data: response });
     } catch (error: any) {
       res.status(500).json({ success: false, message: error.message });
     }

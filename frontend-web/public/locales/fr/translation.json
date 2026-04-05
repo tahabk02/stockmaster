@@ -968,5 +968,160 @@
     "unauthorized": "Accès Refusé",
     "validation": "Incohérence Logique",
     "invalidData": "Données Opérationnelles Incomplètes"
+  },
+  "landing": {
+    "boot": {
+      "init": "Initialisation_Souveraine_OS",
+      "core": "Lattice_Core_v4.2_Actif"
+    },
+    "nav": {
+      "logo_main": "STOCKMASTER",
+      "logo_pro": "PRO.",
+      "console": "CONSOLE",
+      "deploy": "DÉPLOYER ↗"
+    },
+    "hero": {
+      "status": "SOVEREIGN_OS_v4.2 // ACTIF",
+      "title_1": "ENTREPRISE",
+      "title_2": "COMMANDE",
+      "title_3": "CENTRALE.",
+      "desc_1": "Système d'exploitation logistique souverain pour entreprises à haut rendement.",
+      "desc_2": "Gérez vos stocks, vos flux et vos données avec une précision militaire.",
+      "cta_init": "INITIALISER ↗",
+      "cta_demo": "VOIR DÉMO"
+    },
+    "stats": {
+      "items": "Articles gérés",
+      "orders": "Commandes",
+      "uptime": "Uptime Système",
+      "optimal": "OPTIMAL",
+      "teams": "Équipes Nodes"
+    },
+    "features": {
+      "subtitle": "// CAPACITÉS_SYSTÈME",
+      "title_1": "FONCTIONNALITÉS",
+      "title_2": "CORE.",
+      "stocks": {
+        "title": "STOCKS",
+        "desc": "Inventaire matriciel avec synchronisation multi-entrepôts.",
+        "details": [
+          "Gestion multi-sites en temps réel",
+          "Algorithmes de réapprovisionnement IA",
+          "Traçabilité complète par numéros de série",
+          "Alertes de stock critique intelligentes"
+        ],
+        "tags": ["LOGISTICS", "REALTIME", "v4.2"]
+      },
+      "suppliers": {
+        "title": "CRM FOURNISSEURS",
+        "desc": "Registre centralisé des partenaires et flux d'achats.",
+        "details": [
+          "Portail fournisseur sécurisé",
+          "Évaluation automatisée des performances",
+          "Historique des transactions chiffré",
+          "Workflow d'approbation multiniveaux"
+        ],
+        "tags": ["CRM", "PROCUREMENT", "SECURE"]
+      },
+      "invoicing": {
+        "title": "FACTURATION",
+        "desc": "Automatisation des flux financiers et documents PDF.",
+        "details": [
+          "Génération PDF haute fidélité",
+          "Multi-devises et taux dynamiques",
+          "Conformité fiscale automatisée",
+          "Intégration passerelles de paiement"
+        ],
+        "tags": ["FINANCE", "AUTOMATION", "PDF"]
+      },
+      "analytics": {
+        "title": "ANALYTICS",
+        "desc": "Visualisation neurale des performances et prévisions.",
+        "details": [
+          "Tableaux de bord prédictifs",
+          "Analyse des tendances saisonnières",
+          "Rapports personnalisés haute densité",
+          "Exportation de données brute (CSV/JSON)"
+        ],
+        "tags": ["DATA", "ANALYSIS", "PREDICTIVE"]
+      },
+      "security": {
+        "title": "SÉCURITÉ JWT",
+        "desc": "Isolation totale des données et chiffrement militaire.",
+        "details": [
+          "Authentification multi-facteurs (MFA)",
+          "Chiffrement AES-256 au repos",
+          "Isolation des locataires (Tenancy)",
+          "Audit des accès forensic"
+        ],
+        "tags": ["SECURITY", "CYBER", "ENCRYPTED"]
+      },
+      "notifications": {
+        "title": "NOTIFICATIONS",
+        "desc": "Système d'alertes instantanées par mail et push.",
+        "details": [
+          "Règles de notification granulaires",
+          "Webhooks pour intégrations externes",
+          "Canaux SMS/Email/Push configurables",
+          "Files d'attente haute priorité"
+        ],
+        "tags": ["SIGNAL", "ALERTS", "HUB"]
+      }
+    },
+    "analytics_sec": {
+      "subtitle": "// VISUALISATION_DONNÉES",
+      "title_1": "BENTO",
+      "title_2": "ANALYTIQUE.",
+      "lattice_preview": "Aperçu Stock_Lattice",
+      "uptime": "Uptime Système",
+      "orders_24h": "Commandes 24h",
+      "velocity": "↑ 14.2%_VÉLOCITÉ",
+      "global_sync": "Global_Lattice_Sync"
+    },
+    "flux": {
+      "subtitle": "Flux_Neural_Temps_Réel",
+      "title_1": "Neural",
+      "title_2": "Flux.",
+      "desc": "Synchronisation télémétrique à l'échelle planétaire. Dominance industrielle sans latence.",
+      "delta": "Delta_Réseau",
+      "audit": "Zénith_Audit"
+    },
+    "axis": {
+      "title_1": "Axe",
+      "title_2": "Central.",
+      "desc": "Commande spatiale unifiée de chaque node planétaire."
+    },
+    "stack": {
+      "subtitle": "// ARCHITECTURE_STACK",
+      "title_1": "TECH",
+      "title_2": "STACK.",
+      "rn": "Mobile Core",
+      "node": "Backend Zenith",
+      "mongo": "Forensic Data",
+      "zustand": "State Logic",
+      "ts": "Type Integrity",
+      "jwt": "Auth Lattice",
+      "i18n": "Global Sync",
+      "docker": "Container OS"
+    },
+    "cta_sec": {
+      "title_1": "PRÊT À /",
+      "title_2": "DOMINER ?",
+      "deploy": "DÉPLOYER_OS_v18",
+      "docs": "SYSTEM_DOCS"
+    },
+    "footer": {
+      "desc": "L'infrastructure ERP souveraine pour l'industrie moderne. v18.0_Zenith_Axis_Lattice.",
+      "product": "Produit",
+      "modules": "Modules",
+      "security": "Sécurité",
+      "analytics": "Analytique",
+      "company": "Entreprise",
+      "about": "À propos",
+      "contact": "Contact",
+      "legal": "Légal",
+      "copyright": "© 2026 // NEURAL_OS // ALL_SIGNALS_LOCKED",
+      "status": "NODE_STABLE"
+    }
   }
 }

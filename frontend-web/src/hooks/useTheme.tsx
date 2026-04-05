@@ -3,15 +3,17 @@ import { useThemeStore } from "../store/theme.slice";
 import { useAuth } from "../store/auth.slice";
 import api from "../api/client";
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { theme, toggleTheme, setTheme } = useThemeStore();
   const { user } = useAuth();
 
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.remove("light", "dark");
-    root.classList.add(theme);
-    
+    root.classList.toggle("dark", theme === "dark");
+    root.classList.remove("light");
+
     // Smooth transition logic handled by CSS transition-colors
   }, [theme]);
 
@@ -27,5 +29,5 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
 export const useTheme = () => {
   const { theme, toggleTheme, setTheme } = useThemeStore();
-  return { theme, toggleTheme, setTheme, isDarkMode: theme === 'dark' };
+  return { theme, toggleTheme, setTheme, isDarkMode: theme === "dark" };
 };

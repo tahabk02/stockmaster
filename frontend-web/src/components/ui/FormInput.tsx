@@ -12,9 +12,10 @@ const FormInput: React.FC<FormInputProps> = ({ label, isRtl, ...props }) => (
     </label>
     <input
       {...props}
-      className={`w-full bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl p-4 font-bold text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500 transition-all shadow-sm ${isRtl ? 'text-right' : ''}`}
+      className={`pro-input w-full ${isRtl ? 'text-right' : ''}`}
     />
   </div>
 );
+
 
 export default FormInput;

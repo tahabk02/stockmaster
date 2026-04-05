@@ -132,7 +132,10 @@ export class SaaSController {
     }
 
     try {
-      let customerId = req.tenant.customerId;
+      const tenant = await Tenant.findOne({ slug: tenantId });
+      if (!tenant) return res.status(404).json({ success: false, message: "Tenant introuvable." });
+
+      let customerId = tenant.customerId;
 
       if (!customerId) {
         const customer = await stripe.customers.create({
@@ -171,6 +174,31 @@ export class SaaSController {
       res.json({ success: true, url: session.url });
     } catch (error: any) {
       console.error("Stripe Checkout Session Error:", error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
+
+  // Create Payment Intent for Embedded Payment
+  static createPaymentIntent = async (req: any, res: Response) => {
+    const { planName } = req.body;
+    const plan = (plansConfig as any)[planName];
+
+    if (!plan) return res.status(400).json({ success: false, message: "Plan invalide." });
+
+    try {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: plan.amount,
+        currency: plan.currency,
+        automatic_payment_methods: { enabled: true },
+        metadata: {
+          tenantId: req.user.tenantId,
+          planName: planName,
+        },
+      });
+
+      res.json({ success: true, clientSecret: paymentIntent.client_secret });
+    } catch (error: any) {
+      console.error("Stripe Payment Intent Error:", error);
       res.status(500).json({ success: false, message: error.message });
     }
   };

@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { User, Store, ShieldCheck, ChevronRight, Gem, LayoutDashboard, Settings as SettingsIcon, Terminal, Activity } from "lucide-react";
+import {
+  User,
+  Store,
+  ShieldCheck,
+  ChevronRight,
+  Gem,
+  LayoutDashboard,
+  Settings as SettingsIcon,
+  Terminal,
+  Activity,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTenant } from "../store/tenant.slice";
 import { useAuth } from "../store/auth.slice";
@@ -12,8 +22,7 @@ import { ProfileSettings } from "../components/settings/ProfileSettings";
 import { StoreSettings } from "../components/settings/StoreSettings";
 import { SubscriptionSettings } from "../components/settings/SubscriptionSettings";
 import { SecuritySettings } from "../components/settings/SecuritySettings";
-
-// --- Hard System Assets ---
+import { SignalCorporateSettings } from "../components/settings/SignalCorporateSettings";
 
 const GridPattern = () => (
   <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-[0.03] dark:opacity-[0.1] pointer-events-none" />
@@ -34,25 +43,36 @@ export const Settings = () => {
   const [activeTab, setActiveTab] = useState("profile");
   const { tenant, fetchTenant } = useTenant();
   const { user, setUser } = useAuth();
-  const isRtl = i18n.language === 'ar';
+  const isRtl = i18n.language === "ar";
 
-  useEffect(() => { if (!tenant) fetchTenant(); }, [tenant, fetchTenant]);
+  useEffect(() => {
+    if (!tenant) fetchTenant();
+  }, [tenant, fetchTenant]);
 
   const menuItems = [
-    { id: "profile", label: t('settings.profile'), icon: User },
-    { id: "store", label: t('settings.branding'), icon: Store },
-    { id: "plans", label: t('settings.subscriptions'), icon: Gem },
-    { id: "security", label: t('settings.security'), icon: ShieldCheck },
+    { id: "profile", label: t("settings.profile"), icon: User },
+    { id: "store", label: t("settings.branding"), icon: Store },
+    { id: "corporate", label: "Signal Corporate", icon: Activity },
+    { id: "plans", label: t("settings.subscriptions"), icon: Gem },
+    { id: "security", label: t("settings.security"), icon: ShieldCheck },
   ];
 
-  if (user?.role === "SUPER_ADMIN") menuItems.push({ id: "saas", label: "SaaS Control", icon: LayoutDashboard });
+  if (user?.role === "SUPER_ADMIN")
+    menuItems.push({
+      id: "saas",
+      label: "SaaS Control",
+      icon: LayoutDashboard,
+    });
 
   return (
-    <div className={cn("w-full space-y-10 pb-20 animate-reveal relative", isRtl ? 'text-right' : 'text-left')}>
-      
-      {/* 1. CALIBRATION HEADER */}
+    <div
+      className={cn(
+        "w-full space-y-10 pb-20 animate-reveal relative",
+        isRtl ? "text-right" : "text-left",
+      )}
+    >
       <header className={cn("group relative bg-white dark:bg-slate-950 p-10 rounded-[3rem] shadow-pro dark:shadow-4xl overflow-hidden border border-slate-200 dark:border-white/5 transition-all duration-700", isRtl && "flex-row-reverse md:flex-row")}>
-         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-[0.03] dark:opacity-[0.1] pointer-events-none" />
+         <GridPattern />
          <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/[0.03] dark:bg-indigo-600/10 rounded-full -mr-48 -mt-48 blur-[100px]" />
          <Scanline />
 
@@ -89,12 +109,15 @@ export const Settings = () => {
          </div>
       </header>
 
-      <div className={cn("grid grid-cols-1 lg:grid-cols-12 gap-10", isRtl && "rtl")}>
-        {/* Sidebar Terminal */}
+      <div
+        className={cn(
+          "grid grid-cols-1 lg:grid-cols-12 gap-10",
+          isRtl && "rtl",
+        )}
+      >
         <div className="lg:col-span-4">
            <SettingsSidebar menuItems={menuItems} activeTab={activeTab} setActiveTab={setActiveTab} isRtl={isRtl} />
            
-           {/* Hard System Status Node */}
            <div className="mt-8 bg-slate-950 p-8 rounded-[2.5rem] border border-white/5 hidden lg:block relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent" />
               <div className="relative z-10 space-y-6">
@@ -111,25 +134,42 @@ export const Settings = () => {
            </div>
         </div>
 
-        {/* Main Configuration Deck */}
         <main className="lg:col-span-8 bg-white dark:bg-slate-950 rounded-[4rem] border border-slate-200 dark:border-white/5 shadow-pro dark:shadow-4xl min-h-[700px] relative overflow-hidden transition-all duration-700">
           <GridPattern />
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/[0.03] dark:bg-indigo-600/5 rounded-full blur-[120px] pointer-events-none" />
-          
+
           <div className="p-10 md:p-16 relative z-10">
             <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, x: isRtl ? -20 : 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: isRtl ? 20 : -20 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                >
-                  {activeTab === 'profile' && <ProfileSettings user={user} setUser={setUser} t={t} isRtl={isRtl} />}
-                  {activeTab === 'store' && <StoreSettings t={t} isRtl={isRtl} />}
-                  {activeTab === 'plans' && <SubscriptionSettings t={t} isRtl={isRtl} />}
-                  {activeTab === 'security' && <SecuritySettings t={t} isRtl={isRtl} />}
-                </motion.div>
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, x: isRtl ? -20 : 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: isRtl ? 20 : -20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                {activeTab === "profile" && (
+                  <ProfileSettings
+                    user={user}
+                    setUser={setUser}
+                    t={t}
+                    isRtl={isRtl}
+                  />
+                )}
+                {activeTab === "store" && <StoreSettings t={t} isRtl={isRtl} />}
+                {activeTab === "corporate" && (
+                  <SignalCorporateSettings t={t} isRtl={isRtl} />
+                )}
+                {activeTab === "plans" && (
+                  <SubscriptionSettings t={t} isRtl={isRtl} />
+                )}
+                {activeTab === "security" && (
+                  <SecuritySettings t={t} isRtl={isRtl} />
+                )}
+                {activeTab === "saas" && (
+                  <SaasControlSettings isRtl={isRtl} />
+                )}
+              </motion.div>
+
             </AnimatePresence>
           </div>
 
@@ -150,8 +190,17 @@ export const Settings = () => {
 
 const StatusLine = ({ label, val, color }: any) => (
   <div className="flex justify-between items-center border-b border-white/5 pb-3 group/line">
-     <span className="text-[9px] font-black uppercase text-slate-600 group-hover/line:text-slate-400 transition-colors tracking-tighter">{label}</span>
-     <span className={cn("text-[10px] font-black italic tabular-nums", `text-${color}-500`)}>{val}</span>
+    <span className="text-[9px] font-black uppercase text-slate-600 group-hover/line:text-slate-400 transition-colors tracking-tighter">
+      {label}
+    </span>
+    <span
+      className={cn(
+        "text-[10px] font-black italic tabular-nums",
+        `text-${color}-500`,
+      )}
+    >
+      {val}
+    </span>
   </div>
 );
 

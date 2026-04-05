@@ -174,32 +174,32 @@ export const FinancialIntelligence = () => {
     <div className={cn("w-full p-2 md:p-4 space-y-8 pb-32 animate-reveal relative min-h-screen text-slate-900 dark:text-slate-200", isRtl ? "text-right" : "text-left")}>
       
       {/* 1. HARD SYSTEM HUD HEADER */}
-      <header className="group relative bg-white/10 dark:bg-slate-950 backdrop-blur-3xl p-8 md:p-12 rounded-[2.5rem] shadow-2xl overflow-hidden border border-white/10 transition-all duration-700">
+      <header className="group relative theme-card p-8 md:p-12 rounded-[2.5rem] overflow-hidden accent-fiscal transition-all duration-700">
          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] pointer-events-none" />
-         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-600/10 rounded-full -mr-64 -mt-64 blur-[120px] pointer-events-none" />
+         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/10 dark:bg-indigo-600/10 rounded-full -mr-64 -mt-64 blur-[120px] pointer-events-none" />
          <Scanline />
 
          <div className={cn("relative z-10 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-8", isRtl && "flex-col")}>
             <div className="space-y-6 w-full xl:w-auto">
                <div className={cn("flex items-center gap-5", isRtl && "flex-row-reverse")}>
-                  <div className="p-4 bg-indigo-600 rounded-2xl shadow-[0_0_30px_rgba(79,70,229,0.3)] border border-white/20">
+                  <div className="p-4 bg-emerald-500 rounded-2xl shadow-lg shadow-emerald-500/20 border border-white/20">
                      <Cpu size={32} className="text-white animate-pulse" />
                   </div>
                   <div className={isRtl ? "text-right" : "text-left"}>
-                     <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-slate-950 dark:text-white">
-                       {t('fiscal.title').split(' ')[0]}_<span className="text-indigo-600 dark:text-indigo-500">{t('fiscal.oscillator')}</span>
+                     <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-slate-900 dark:text-white">
+                       {t('fiscal.title').split(' ')[0]}_<span className="text-emerald-600 dark:text-indigo-500">{t('fiscal.oscillator')}</span>
                      </h1>
                      <div className={cn("flex items-center gap-4 mt-3 ml-1", isRtl && "flex-row-reverse")}>
                         <PulseNode color="emerald" label="Lattice_Sync_v9.4" />
-                        <div className="w-px h-3 bg-white/10" />
+                        <div className="w-px h-3 bg-slate-200 dark:bg-white/10" />
                         <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest italic">{t('dashboard.traceId')}: 0x82F...A9</span>
                      </div>
                   </div>
                </div>
 
-               <nav className={cn("flex bg-black/20 p-1 rounded-2xl border border-white/5 backdrop-blur-3xl shadow-inner w-fit", isRtl && "flex-row-reverse mx-auto xl:mx-0")}>
+               <nav className={cn("flex bg-slate-50 dark:bg-black/20 p-1 rounded-2xl border border-slate-100 dark:border-white/5 shadow-inner w-fit", isRtl && "flex-row-reverse mx-auto xl:mx-0")}>
                   {(["CORE", "LEDGER", "AI"] as const).map(tab => (
-                    <button key={tab} onClick={() => setActiveTab(tab)} className={cn("px-8 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all border-none relative overflow-hidden group/btn", activeView === tab ? "bg-white text-slate-950 shadow-2xl scale-105" : "text-slate-500 hover:text-white bg-transparent")}>
+                    <button key={tab} onClick={() => setActiveTab(tab)} className={cn("px-8 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all border-none relative overflow-hidden group/btn shadow-sm", activeView === tab ? "bg-white dark:bg-white/10 text-slate-900 dark:text-white shadow-md scale-105" : "text-slate-500 hover:text-slate-900 dark:hover:text-white bg-transparent")}>
                        <span className="relative z-10">{tab === "CORE" ? t('fiscal.telemetry') : tab === "LEDGER" ? t('fiscal.forensicLogs') : t('fiscal.neuralProjection')}</span>
                     </button>
                   ))}
@@ -207,30 +207,31 @@ export const FinancialIntelligence = () => {
             </div>
 
             <div className={cn("flex flex-wrap gap-4 relative z-10 w-full xl:w-auto", isRtl && "flex-row-reverse justify-center")}>
-               <div className={cn("bg-white/5 backdrop-blur-2xl border border-white/10 p-6 rounded-[2rem] flex items-center gap-8 shadow-3xl hover:border-indigo-500/30 transition-all", isRtl && "flex-row-reverse")}>
+               <div className={cn("bg-white dark:bg-white/5 backdrop-blur-2xl border border-slate-100 dark:border-white/10 p-6 rounded-[2rem] flex items-center gap-8 shadow-sm dark:shadow-3xl hover:border-emerald-500/30 transition-all", isRtl && "flex-row-reverse")}>
                   <div className="text-center space-y-1">
                      <p className="text-[7px] font-black text-slate-500 uppercase tracking-widest">{t('fiscal.resonanceIndex')}</p>
                      <p className="text-4xl font-black text-emerald-500 italic leading-none tabular-nums">A+</p>
                   </div>
-                  <div className="w-px h-12 bg-white/10" />
+                  <div className="w-px h-12 bg-slate-200 dark:bg-white/10" />
                   <div className="text-center space-y-1">
                      <p className="text-[7px] font-black text-slate-500 uppercase tracking-widest">{t('fiscal.capitalVelocity')}</p>
-                     <p className="text-4xl font-black text-indigo-400 italic leading-none tabular-nums">
+                     <p className="text-4xl font-black text-emerald-600 dark:text-indigo-400 italic leading-none tabular-nums">
                        {((data?.netProfit / (data?.revenue || 1)) * 100).toFixed(1)}<span className="text-base opacity-40">%</span>
                      </p>
                   </div>
                </div>
                <div className={cn("flex xl:flex-col gap-2", isRtl && "flex-row-reverse")}>
-                  <button onClick={fetchFinance} className="p-5 bg-white/5 hover:bg-indigo-600 rounded-2xl border border-white/10 text-white transition-all active:scale-90 shadow-xl group/sync">
+                  <button onClick={fetchFinance} className="p-5 bg-white dark:bg-white/5 hover:bg-emerald-500 rounded-2xl border border-slate-100 dark:border-white/10 text-slate-400 dark:text-white transition-all active:scale-90 shadow-sm dark:shadow-xl group/sync">
                      <RefreshCcw size={20} className="group-hover/sync:rotate-180 transition-transform duration-1000" />
                   </button>
-                  <button onClick={() => setShowExport(true)} className="p-5 bg-white text-slate-950 rounded-2xl font-black transition-all shadow-xl active:scale-95 hover:bg-indigo-600 hover:text-white">
+                  <button onClick={() => setShowExport(true)} className="p-5 bg-emerald-500 text-white rounded-2xl font-black transition-all shadow-lg shadow-emerald-500/20 active:scale-95 hover:bg-emerald-600">
                      <Download size={20} />
                   </button>
                </div>
             </div>
          </div>
       </header>
+
 
       <AnimatePresence mode="wait">
         {activeView === "CORE" && (

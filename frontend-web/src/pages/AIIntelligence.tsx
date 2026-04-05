@@ -1,223 +1,201 @@
-import React, { useState, useEffect } from "react";
-import { Cpu, Sparkles, Zap, Activity, TrendingUp, Target, Lightbulb, Camera, Loader2, MessageSquare } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import api from "../api/client";
-import { toast } from "react-hot-toast";
+import { 
+  Bot, Send, Sparkles, Activity, ShieldCheck, 
+  Cpu, Zap, BrainCircuit, Terminal, RefreshCw, 
+  ChevronRight, Box, TrendingUp, AlertTriangle 
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "../lib/utils";
-
-// --- Simplified Components ---
-import { MatrixTerminal } from "../components/ai/MatrixTerminal";
-import { AILabs } from "../components/ai/AILabs";
-import { NeuralChatHUD } from "../components/ai/NeuralChatHUD";
-import { InsightsFeed } from "../components/ai/InsightsFeed";
+import api from "../api/client";
+import { toast } from "react-hot-toast";
 
 export const AIIntelligence = () => {
   const { t, i18n } = useTranslation();
-  const [loading, setLoading] = useState(true);
-  const [analyzing, setAnalyzing] = useState(false);
-  const [products, setProducts] = useState<any[]>([]);
-  const [insights, setInsights] = useState<any[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<string>("");
-  const [diagnosis, setDiagnosis] = useState<any>(null);
-  const [supplyData, setSupplyData] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState<"DIAGNOSTIC" | "VISION" | "SUPPLY">("DIAGNOSTIC");
-  const [mobileView, setMobileView] = useState<"FEED" | "LABS" | "CHAT">("LABS");
-  const [chatInput, setChatInput] = useState("");
-  const [messages, setMessages] = useState<any[]>([{ role: 'ai', text: 'Neural Interface v5.0 active. How can I assist your strategy today?' }]);
-  const [isListening, setIsListening] = useState(false);
-  const [visionImage, setVisionImage] = useState<string | null>(null);
-  const [visionResult, setVisionResult] = useState<any>(null);
-  const [terminalSignal, setTerminalSignal] = useState<string>("");
-  const [isThinking, setIsThinking] = useState(false);
+  const isRtl = i18n.language === "ar";
+  const [query, setQuery] = useState("");
+  const [messages, setMessages] = useState<any[]>([
+    { role: "bot", content: "Neural Link established. Standby for query execution...", timestamp: new Date() }
+  ]);
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("STABLE");
+  const chatEndRef = useRef<null | HTMLDivElement>(null);
 
-  const radarData = [
-    { subject: 'Velocity', A: 120 }, { subject: 'Margin', A: 98 }, { subject: 'Accuracy', A: 86 }, 
-    { subject: 'Lattice', A: 99 }, { subject: 'Liquidity', A: 85 },
-  ];
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
-  useEffect(() => { fetchInitialData(); }, []);
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
-  const fetchInitialData = async () => {
+  const handleSend = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+
+    const userMsg = { role: "user", content: query, timestamp: new Date() };
+    setMessages(prev => [...prev, userMsg]);
+    setQuery("");
+    setLoading(true);
+    setStatus("PROCESSING");
+
     try {
-      const [prodRes, insightRes, supplyRes] = await Promise.all([
-        api.get("/products"), 
-        api.get("/ai/insights"), 
-        api.get("/ai/supply")
-      ]);
-      setProducts(prodRes.data.data || []); 
-      setInsights(insightRes.data.insights || []); 
-      setSupplyData(supplyRes.data);
-      setTerminalSignal("SYSTEM_READY: LATTICE SYNCHRONIZED");
-    } catch (e) { 
-      toast.error(t('errors.networkError')); 
-      setTerminalSignal("CRITICAL: LATTICE SYNC FAILURE");
-    } finally { 
-      setLoading(false); 
+      const res = await api.post("/ai/chat", { query });
+      const botMsg = { role: "bot", content: res.data.data.response, timestamp: new Date() };
+      setMessages(prev => [...prev, botMsg]);
+      setStatus("STABLE");
+    } catch (error) {
+      toast.error("Neural Signal Interrupted");
+      setStatus("ERROR");
+    } finally {
+      setLoading(false);
     }
   };
-
-  const handleChat = async () => {
-    if (!chatInput.trim()) return;
-    const userMsg = chatInput;
-    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
-    setChatInput("");
-    setIsThinking(true);
-    setTerminalSignal(`PROCESSING_QUERY: ${userMsg.slice(0, 15).toUpperCase()}...`);
-    
-    try {
-      const res = await api.post("/ai/chat", { query: userMsg }, {
-        headers: { 'Accept-Language': i18n.language }
-      });
-      setMessages(prev => [...prev, { role: 'ai', text: res.data.response }]);
-      setTerminalSignal("RESPONSE_GENERATED: SENT TO HUD");
-    } catch (e) { 
-      toast.error(t('errors.serverError'));
-      setTerminalSignal("ERROR: NLP MODULE FAILURE");
-    } finally { 
-      setIsThinking(false); 
-    }
-  };
-
-  const handleVisionAnalyze = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-      const base64Image = reader.result as string;
-      setVisionImage(base64Image);
-      setAnalyzing(true);
-      setTerminalSignal("INIT_OPTICAL_FORENSICS_SEQUENCE");
-      
-      try {
-        const res = await api.post("/ai/vision", { image: base64Image });
-        setVisionResult(res.data);
-        setTerminalSignal(`NODE_IDENTIFIED: CONFIDENCE_${res.data.confidence}%`);
-      } catch (e) {
-        toast.error("Vision Analysis Failed");
-        setTerminalSignal("ERROR: OPTICAL FEED INTERRUPTED");
-      } finally {
-        setAnalyzing(false);
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleDiagnose = async () => {
-    if (!selectedProduct) return;
-    setAnalyzing(true);
-    setTerminalSignal(`DIAGNOSTIC_LINK: NODE_${selectedProduct.slice(-4).toUpperCase()}`);
-    
-    try {
-      const res = await api.post("/ai/diagnose", { productId: selectedProduct }, {
-        headers: { 'Accept-Language': i18n.language }
-      });
-      setDiagnosis(res.data);
-      setTerminalSignal("DIAGNOSTIC_SUCCESS: INSIGHTS READY");
-      toast.success(t('common.success'), { icon: "🧠" });
-    } catch (e) { 
-      setTerminalSignal("LINK_FAILURE: RETRYING...");
-      toast.error(t('errors.serverError')); 
-    } finally { 
-      setAnalyzing(false); 
-    }
-  };
-
-  const isRtl = i18n.language === 'ar';
-
-  if (loading) return (
-    <div className="h-screen flex flex-col items-center justify-center bg-[#020205]">
-       <div className="relative">
-          <motion.div animate={{ rotate: 360 }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }} className="w-24 h-24 border-t-2 border-indigo-500 rounded-full" />
-          <Cpu className="absolute inset-0 m-auto text-indigo-500 animate-pulse" size={32} />
-       </div>
-       <p className="mt-8 text-[10px] font-black uppercase tracking-[0.5em] text-indigo-400 animate-pulse">Initializing Neural Lattice...</p>
-    </div>
-  );
 
   return (
-    <div className={cn("max-w-[1600px] mx-auto space-y-10 pb-32 px-4 md:px-10 animate-reveal relative", isRtl ? "font-ar text-right" : "font-sans text-left")}>
-      
-      {/* --- CLASSY MINIMAL HEADER --- */}
-      <header className="flex flex-col items-center text-center space-y-6 pt-10">
-         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-16 h-16 bg-indigo-600 rounded-[1.8rem] flex items-center justify-center text-white shadow-[0_20px_50px_rgba(79,70,229,0.3)] rotate-3">
-            <Sparkles size={32} strokeWidth={2.5} />
-         </motion.div>
-         <div className="space-y-3">
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic text-slate-900 dark:text-white leading-none">
-               Intelligence <span className="text-indigo-600">Hub.</span>
-            </h1>
-            <div className="flex items-center justify-center gap-4">
-               <div className="px-4 py-1.5 bg-indigo-600/10 border border-indigo-500/20 rounded-xl flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]" />
-                  <span className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.4em]">Neural_Engine_v5.4_Active</span>
-               </div>
+    <div className="space-y-8 pb-20">
+      {/* 1. NEURAL CORE HUD */}
+      <header className="theme-card p-10 relative overflow-hidden accent-sky">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px] -mr-64 -mt-64 animate-pulse" />
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+          <div className="space-y-4">
+            <div className={cn("flex items-center gap-4", isRtl && "flex-row-reverse")}>
+              <div className="p-4 bg-indigo-600 rounded-2xl shadow-xl shadow-indigo-500/20 rotate-3 transition-transform hover:rotate-0 text-white">
+                <BrainCircuit size={32} className="text-white animate-pulse" />
+              </div>
+              <div>
+                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-slate-900 dark:text-white">
+                  Neural <span className="text-indigo-600">Core.</span>
+                </h1>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mt-3 italic leading-none">Cognitive_Intelligence_v9.4</p>
+              </div>
             </div>
-         </div>
+          </div>
+
+          <div className={cn("flex gap-4", isRtl && "flex-row-reverse")}>
+            <StatNode label="Status" val={status} color={status === 'ERROR' ? 'rose' : status === 'PROCESSING' ? 'amber' : 'emerald'} pulse />
+            <StatNode label="Model" val="Gemini 1.5 Pro" color="sky" />
+          </div>
+        </div>
       </header>
 
-      {/* --- MOBILE NAVIGATION CONTROL --- */}
-      <div className="xl:hidden flex justify-center p-2 bg-slate-100 dark:bg-white/5 rounded-full border border-white/10 w-fit mx-auto shadow-inner">
-         {[
-           { id: "FEED", label: "Registry", icon: Activity },
-           { id: "LABS", label: "Labs", icon: Cpu },
-           { id: "CHAT", label: "Neural Chat", icon: MessageSquare }
-         ].map(tab => (
-           <button 
-             key={tab.id}
-             onClick={() => setMobileView(tab.id as any)}
-             className={cn(
-               "px-6 py-3 rounded-full text-[9px] font-black uppercase tracking-widest transition-all duration-500 border-none flex items-center gap-3",
-               mobileView === tab.id ? 'bg-white dark:bg-indigo-600 text-indigo-600 dark:text-white shadow-xl scale-105' : 'text-slate-500 hover:text-white'
-             )}
-           >
-              <tab.icon size={14} /> {tab.label}
-           </button>
-         ))}
-      </div>
-
-      {/* --- CREATIVE THREE-COLUMN FOCUS --- */}
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 items-start relative z-10">
-         
-         {/* LEFT: System Feed (Matrix Terminal + Insights) */}
-         <div className={cn("xl:col-span-3 space-y-8", mobileView !== "FEED" && "hidden xl:block")}>
-            <MatrixTerminal externalSignal={terminalSignal} />
-            <div className="p-8 bg-indigo-600 rounded-[2.5rem] text-white shadow-4xl relative overflow-hidden group border border-indigo-400/20">
-               <Zap className="absolute -bottom-6 -right-6 w-32 h-32 opacity-10 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-1000" />
-               <div className="relative z-10">
-                  <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-60 mb-3 italic">Priority_Deployment</p>
-                  <p className="text-xl font-black italic uppercase leading-none tracking-tighter">Maximize Supply Chain <br /> Recovery Signals</p>
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+        {/* 2. NEURAL INTERFACE (CHAT) */}
+        <div className="xl:col-span-8 space-y-6">
+          <div className="theme-card h-[600px] flex flex-col relative overflow-hidden">
+            <div className="absolute inset-0 grid-pattern opacity-[0.03] pointer-events-none" />
+            
+            <div className="p-6 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02] flex justify-between items-center relative z-10">
+               <div className="flex items-center gap-3">
+                  <Terminal size={16} className="text-indigo-600" />
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Secure_Command_Terminal</span>
                </div>
+               <ShieldCheck size={16} className="text-emerald-500" />
             </div>
-            <InsightsFeed insights={insights} isRtl={isRtl} />
-         </div>
 
-         {/* CENTER: Main Lab (AI Labs) */}
-         <div className={cn("xl:col-span-6 space-y-8", mobileView !== "LABS" && "hidden xl:block")}>
-            <AILabs 
-               activeTab={activeTab} setActiveTab={setActiveTab} 
-               selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct}
-               products={products} analyzing={analyzing} diagnosis={diagnosis}
-               handleDiagnose={handleDiagnose} visionImage={visionImage}
-               setVisionImage={setVisionImage} visionResult={visionResult}
-               setVisionResult={setVisionResult} handleVisionAnalyze={handleVisionAnalyze}
-               supplyData={supplyData} radarData={radarData} isRtl={isRtl} t={t}
-            />
-         </div>
+            <div className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
+              <AnimatePresence>
+                {messages.map((msg, i) => (
+                  <motion.div 
+                    key={i} 
+                    initial={{ opacity: 0, y: 10 }} 
+                    animate={{ opacity: 1, y: 0 }}
+                    className={cn("flex gap-4", msg.role === 'user' ? "flex-row-reverse" : "flex-row")}
+                  >
+                    <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shrink-0", 
+                      msg.role === 'user' ? "bg-indigo-600 text-white" : "bg-slate-100 dark:bg-white/10 text-indigo-600")}>
+                      {msg.role === 'user' ? <Cpu size={18} /> : <Bot size={18} />}
+                    </div>
+                    <div className={cn("max-w-[80%] p-5 rounded-2xl border transition-all", 
+                      msg.role === 'user' 
+                        ? "bg-indigo-600 text-white border-transparent" 
+                        : "theme-card bg-white dark:bg-white/5 border-slate-100 dark:border-white/10")}>
+                      <p className="text-sm font-medium leading-relaxed font-sans">{msg.content}</p>
+                      <p className={cn("text-[8px] font-black uppercase mt-3 opacity-40 italic", msg.role === 'user' ? "text-white" : "text-slate-500")}>
+                        {new Date(msg.timestamp).toLocaleTimeString()} // ID: {Math.random().toString(36).substr(7).toUpperCase()}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+              {loading && (
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/10 flex items-center justify-center animate-pulse">
+                    <Bot size={18} className="text-indigo-600" />
+                  </div>
+                  <div className="theme-card p-5 rounded-2xl bg-white dark:bg-white/5 border-slate-100 dark:border-white/10 flex items-center gap-3">
+                    <div className="w-1 h-1 bg-indigo-600 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                    <div className="w-1 h-1 bg-indigo-600 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                    <div className="w-1 h-1 bg-indigo-600 rounded-full animate-bounce" />
+                  </div>
+                </div>
+              )}
+              <div ref={chatEndRef} />
+            </div>
 
-         {/* RIGHT: Interaction (Neural Chat) */}
-         <div className={cn("xl:col-span-3 h-full", mobileView !== "CHAT" && "hidden xl:block")}>
-            <NeuralChatHUD 
-               messages={messages} chatInput={chatInput} setChatInput={setChatInput}
-               handleChat={handleChat} isListening={isListening} setIsListening={setIsListening}
-               onPurge={() => setMessages([])} isRtl={isRtl} isThinking={isThinking}
-            />
-         </div>
+            <form onSubmit={handleSend} className="p-6 bg-slate-50/50 dark:bg-white/[0.02] border-t border-slate-100 dark:border-white/5 relative z-10">
+              <div className="relative group">
+                <input 
+                  type="text" 
+                  placeholder="TRANSMIT_NEURAL_QUERY..." 
+                  className="pro-input w-full pr-16 bg-white dark:bg-black/20"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 p-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all border-none">
+                  <Send size={18} />
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
 
+        {/* 3. SIDEBAR INSIGHTS */}
+        <div className="xl:col-span-4 space-y-8">
+           <InsightCard 
+              title="Supply Chain Node" 
+              icon={TrendingUp} 
+              color="emerald" 
+              desc="Neural forecasting suggests +14% velocity in current logistics lattice." 
+           />
+           <InsightCard 
+              title="Inventory Risk" 
+              icon={AlertTriangle} 
+              color="rose" 
+              desc="3 Nodes detected at critical threshold. Immediate replenishment required." 
+           />
+           <div className="theme-card p-8 bg-indigo-600 text-white relative overflow-hidden group">
+              <Zap size={140} className="absolute -bottom-10 -right-10 opacity-10 group-hover:scale-110 transition-transform duration-700" />
+              <h3 className="text-xl font-black italic uppercase tracking-tighter mb-4 relative z-10">Logic Forge</h3>
+              <p className="text-[10px] font-bold opacity-80 leading-relaxed italic relative z-10 mb-6">Execute complex inventory simulations and risk assessments via terminal commands.</p>
+              <button className="w-full py-4 bg-white text-indigo-600 rounded-xl font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all active:scale-95 border-none shadow-xl">
+                 Open Simulations ↗
+              </button>
+           </div>
+        </div>
       </div>
-
     </div>
   );
 };
 
-export default AIIntelligence;
+const StatNode = ({ label, val, color, pulse }: any) => (
+  <div className="theme-card p-4 px-6 bg-white dark:bg-white/5 border-slate-100 dark:border-white/10 flex items-center gap-4">
+    <div className={cn("w-2 h-2 rounded-full", `bg-${color}-500`, pulse && "animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]")} />
+    <div>
+      <p className="text-[7px] font-black text-slate-400 uppercase tracking-widest italic">{label}</p>
+      <p className={cn("text-xs font-black uppercase italic tracking-tighter", `text-${color}-600 dark:text-${color}-400`)}>{val}</p>
+    </div>
+  </div>
+);
+
+const InsightCard = ({ title, icon: Icon, color, desc }: any) => (
+  <div className="theme-card p-6 border-l-4" style={{ borderLeftColor: color === 'emerald' ? '#10b981' : color === 'rose' ? '#f43f5e' : '#0ea5e9' }}>
+    <div className="flex items-center gap-3 mb-4">
+      <div className={cn("p-2 rounded-lg", `bg-${color}-500/10 text-${color}-600`)}>
+        <Icon size={18} />
+      </div>
+      <h4 className="text-[11px] font-black uppercase italic tracking-widest text-slate-900 dark:text-white">{title}</h4>
+    </div>
+    <p className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-relaxed font-sans">{desc}</p>
+  </div>
+);

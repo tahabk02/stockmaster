@@ -87,7 +87,7 @@ export const SovereignTicker = () => {
 };
 
 // --- BENTO BOX (PRO THEME ADAPTIVE) ---
-export const BentoBox = ({ children, className, title, subtitle, icon: Icon, delay = 0, num, color = "indigo", bgImage }: any) => (
+export const BentoBox = ({ children, className, title, subtitle, icon: Icon, delay = 0, num, color = "indigo", bgImage, onClickImage, details, tags }: any) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -101,7 +101,10 @@ export const BentoBox = ({ children, className, title, subtitle, icon: Icon, del
     )}
   >
     {bgImage && (
-      <div className="absolute inset-0 z-0">
+      <div 
+        className="absolute inset-0 z-0 cursor-zoom-in"
+        onClick={() => onClickImage?.({ url: bgImage, title, subtitle, details, tags })}
+      >
         <img src={bgImage} alt="" className="w-full h-full object-cover opacity-10 dark:opacity-20 group-hover:scale-110 transition-transform duration-[2s] grayscale group-hover:grayscale-0" />
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white/95 to-transparent dark:from-slate-950 dark:via-slate-950/95 dark:to-transparent" />
       </div>

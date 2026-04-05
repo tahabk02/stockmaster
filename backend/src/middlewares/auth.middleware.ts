@@ -3,16 +3,7 @@ import jwt from "jsonwebtoken";
 import { UserRole } from "../enums/UserRole";
 import { ENV } from "../config/env";
 
-export interface AuthRequest extends Request {
-  user?: {
-    id: string;
-    _id?: string;
-    email: string;
-    tenantId: string;
-    role: string;
-    [key: string]: any;
-  };
-}
+export interface AuthRequest extends Request {}
 
 export const authMiddleware = (req: any, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;

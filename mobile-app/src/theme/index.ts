@@ -5,12 +5,17 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 // Responsive Scaling Engine
 // Advanced Scaling Engine for High-Bandwidth Displays
-const scale = SCREEN_WIDTH / 375;
+const scale = (SCREEN_WIDTH / 375) * 1.1;
 export const normalize = (size: number) => {
   const newSize = size * scale;
   const rounded = Math.round(PixelRatio.roundToNearestPixel(newSize));
   return Platform.OS === "ios" ? rounded : rounded - 1;
 };
+
+export const wp = (percentage: number) =>
+  Math.round((SCREEN_WIDTH * percentage) / 100);
+export const hp = (percentage: number) =>
+  Math.round((SCREEN_HEIGHT * percentage) / 100);
 
 const lightColors = {
   primary: "#6366f1",
@@ -75,13 +80,40 @@ export const theme = {
     h2: { fontSize: normalize(22), fontWeight: "800", letterSpacing: -0.5 },
     h3: { fontSize: normalize(18), fontWeight: "700" },
     body: { fontSize: normalize(14), fontWeight: "400" },
-    caption: { fontSize: normalize(10), fontWeight: "600", textTransform: "uppercase" },
-    pro: { fontWeight: "900", textTransform: "uppercase", fontStyle: "italic", letterSpacing: 1 },
+    caption: {
+      fontSize: normalize(10),
+      fontWeight: "600",
+      textTransform: "uppercase",
+    },
+    pro: {
+      fontWeight: "900",
+      textTransform: "uppercase",
+      fontStyle: "italic",
+      letterSpacing: 1,
+    },
   },
   shadows: {
-    sm: { shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 4, elevation: 2 },
-    md: { shadowColor: "#000", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 5 },
-    lg: { shadowColor: "#6366f1", shadowOffset: { width: 0, height: 12 }, shadowOpacity: 0.2, shadowRadius: 24, elevation: 10 },
+    sm: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.05,
+      shadowRadius: 4,
+      elevation: 2,
+    },
+    md: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: 0.1,
+      shadowRadius: 12,
+      elevation: 5,
+    },
+    lg: {
+      shadowColor: "#6366f1",
+      shadowOffset: { width: 0, height: 12 },
+      shadowOpacity: 0.2,
+      shadowRadius: 24,
+      elevation: 10,
+    },
   },
 };
 

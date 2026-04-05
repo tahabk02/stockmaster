@@ -10,59 +10,69 @@ interface NavButtonProps {
   isRtl: boolean;
   onClick: () => void;
   badge?: string;
+  accent?: "emerald" | "sky" | "amber" | "rose" | "primary";
 }
 
-export const NavButton = ({ icon, label, active, collapsed, isRtl, onClick, badge }: NavButtonProps) => (
-  <button
-    onClick={onClick}
-    className={cn(
-      "w-full flex items-center gap-2.5 px-3 py-1.5 rounded-lg transition-all duration-500 group relative mb-1 border-none overflow-visible bg-transparent",
-      active 
-        ? "text-white scale-[1.02] z-20" 
-        : "text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-white",
-      isRtl && "flex-row-reverse"
-    )}
-  >
-    {/* KINETIC BACKGROUND */}
-    <AnimatePresence>
-      {active && (
-        <motion.div 
-          layoutId="kinetic-bg"
-          className="absolute inset-0 bg-slate-950 dark:bg-white rounded-lg shadow-[0_5px_15px_rgba(0,0,0,0.3)] dark:shadow-[0_5px_15px_rgba(255,255,255,0.1)] -skew-x-1"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-        />
+export const NavButton = ({
+  icon,
+  label,
+  active,
+  collapsed,
+  isRtl,
+  onClick,
+  badge,
+  accent = "primary",
+}: NavButtonProps) => {
+  const accentClass = {
+    emerald: "text-emerald-600",
+    sky: "text-sky-600",
+    amber: "text-amber-500",
+    rose: "text-rose-500",
+    primary: "text-indigo-600",
+  }[accent];
+
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "w-full flex items-center gap-2.5 px-4 py-2 rounded-xl transition-all duration-300 group relative mb-1 border border-transparent overflow-visible bg-transparent",
+        active
+          ? "bg-white dark:bg-white/10 text-indigo-600 dark:text-white border-slate-100 dark:border-white/10 shadow-sm z-20"
+          : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5",
+        isRtl && "flex-row-reverse",
       )}
-    </AnimatePresence>
+    >
+      <div
+        className={cn(
+          "relative z-10 shrink-0 transition-all duration-300",
+          active
+            ? "text-indigo-600 dark:text-white scale-110"
+            : `${accentClass} group-hover:scale-110`,
+        )}
+      >
+        {React.cloneElement(icon as any, { size: 18, strokeWidth: 2.5 })}
+      </div>
 
-    {/* LASER BORDER EFFECT */}
-    <div className={cn(
-      "absolute inset-0 rounded-lg border border-dashed border-slate-300 dark:border-white/10 transition-all duration-500 group-hover:border-indigo-500/50 group-hover:skew-x-1",
-      active && "border-none"
-    )} />
+      {!collapsed && (
+        <span
+          className={cn(
+            "relative z-10 text-[10px] font-black uppercase tracking-wider italic transition-all duration-300",
+            active
+              ? "opacity-100 text-slate-900 dark:text-white"
+              : "text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white",
+            isRtl ? "text-right" : "text-left",
+          )}
+        >
+          {label}
+        </span>
+      )}
 
-    <div className={cn(
-      "relative z-10 shrink-0 transition-all duration-700",
-      active ? "text-indigo-400 dark:text-indigo-600 scale-105" : "group-hover:rotate-6 group-hover:scale-105"
-    )}>
-      {React.cloneElement(icon as any, { size: 16, strokeWidth: 2.5 })}
-    </div>
+      {badge && !collapsed && (
+        <span className="relative z-10 ml-auto bg-indigo-600 text-white text-[7px] font-black px-2 py-0.5 rounded-full shadow-sm">
+          {badge}
+        </span>
+      )}
+    </button>
+  );
 
-    {!collapsed && (
-      <span className={cn(
-        "relative z-10 text-[9px] font-black uppercase tracking-[0.15em] italic transition-all duration-500",
-        active ? "opacity-100" : "opacity-70 group-hover:opacity-100 group-hover:tracking-[0.2em]",
-        isRtl ? "text-right" : "text-left"
-      )}>
-        {label}
-      </span>
-    )}
-
-    {badge && !collapsed && (
-      <span className="relative z-10 ml-auto bg-indigo-600 text-white text-[6px] font-black px-1.5 py-0.5 rounded-full shadow-lg border border-white/20">
-        {badge}
-      </span>
-    )}
-  </button>
-);
+};
