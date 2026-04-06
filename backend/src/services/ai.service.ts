@@ -1,9 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import dotenv from "dotenv";
+import { ENV } from "../config/env";
 
-dotenv.config();
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+const genAI = new GoogleGenerativeAI(ENV.GEMINI_API_KEY || "");
 
 export class AIService {
   /**
@@ -30,7 +28,8 @@ export class AIService {
       const result = await model.generateContent(prompt);
       const response = await result.response;
       return JSON.parse(response.text().replace(/```json|```/g, ""));
-    } catch (error) {
+    } catch (error: any) {
+      console.error("AI Diagnostic Error:", error.message);
       return { status: "UNKNOWN", advice: "Analyse neurale indisponible.", riskLevel: 50 };
     }
   }
@@ -39,7 +38,7 @@ export class AIService {
    * Neural Chat (Context Aware)
    */
   static async processNeuralQuery(query: string, contextData: any, lang: string = 'fr') {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     
     const prompt = `
       Tu es l'IA de gestion StockMaster Pro. 
@@ -50,8 +49,13 @@ export class AIService {
       Utilise un ton professionnel et autoritaire.
     `;
 
-    const result = await model.generateContent(prompt);
-    return { response: result.response.text(), timestamp: new Date() };
+    try {
+      const result = await model.generateContent(prompt);
+      return { response: result.response.text(), timestamp: new Date() };
+    } catch (error: any) {
+      console.error("Neural Chat Error:", error.message);
+      throw error;
+    }
   }
 
   /**

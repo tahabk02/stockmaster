@@ -22,6 +22,12 @@ export interface Tenant {
   };
   phone?: string;
   email?: string;
+  subscriptionStatus?: string;
+  currency?: string;
+  settings?: {
+    themeColor?: string;
+    currency?: string;
+  };
   website?: string;
   taxId?: string;
   vatNumber?: string;

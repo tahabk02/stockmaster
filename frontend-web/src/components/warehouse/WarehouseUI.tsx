@@ -34,7 +34,7 @@ export const LaserScannerArray = () => (
   </div>
 );
 
-export const XYZTracker = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) => {
+export const XYZTracker = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) => {
   const [coords, setCoords] = useState({ x: 0, y: 0, z: 0 });
 
   useEffect(() => {

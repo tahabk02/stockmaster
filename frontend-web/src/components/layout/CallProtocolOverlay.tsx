@@ -12,6 +12,7 @@ import { useCallStore } from "../../store/call.slice";
 import { socketService } from "../../services/socket.service";
 import { useAuth } from "../../store/auth.slice";
 import { toast } from "react-hot-toast";
+import { cn } from "../../lib/utils";
 import api from "../../api/client";
 
 const peerConfig = {

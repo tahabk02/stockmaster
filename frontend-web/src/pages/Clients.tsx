@@ -116,7 +116,7 @@ export const Clients = () => {
         </div>
       )}
 
-      <ClientDetailDrawer isOpen={isDrawerOpen} onClose={()=>setIsDrawerOpen(false)} selectedClient={selectedClient} clientDetail={clientDetail} loadingDetail={loadingDetail} isRtl={isRtl} t={t} onEdit={(cl)=>{setIsDrawerOpen(false); setEditingId(cl._id); setForm({name:cl.name, phone:cl.phone, email:cl.email||"", address:cl.address||"", type:cl.type, taxId:cl.taxId||"", vatNumber:cl.vatNumber||"", creditLimit:String(cl.creditLimit||0), status:cl.status}); setIsModalOpen(true);}} onExport={handleExport} canViewInvoices={can(user?.role, PERMISSIONS.INVOICES_VIEW)} />
+      <ClientDetailDrawer isOpen={isDrawerOpen} onClose={()=>setIsDrawerOpen(false)} selectedClient={selectedClient} clientDetail={clientDetail} loadingDetail={loadingDetail} isRtl={isRtl} t={t} onEdit={(cl)=>{setIsDrawerOpen(false); setEditingId(cl._id); setForm({name:cl.name, phone:cl.phone, email:cl.email||"", address:cl.address||"", type:cl.type, taxId:cl.taxId||"", vatNumber:cl.vatNumber||"", creditLimit:String(cl.creditLimit||0), status:cl.status}); setIsModalOpen(true);}} onExport={handleExport} canViewInvoices={can(user?.role || null, PERMISSIONS.INVOICES_VIEW)} />
       <AnimatePresence>{isModalOpen && <ClientFormModal editingId={editingId} form={form} handleFormChange={(e: any)=>setForm({...form, [e.target.name]: e.target.value})} isSubmitting={isSubmitting} isRtl={isRtl} onClose={()=>setIsModalOpen(false)} onSubmit={handleSubmit} t={t} />}</AnimatePresence>
     </div>
   );

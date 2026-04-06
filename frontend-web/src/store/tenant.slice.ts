@@ -26,6 +26,12 @@ interface Tenant {
     bannerMessage: string;
   };
   plan: string;
+  subscriptionStatus?: string;
+  currency?: string;
+  settings?: {
+    themeColor?: string;
+    currency?: string;
+  };
 }
 
 interface TenantState {

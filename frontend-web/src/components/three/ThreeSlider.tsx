@@ -110,9 +110,9 @@ export const ThreeSlider = () => {
             <Card key={i} data={slide} index={i} activeIndex={active} onClick={setActive} />
           ))}
         </group>
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -5, 0]} receiveShadow opacity={0.2} transparent>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -5, 0]} receiveShadow>
           <planeGeometry args={[100, 100]} />
-          <shadowMaterial opacity={0.4} />
+          <shadowMaterial opacity={0.4} transparent />
         </mesh>
         <fog attach="fog" args={['#020205', 8, 20]} />
       </View>

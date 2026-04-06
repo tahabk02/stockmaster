@@ -24,7 +24,7 @@ export const NodeCard = ({ user, isVisible, onClose }: NodeCardProps) => {
   const isMe = currentUser?._id === user._id;
 
   const handleFollow = async () => {
-    if (isMe) return;
+    if (isMe || !currentUser) return;
     setLoading(true);
     try {
       const res = await api.post(`/community/user/${user._id}/follow`);

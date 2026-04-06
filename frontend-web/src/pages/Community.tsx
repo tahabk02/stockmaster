@@ -6,7 +6,7 @@ import {
   ShieldCheck, Globe, Play, Heart, MessageSquare, UserPlus,
   UserCheck, ExternalLink, Zap, BarChart3, Paperclip, MoreVertical,
   Camera, Film, Compass, Command, Reply, Vote, CheckCircle2,
-  Sparkles, Megaphone, Terminal, Cpu, Activity
+  Sparkles, Megaphone, Terminal, Cpu, Activity, VolumeX, Volume2
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";

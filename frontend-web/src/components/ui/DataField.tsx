@@ -8,7 +8,7 @@ interface DataFieldProps {
   isRtl: boolean;
 }
 
-const DataField: React.FC<DataFieldProps> = ({ label, value, icon: Icon, highlight, isRtl }) => (
+const DataField = ({ label, value, icon: Icon, highlight, isRtl }: DataFieldProps) => (
   <div className={`p-5 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/30 group hover:border-slate-200 dark:hover:border-slate-700 transition-all ${highlight ? 'ring-1 ring-indigo-500/20' : ''} ${isRtl ? 'text-right' : 'text-left'}`}>
     <div className={`flex items-center gap-3 mb-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
       <Icon size={14} className="text-indigo-600 dark:text-indigo-500" />

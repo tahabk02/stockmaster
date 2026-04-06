@@ -73,7 +73,7 @@ const StatCard = ({ title, value, trend, icon, color }: any) => {
             styles.iconBg,
           )}
         >
-          {React.cloneElement(icon as React.ReactElement, { size: 18 })}
+          {React.cloneElement(icon as React.ReactElement, { size: 18 } as any)}
         </div>
         <div className="flex flex-col items-end">
           <div

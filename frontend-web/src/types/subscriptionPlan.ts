@@ -22,6 +22,9 @@ export type SubscriptionPlan = {
   status: PlanStatus;
   isTrialAvailable: boolean;
   trialDays: number;
+  maxProducts: number;
+  maxUsers: number;
+  maxStorageGB: number;
   stripeProductId?: string;
   cmiPlanId?: string;
   order: number;

@@ -218,7 +218,7 @@ export const Reports = () => {
                                  </linearGradient>
                               </defs>
                               <CartesianGrid strokeDasharray="10 10" vertical={false} stroke="currentColor" opacity={0.05} />
-                              <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fontSize: 9, fontWeight: 'black', fill: '#64748b', textTransform: 'uppercase'}} dy={15} />
+                              <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fontSize: 9, fontWeight: 'black', fill: '#64748b'}} dy={15} />
                               <YAxis hide />
                               <Tooltip content={<CustomTooltip t={t} />} cursor={{stroke: 'rgba(99, 102, 241, 0.2)', strokeWidth: 2}} />
                               <Area type="stepAfter" dataKey="revenue" stroke="#6366f1" strokeWidth={5} fill="url(#hardReportRev)" animationDuration={2500} />

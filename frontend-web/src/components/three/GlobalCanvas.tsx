@@ -48,7 +48,7 @@ export const GlobalCanvas = () => {
         depth: true,
         powerPreference: 'high-performance',
         desynchronized: true, // Lower latency
-      }}
+      } as any}
       dpr={1} // Lock to 1 for maximum performance stability on lower-end devices
       frameloop="demand" // Change to demand to save resources when nothing changes
     >

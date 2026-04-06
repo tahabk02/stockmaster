@@ -75,7 +75,7 @@ function FeatureIcon({ position, type, color, label }: any) {
         {type === 'PHONE' && (
             <RoundedBox args={[0.6, 1.1, 0.1]} radius={0.05}><meshStandardMaterial color="#222" metalness={1} /></RoundedBox>
         )}
-        <Text position={[0, -1, 0]} fontSize={0.2} color="white" opacity={0.5}>{label}</Text>
+        <Text position={[0, -1, 0]} fontSize={0.2} color="white" fillOpacity={0.5}>{label}</Text>
       </Float>
     </a.group>
   );

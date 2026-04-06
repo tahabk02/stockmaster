@@ -23,6 +23,7 @@ import { StoreSettings } from "../components/settings/StoreSettings";
 import { SubscriptionSettings } from "../components/settings/SubscriptionSettings";
 import { SecuritySettings } from "../components/settings/SecuritySettings";
 import { SignalCorporateSettings } from "../components/settings/SignalCorporateSettings";
+import { SaasControlSettings } from "../components/settings/SaasControlSettings";
 
 const GridPattern = () => (
   <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-[0.03] dark:opacity-[0.1] pointer-events-none" />
