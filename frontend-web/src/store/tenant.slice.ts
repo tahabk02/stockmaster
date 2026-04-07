@@ -27,10 +27,11 @@ interface Tenant {
   };
   plan: string;
   subscriptionStatus?: string;
-  currency?: string;
+  currency?: any;
   settings?: {
     themeColor?: string;
     currency?: string;
+    fontFamily?: string;
   };
 }
 

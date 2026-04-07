@@ -65,7 +65,7 @@ export const StoreProfile = () => {
     } catch (e) { toast.error("Checkout Refused", { id: loadId }); } finally { setProcessing(false); }
   };
 
-  const isFollowing = currentUser?.following?.includes(vendor?._id || '');
+  const isFollowing = !!currentUser?.following?.includes(vendor?._id || '');
   const handleFollow = async () => {
     if (!vendor || !currentUser) return;
     try {

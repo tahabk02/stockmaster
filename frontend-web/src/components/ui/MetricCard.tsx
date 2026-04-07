@@ -9,7 +9,8 @@ interface MetricCardProps {
   isRtl: boolean;
 }
 
-const MetricCard = ({ label, value, unit, icon: Icon, color, isRtl }: MetricCardProps) => {
+const MetricCard = ({ label, value, unit, icon: IconComponent, color, isRtl }: MetricCardProps) => {
+  const Icon = IconComponent as any;
   const getAccentClass = () => {
     switch (color) {
       case 'emerald': return 'accent-emerald';

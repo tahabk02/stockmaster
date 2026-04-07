@@ -8,6 +8,7 @@ export enum PlanStatus {
   INACTIVE = "INACTIVE",
   DRAFT = "DRAFT",
   ARCHIVED = "ARCHIVED",
+  DEPRECATED = "DEPRECATED",
 }
 
 /**
@@ -28,6 +29,7 @@ export enum SubscriptionStatus {
 export enum BillingCycle {
   MONTHLY = "MONTHLY",
   YEARLY = "YEARLY",
+  ANNUALLY = "YEARLY", // ALIAS for compatibility
   QUARTERLY = "QUARTERLY",
   WEEKLY = "WEEKLY",
 }

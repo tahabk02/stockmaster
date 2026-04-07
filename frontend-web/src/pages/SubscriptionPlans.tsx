@@ -93,7 +93,7 @@ export const SubscriptionPlans = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const payload: Partial<SubscriptionPlan> = {
+      const payload: any = {
         ...form,
         features: form.features.split(",").map((f) => f.trim()).filter(f => f),
         price: Number(form.price),
