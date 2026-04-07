@@ -111,8 +111,26 @@ io.on("connection", (socket: any) => {
   });
 });
 
+// Database Connection
 const dbUri = ENV.MONGO_URI || "mongodb://127.0.0.1:27017/stockmaster";
-mongoose.connect(dbUri).then(() => {
-  Logger.info("💎 Neural Database Connected");
-  server.listen(Number(PORT), "0.0.0.0", () => Logger.info(`📡 Neural Core listening on port ${PORT}`));
-}).catch((err) => Logger.error("❌ DB Error: " + err.message));
+const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) return;
+  try {
+    await mongoose.connect(dbUri);
+    Logger.info("💎 Neural Database Connected");
+  } catch (err: any) {
+    Logger.error("❌ DB Error: " + err.message);
+  }
+};
+
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  connectDB().then(() => {
+    server.listen(Number(PORT), "0.0.0.0", () => Logger.info(`📡 Neural Core listening on port ${PORT}`));
+  });
+} else {
+  // Ensure DB connects on serverless invocation
+  connectDB();
+}
+
+export default app;
