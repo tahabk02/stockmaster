@@ -22,12 +22,15 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  # AJOUTE CE BLOC ICI
   redis:
     image: redis:7-alpine
-    container_name: stockmaster-pro-redis
+    container_name: stockmaster-redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: ["redis-server", "--appendonly", "yes"]
 
 volumes:
   mongo-data:
+  redis-data:
