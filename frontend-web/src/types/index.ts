@@ -27,6 +27,7 @@ export interface Tenant {
   settings?: {
     themeColor?: string;
     currency?: string;
+    fontFamily?: string;
   };
   website?: string;
   taxId?: string;

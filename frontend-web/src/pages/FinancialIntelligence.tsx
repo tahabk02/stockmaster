@@ -268,7 +268,7 @@ export const FinancialIntelligence = () => {
                               <linearGradient id="hardRev" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#6366f1" stopOpacity={0.1} /><stop offset="95%" stopColor="#6366f1" stopOpacity={0.02} /></linearGradient>
                            </defs>
                            <CartesianGrid strokeDasharray="5 5" vertical={false} stroke="white" opacity={0.05} />
-                           <XAxis dataKey="period" axisLine={false} tickLine={false} tick={{ fontSize: 9, fontWeight: "900", fill: "#64748b", textTransform: "uppercase" }} dy={15} />
+                           <XAxis dataKey="period" axisLine={false} tickLine={false} tick={{ fontSize: 9, fontWeight: "900", fill: "#64748b" }} style={{ textTransform: 'uppercase' }} dy={15} />
                            <YAxis hide />
                            <Tooltip content={<CustomTooltip t={t} />} cursor={{ stroke: "rgba(99, 102, 241, 0.2)", strokeWidth: 2 }} />
                            <Bar dataKey="revenue" fill="url(#hardRev)" radius={[8, 8, 0, 0]} barSize={40} />

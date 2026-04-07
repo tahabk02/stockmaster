@@ -105,10 +105,10 @@ export const SubscriptionPlans = () => {
       };
 
       if (editingId) {
-        await updateSubscriptionPlan(editingId, payload);
+        await updateSubscriptionPlan(editingId, payload as any);
         toast.success("Updated Successfully");
       } else {
-        await createSubscriptionPlan(payload);
+        await createSubscriptionPlan(payload as any);
         toast.success("Created Successfully");
       }
       setIsModalOpen(false);

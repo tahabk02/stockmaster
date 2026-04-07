@@ -2,7 +2,7 @@ import React from "react";
 
 interface DataFieldProps {
   label: string;
-  value: string | number | undefined | null;
+  value: React.ReactNode;
   icon: React.ElementType;
   highlight?: boolean;
   isRtl: boolean;

@@ -36,7 +36,7 @@ const NetworkSphere = () => {
   useFrame((state) => {
     if (group.current) {
         group.current.rotation.y += 0.002;
-        group.current.rotation.x = Math.sin(state.clock.getElapsedTime * 0.2) * 0.1;
+        group.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 0.2) * 0.1;
     }
   });
 

@@ -65,14 +65,20 @@ export const StoreProfile = () => {
     } catch (e) { toast.error("Checkout Refused", { id: loadId }); } finally { setProcessing(false); }
   };
 
-  const isFollowing = currentUser?.following?.includes(vendor?._id);
+  const isFollowing = currentUser?.following?.includes(vendor?._id || '');
   const handleFollow = async () => {
-    if (!vendor) return;
+    if (!vendor || !currentUser) return;
     try {
       const res = await api.post(`/community/user/${vendor._id}/follow`);
       const coupled = res.data.coupled;
-      const updatedFollowing = coupled ? [...(currentUser.following || []), vendor._id] : (currentUser.following || []).filter((id: string) => id !== vendor._id);
-      setCurrentUser({ ...currentUser, following: updatedFollowing });
+      const updatedFollowing = coupled 
+        ? [...(currentUser.following || []), vendor._id] 
+        : (currentUser.following || []).filter((id: string) => id !== vendor._id);
+      
+      setCurrentUser({ 
+        ...currentUser, 
+        following: updatedFollowing 
+      } as any);
       toast.success(coupled ? "Lattice Coupled" : "Lattice Decoupled");
     } catch (e) { toast.error("Signal Lost"); }
   };

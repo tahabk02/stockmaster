@@ -186,7 +186,6 @@ export const Login: React.FC = () => {
                 </label>
                 <Link
                   to="/forgot-password"
-                  size={10}
                   className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-indigo-600 transition-colors"
                 >
                   Recover ?

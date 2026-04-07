@@ -267,7 +267,9 @@ const MetricNode = ({ label, value, unit, color, icon: Icon }: any) => (
        <div>
           <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1.5">{label}</p>
           <div className="flex items-baseline gap-2">
-             <h4 className="text-3xl font-black text-slate-950 dark:text-white italic tracking-tighter leading-none">{value?.toLocaleString()}</h4>
+             <h4 className="text-3xl font-black text-slate-950 dark:text-white italic tracking-tighter leading-none">
+               {typeof value === 'number' ? value.toLocaleString() : value}
+             </h4>
              {unit && <span className="text-[9px] font-bold text-slate-400 uppercase">{unit}</span>}
           </div>
        </div>

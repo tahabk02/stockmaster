@@ -2,7 +2,7 @@ import React from "react";
 
 interface MetricCardProps {
   label: string;
-  value: number;
+  value: number | string;
   unit: string;
   icon: React.ElementType;
   color: string;
@@ -31,7 +31,9 @@ const MetricCard = ({ label, value, unit, icon: Icon, color, isRtl }: MetricCard
         <div className={isRtl ? 'text-right' : 'text-left'}>
           <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1 transition-colors">{label}</p>
           <div className={`flex items-baseline gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
-            <h4 className="text-2xl font-black text-slate-900 dark:text-white italic tracking-tighter transition-colors">{value?.toLocaleString()}</h4>
+            <h4 className="text-2xl font-black text-slate-900 dark:text-white italic tracking-tighter transition-colors">
+              {typeof value === 'number' ? value.toLocaleString() : value}
+            </h4>
             <span className="text-slate-400 dark:text-slate-600 text-[10px] font-bold uppercase transition-colors">{unit}</span>
           </div>
         </div>
@@ -39,7 +41,5 @@ const MetricCard = ({ label, value, unit, icon: Icon, color, isRtl }: MetricCard
     </div>
   );
 };
-
-
 
 export default MetricCard;
