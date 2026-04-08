@@ -8,7 +8,21 @@ const REDIS_ENABLED = ENV.NODE_ENV !== "development" || !!ENV.REDIS_URL;
 /**
  * BullMQ Connection Options
  */
-const getRedisConfig = () => {
+const getRedisConfig = (): ConnectionOptions => {
+  // Try individual variables first, then fallback to URL
+  const host = process.env.REDIS_HOST || "localhost";
+  const port = parseInt(process.env.REDIS_PORT || "6379");
+  const password = process.env.REDIS_PASSWORD;
+
+  if (process.env.REDIS_HOST) {
+    return {
+      host,
+      port,
+      password,
+      maxRetriesPerRequest: null,
+    };
+  }
+
   const url = ENV.REDIS_URL || "redis://localhost:6379";
   const normalizedUrl = url.includes("://") ? url : `redis://${url}`;
   
@@ -22,7 +36,7 @@ const getRedisConfig = () => {
     };
   } catch (e) {
     if (REDIS_ENABLED) {
-      Logger.warn("⚠️ Invalid REDIS_URL format, falling back to defaults.");
+      Logger.warn("⚠️ Invalid REDIS_URL format and no REDIS_HOST provided, falling back to defaults.");
     }
     return {
       host: "localhost",
