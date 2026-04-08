@@ -3,11 +3,10 @@ import { createClient } from "redis";
 import { ENV } from "./env";
 import Logger from "../utils/logger";
 
+const REDIS_ENABLED = ENV.NODE_ENV !== "development" || !!ENV.REDIS_URL;
+
 /**
  * BullMQ Connection Options
- * 
- * Note: BullMQ internally uses ioredis. 
- * maxRetriesPerRequest must be set to null for BullMQ workers.
  */
 const getRedisConfig = () => {
   const url = ENV.REDIS_URL || "redis://localhost:6379";
@@ -22,7 +21,9 @@ const getRedisConfig = () => {
       maxRetriesPerRequest: null,
     };
   } catch (e) {
-    Logger.warn("⚠️ Invalid REDIS_URL format, falling back to defaults.");
+    if (REDIS_ENABLED) {
+      Logger.warn("⚠️ Invalid REDIS_URL format, falling back to defaults.");
+    }
     return {
       host: "localhost",
       port: 6379,
@@ -45,15 +46,18 @@ export const redisClient = createClient({
   url: getRedisUrl(),
   socket: {
     reconnectStrategy: (retries) => {
-      // Exponential backoff with a cap of 3 seconds
-      return Math.min(retries * 100, 3000);
+      // Exponential backoff with a cap of 10 seconds, but only if REDIS_ENABLED
+      if (!REDIS_ENABLED && retries > 2) return false; // Stop trying quickly in dev if it fails
+      return Math.min(retries * 500, 10000);
     }
   }
 });
 
 // Handle initial connection errors and runtime errors
 redisClient.on("error", (err) => {
-  Logger.error(`❌ Redis Error: ${err.message}`);
+  if (REDIS_ENABLED) {
+    Logger.error(`❌ Redis Error: ${err.message}`);
+  }
 });
 
 redisClient.on("connect", () => {
@@ -61,11 +65,18 @@ redisClient.on("connect", () => {
 });
 
 redisClient.on("reconnecting", () => {
-  Logger.warn("🔄 Redis Reconnecting...");
+  if (REDIS_ENABLED) {
+    Logger.warn("🔄 Redis Reconnecting...");
+  }
 });
 
 // Non-blocking connection attempt
 (async () => {
+  if (!REDIS_ENABLED) {
+    Logger.warn("⚠️ Redis is disabled or missing in development. Mocking operations.");
+    return;
+  }
+  
   try {
     if (!redisClient.isOpen) {
       await redisClient.connect();

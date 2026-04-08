@@ -1,9 +1,10 @@
-import { Worker, Job, Queue } from "bullmq";
+import { Job } from "bullmq";
 import { redisConfig } from "../config/redis";
 import Product from "../models/Product";
+import { SafeQueue, SafeWorker } from "../utils/bull-wrapper";
 
 // 1. التعريف بالـ Queue (Producer)
-export const syncQueue = new Queue("stock-sync", { connection: redisConfig });
+export const syncQueue = new SafeQueue("stock-sync");
 
 // 2. دالة لإضافة مهمة مزامنة (تستدعى من الـ Controller)
 export const addSyncJob = async (tenantId: string, data: any) => {
@@ -11,7 +12,7 @@ export const addSyncJob = async (tenantId: string, data: any) => {
 };
 
 // 3. الـ Worker (Consumer)
-export const syncWorker = new Worker(
+export const syncWorker = new SafeWorker(
   "stock-sync",
   async (job: Job) => {
     const { tenantId, data } = job.data;
@@ -20,7 +21,7 @@ export const syncWorker = new Worker(
     for (const item of data) {
       await Product.updateOne(
         { tenantId, sku: item.sku },
-        { $set: { stockQuantity: item.quantity } },
+        { $set: { quantity: item.quantity } }, // Fix: use "quantity"
       );
     }
   },
