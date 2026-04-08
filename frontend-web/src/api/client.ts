@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || (typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_API_URL : undefined) || "/api",
   timeout: 60000, 
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
