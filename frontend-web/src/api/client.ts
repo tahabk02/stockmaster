@@ -2,8 +2,8 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "/api",
-  timeout: 60000, // 60 ثوانٍ كحد أقصى للطلب
+  baseURL: import.meta.env.VITE_API_URL || (typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_API_URL : undefined) || "/api",
+  timeout: 60000, 
   headers: {
     "Content-Type": "application/json",
   },
