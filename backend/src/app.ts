@@ -11,28 +11,32 @@ import { handleStripeWebhook } from "./controllers/stripe.webhook.controller";
 
 const app: Application = express();
 
-// --- 1. CORS CONFIGURATION (MUST BE FIRST) ---
+// --- 1. ROBUST CORS CONFIGURATION ---
 const allowedOrigins = [
   "https://stockmaster-6kas.vercel.app",
   "http://localhost:5173",
 ];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.warn(`[CORS] Request from blocked origin: ${origin}`);
-      callback(null, true); // Fallback to true during debug if needed, or strictly use allowedOrigins
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
-}));
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
 
-// Handle preflight requests for all routes
-app.options("*", cors() as any);
+// Fallback use of cors package for extra safety
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 // --- 2. STRIPE WEBHOOK (Needs raw body) ---
 app.post("/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
@@ -40,7 +44,7 @@ app.post("/webhook", express.raw({ type: "application/json" }), handleStripeWebh
 // --- 3. SECURITY & LOGGING ---
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" },
-  contentSecurityPolicy: false, // Disable for easier API debugging on Vercel
+  contentSecurityPolicy: false,
 }));
 app.use(morgan("combined"));
 
@@ -56,7 +60,7 @@ app.use("/api", forensicAuditMiddleware);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // --- 7. ROUTES ---
-// Mount at both /api and root to support both frontend configurations
+// Mount at both /api and root to ensure frontend compatibility
 app.use("/api", apiRoutes);
 app.use("/", apiRoutes); 
 
