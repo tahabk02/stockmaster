@@ -38,13 +38,22 @@ export const DiagnosticModal = ({ userId, userName, onClose, isRtl, t }: Diagnos
   }, [userId, t]);
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/95 backdrop-blur-2xl p-4 overflow-y-auto">
+    <div 
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-950/95 backdrop-blur-2xl p-4 overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="diagnostic-modal-title"
+    >
       <motion.div 
         initial={{ opacity: 0, scale: 0.9, y: 20 }} 
         animate={{ opacity: 1, scale: 1, y: 0 }} 
         exit={{ opacity: 0, scale: 0.9, y: 20 }} 
         className="bg-white dark:bg-[#0b0c10] w-full max-w-2xl rounded-[3rem] p-6 md:p-8 shadow-[0_0_100px_rgba(79,70,229,0.2)] relative border border-white/10 my-auto overflow-hidden max-h-[90vh] flex flex-col"
       >
+        {/* Accessibility Title (Visually Hidden) */}
+        <h2 id="diagnostic-modal-title" className="sr-only">
+          {userName} Diagnostic Data
+        </h2>
         <div className="absolute inset-0 grid-pattern opacity-[0.03] pointer-events-none" />
         <div className="scanline opacity-20" />
         

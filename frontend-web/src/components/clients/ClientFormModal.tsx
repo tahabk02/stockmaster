@@ -17,7 +17,12 @@ interface ClientFormModalProps {
 export const ClientFormModal = ({ 
   editingId, form, handleFormChange, isSubmitting, isRtl, onClose, onSubmit, t 
 }: ClientFormModalProps) => (
-  <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-[#020205]/98 backdrop-blur-2xl overflow-y-auto custom-scrollbar">
+  <div 
+    className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-[#020205]/98 backdrop-blur-2xl overflow-y-auto custom-scrollbar"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="client-modal-title"
+  >
     <div className="absolute inset-0 grid-pattern opacity-[0.05] pointer-events-none" />
     
     <motion.div 
@@ -26,6 +31,10 @@ export const ClientFormModal = ({
       exit={{ scale: 0.95, opacity: 0, y: 30 }} 
       className="bg-white dark:bg-[#050508] w-full max-w-5xl rounded-[3.5rem] shadow-[0_0_150px_rgba(79,70,229,0.1)] relative my-auto border border-white/10 overflow-hidden"
     >
+      {/* Accessibility Title (Visually Hidden) */}
+      <h2 id="client-modal-title" className="sr-only">
+        {editingId ? "Update Client Node" : "Provision New Client Node"}
+      </h2>
       {/* HEADER : PROVISIONING CENTER */}
       <div className="bg-slate-950 p-10 md:p-14 border-b border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative overflow-hidden">
          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent animate-pulse" />

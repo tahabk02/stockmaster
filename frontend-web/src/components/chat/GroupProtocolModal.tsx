@@ -41,12 +41,21 @@ export const GroupProtocolModal = ({ isOpen, onClose, onCreated }: GroupProtocol
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[300] bg-slate-950/90 backdrop-blur-xl flex items-center justify-center p-4">
+    <div 
+      className="fixed inset-0 z-[300] bg-slate-950/90 backdrop-blur-xl flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="group-modal-title"
+    >
        <motion.div 
          initial={{ scale: 0.9, opacity: 0 }} 
          animate={{ scale: 1, opacity: 1 }} 
          className="bg-white dark:bg-slate-900 w-full max-w-xl rounded-[3rem] p-10 shadow-3xl border border-white/5 relative"
        >
+          {/* Accessibility Title (Visually Hidden) */}
+          <h2 id="group-modal-title" className="sr-only">
+            Squad Provisioning Protocol
+          </h2>
           <button onClick={onClose} className="absolute top-10 right-10 text-slate-400 hover:text-rose-500 transition-colors">
             <X size={24}/>
           </button>
