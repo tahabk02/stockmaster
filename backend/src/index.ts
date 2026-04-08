@@ -143,5 +143,3 @@ if (!IS_VERCEL) {
 }
 
 export default app;
-
-export default app;
