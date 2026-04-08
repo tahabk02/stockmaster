@@ -19,10 +19,13 @@ export class SafeQueue<T = any, R = any, N extends string = string> {
     this.name = name;
     if (SHOULD_USE_REDIS && !IS_VERCEL) {
       try {
-        this.queue = new BullQueue(name, {
+        // Automatically inject connection if missing in options
+        const queueOptions = {
           connection: redisConfig,
-          ...options,
-        });
+          ...options
+        };
+        
+        this.queue = new BullQueue(name, queueOptions);
         
         this.queue.on('error', (err) => {
           Logger.error(`[Queue:${name}] Error: ${err.message}`);
@@ -37,7 +40,7 @@ export class SafeQueue<T = any, R = any, N extends string = string> {
   async add(name: N, data: T, opts?: any): Promise<any> {
     if (this.queue) {
       try {
-        // @ts-ignore
+        // @ts-ignore - mismatch with ExtractNameType
         return await this.queue.add(name, data, opts);
       } catch (err: any) {
         Logger.error(`[Queue:${this.name}] Failed to add job to Redis: ${err.message}.`);
@@ -58,10 +61,13 @@ export class SafeWorker<T = any, R = any, N extends string = string> {
   constructor(name: string, processor: Processor<T, R, N>, options?: any) {
     if (SHOULD_USE_REDIS && !IS_VERCEL) {
       try {
-        this.worker = new BullWorker(name, processor, {
+        // Automatically inject connection if missing in options
+        const workerOptions = {
           connection: redisConfig,
-          ...options,
-        });
+          ...options
+        };
+
+        this.worker = new BullWorker(name, processor, workerOptions);
 
         this.worker.on('error', (err) => {
           Logger.error(`[Worker:${name}] Error: ${err.message}`);

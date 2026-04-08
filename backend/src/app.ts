@@ -17,7 +17,24 @@ app.post("/webhook", express.raw({ type: "application/json" }), handleStripeWebh
 // Security & Logging Middlewares
 app.use(helmet());
 app.use(morgan("combined"));
-app.use(cors());
+
+const allowedOrigins = [
+  "https://stockmaster-6kas.vercel.app",
+  "http://localhost:5173", // Local development
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // Body Parsing
 app.use(express.json({ limit: "100mb" }));

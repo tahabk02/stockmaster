@@ -1,10 +1,8 @@
 import { Job } from "bullmq";
-import { redisConfig } from "../config/redis";
 import { sendEmail } from "../services/mail.service";
 import { SafeQueue, SafeWorker } from "../utils/bull-wrapper";
 
 export const mailQueue = new SafeQueue("mail-queue", {
-  connection: redisConfig,
   defaultJobOptions: {
     attempts: 3,
     backoff: {
@@ -45,6 +43,5 @@ export const mailWorker = new SafeWorker(
       console.error(`[Worker] Failed to send email to ${to}:`, error);
       throw error;
     }
-  },
-  { connection: redisConfig }
+  }
 );

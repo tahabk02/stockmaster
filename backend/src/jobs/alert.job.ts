@@ -1,13 +1,10 @@
 import { Job } from "bullmq";
-import { redisConfig } from "../config/redis";
 import Product from "../models/Product";
 import { SafeQueue, SafeWorker } from "../utils/bull-wrapper";
 
 const QUEUE_NAME = "inventory-alerts";
 
-export const inventoryQueue = new SafeQueue(QUEUE_NAME, {
-  connection: redisConfig
-});
+export const inventoryQueue = new SafeQueue(QUEUE_NAME);
 
 /**
  * دالة إضافة مهمة فحص المخزون للطابور
@@ -45,6 +42,5 @@ export const inventoryWorker = new SafeWorker(
     }
 
     console.log(`[Job ${job.id}] ⚠️ Found ${lowStockItems.length} low stock items.`);
-  },
-  { connection: redisConfig }
+  }
 );
