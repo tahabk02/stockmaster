@@ -13,6 +13,8 @@ import app from "./app"; // Import the configured app
 import { ENV } from "./config/env"; // Use the validated env
 import Logger from "./utils/logger";
 
+import { connectDatabase } from "./config/database";
+
 registerModels();
 
 // Infrastructure Initialized
@@ -117,29 +119,14 @@ if (!IS_VERCEL) {
   });
 }
 
-// Database Connection
-const dbUri = ENV.MONGO_URI || "mongodb://127.0.0.1:27017/stockmaster";
-const connectDB = async () => {
-  if (mongoose.connection.readyState >= 1) return;
-  try {
-    await mongoose.connect(dbUri, {
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-    });
-    Logger.info("💎 Neural Database Connected");
-  } catch (err: any) {
-    Logger.error("❌ DB Error: " + err.message);
-  }
-};
-
 // For local development
 if (!IS_VERCEL) {
-  connectDB().then(() => {
+  connectDatabase().then(() => {
     server.listen(Number(PORT), "0.0.0.0", () => Logger.info(`📡 Neural Core listening on port ${PORT}`));
   });
 } else {
   // Ensure DB connects on serverless invocation
-  connectDB();
+  connectDatabase();
 }
 
 export default app;

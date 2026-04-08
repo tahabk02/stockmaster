@@ -1,21 +1,41 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import Logger from "../utils/logger";
 
-// ✅ ضروري بزاف باش يقرا الملف .env
 dotenv.config();
 
+/**
+ * Global cache for MongoDB connection to prevent leaks in serverless environments.
+ */
+let isConnected: boolean = false;
+
 export async function connectDatabase() {
-  // كيقرا الرابط من .env، وإلا مالقاهش كيدير الافتراضي
-  const uri =
-    process.env.MONGO_URI ||
-    process.env.MONGODB_URI ||
-    "mongodb://localhost:27017/stockmaster-pro";
+  const uri = process.env.MONGO_URI || process.env.MONGODB_URI;
+
+  if (!uri) {
+    Logger.error("❌ MONGODB_URI is not defined in environment variables.");
+    return;
+  }
+
+  // Use cached connection if available
+  if (isConnected && mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
 
   try {
-    await mongoose.connect(uri);
-    console.log("✅ Connected to MongoDB");
-  } catch (error) {
-    console.error("❌ MongoDB Connection Error:", error);
-    process.exit(1); // كيقفل السيرفر إلا مكنش اتصال بقاعدة البيانات
+    const db = await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    });
+    
+    isConnected = db.connections[0].readyState === 1;
+    Logger.info("✅ Connected to MongoDB Atlas (Cached)");
+    return db;
+  } catch (error: any) {
+    Logger.error("❌ MongoDB Connection Error: " + error.message);
+    // Don't exit process in serverless, let the function retry
+    if (process.env.NODE_ENV !== "production") {
+      process.exit(1);
+    }
   }
 }
