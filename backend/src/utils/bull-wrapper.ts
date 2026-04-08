@@ -1,4 +1,4 @@
-import { Queue as BullQueue, Worker as BullWorker, Job, QueueOptions, WorkerOptions, Processor } from "bullmq";
+import { Queue as BullQueue, Worker as BullWorker, Job, Processor } from "bullmq";
 import { redisConfig } from "../config/redis";
 import Logger from "./logger";
 
@@ -15,7 +15,7 @@ export class SafeQueue<T = any, R = any, N extends string = string> {
   private queue: BullQueue<T, R, N> | null = null;
   private name: string;
 
-  constructor(name: string, options?: QueueOptions) {
+  constructor(name: string, options?: any) {
     this.name = name;
     if (SHOULD_USE_REDIS && !IS_VERCEL) {
       try {
@@ -31,20 +31,16 @@ export class SafeQueue<T = any, R = any, N extends string = string> {
         Logger.warn(`[Queue:${name}] Failed to initialize BullMQ: ${err.message}. Falling back to mock.`);
         this.queue = null;
       }
-    } else {
-      Logger.info(`[Queue:${name}] Redis disabled. Using mock queue.`);
     }
   }
 
   async add(name: N, data: T, opts?: any): Promise<any> {
     if (this.queue) {
       try {
-        // @ts-ignore - name type mismatch between N and ExtractNameType
+        // @ts-ignore
         return await this.queue.add(name, data, opts);
       } catch (err: any) {
         Logger.error(`[Queue:${this.name}] Failed to add job to Redis: ${err.message}.`);
-        // In dev, we might want to just execute it if it's critical, 
-        // but for now we just log it as BullMQ should handle it if Redis comes back.
       }
     }
     
@@ -59,7 +55,7 @@ export class SafeQueue<T = any, R = any, N extends string = string> {
 export class SafeWorker<T = any, R = any, N extends string = string> {
   private worker: BullWorker<T, R, N> | null = null;
 
-  constructor(name: string, processor: Processor<T, R, N>, options?: WorkerOptions) {
+  constructor(name: string, processor: Processor<T, R, N>, options?: any) {
     if (SHOULD_USE_REDIS && !IS_VERCEL) {
       try {
         this.worker = new BullWorker(name, processor, {

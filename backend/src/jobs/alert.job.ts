@@ -5,7 +5,9 @@ import { SafeQueue, SafeWorker } from "../utils/bull-wrapper";
 
 const QUEUE_NAME = "inventory-alerts";
 
-export const inventoryQueue = new SafeQueue(QUEUE_NAME);
+export const inventoryQueue = new SafeQueue(QUEUE_NAME, {
+  connection: redisConfig
+});
 
 /**
  * دالة إضافة مهمة فحص المخزون للطابور
@@ -43,5 +45,6 @@ export const inventoryWorker = new SafeWorker(
     }
 
     console.log(`[Job ${job.id}] ⚠️ Found ${lowStockItems.length} low stock items.`);
-  }
+  },
+  { connection: redisConfig }
 );

@@ -4,7 +4,9 @@ import Product from "../models/Product";
 import { SafeQueue, SafeWorker } from "../utils/bull-wrapper";
 
 // 1. التعريف بالـ Queue (Producer)
-export const syncQueue = new SafeQueue("stock-sync");
+export const syncQueue = new SafeQueue("stock-sync", {
+  connection: redisConfig
+});
 
 // 2. دالة لإضافة مهمة مزامنة (تستدعى من الـ Controller)
 export const addSyncJob = async (tenantId: string, data: any) => {
@@ -24,5 +26,6 @@ export const syncWorker = new SafeWorker(
         { $set: { quantity: item.quantity } }, // Fix: use "quantity"
       );
     }
-  }
+  },
+  { connection: redisConfig }
 );

@@ -4,6 +4,7 @@ import { sendEmail } from "../services/mail.service";
 import { SafeQueue, SafeWorker } from "../utils/bull-wrapper";
 
 export const mailQueue = new SafeQueue("mail-queue", {
+  connection: redisConfig,
   defaultJobOptions: {
     attempts: 3,
     backoff: {
@@ -23,7 +24,6 @@ export const addMailJob = async (to: string, subject: string, html: string) => {
     console.log(`[Queue] Added mail job for ${to}`);
   } catch (error) {
     console.error("[Queue] Error adding mail job:", error);
-    // Fallback: If queue fails and we are in dev, send directly
     if (process.env.NODE_ENV === "development") {
         console.warn("[Queue] Falling back to direct email send in development.");
         await sendEmail(to, subject, html);
@@ -43,7 +43,8 @@ export const mailWorker = new SafeWorker(
       await sendEmail(to, subject, html);
     } catch (error) {
       console.error(`[Worker] Failed to send email to ${to}:`, error);
-      throw error; // Let BullMQ handle retries
+      throw error;
     }
-  }
+  },
+  { connection: redisConfig }
 );
