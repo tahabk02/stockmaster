@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"key":{"tenantId":{"$numberInt":"1"}},"name":"tenantId_1","background":true}],"uuid":"c398141c781e489faff3d077eb5292c6","collectionName":"qualitychecks","type":"collection"}

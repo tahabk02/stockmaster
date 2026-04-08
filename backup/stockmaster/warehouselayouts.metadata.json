@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"key":{"tenantId":{"$numberInt":"1"}},"name":"tenantId_1","background":true}],"uuid":"9ede1a6bfe1c481fa7e8be743f0d96a5","collectionName":"warehouselayouts","type":"collection"}

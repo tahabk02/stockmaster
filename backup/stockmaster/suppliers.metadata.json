@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"key":{"tenantId":{"$numberInt":"1"}},"name":"tenantId_1","background":true}],"uuid":"cf58a6595cee4a388b506f73a1c54470","collectionName":"suppliers","type":"collection"}
