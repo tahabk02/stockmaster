@@ -24,6 +24,5 @@ export const syncWorker = new SafeWorker(
         { $set: { quantity: item.quantity } }, // Fix: use "quantity"
       );
     }
-  },
-  { connection: redisConfig },
+  }
 );

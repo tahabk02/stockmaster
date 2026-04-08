@@ -45,6 +45,5 @@ export const mailWorker = new SafeWorker(
       console.error(`[Worker] Failed to send email to ${to}:`, error);
       throw error; // Let BullMQ handle retries
     }
-  },
-  { connection: redisConfig }
+  }
 );

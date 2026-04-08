@@ -39,6 +39,7 @@ export class SafeQueue<T = any, R = any, N extends string = string> {
   async add(name: N, data: T, opts?: any): Promise<any> {
     if (this.queue) {
       try {
+        // @ts-ignore - name type mismatch between N and ExtractNameType
         return await this.queue.add(name, data, opts);
       } catch (err: any) {
         Logger.error(`[Queue:${this.name}] Failed to add job to Redis: ${err.message}.`);

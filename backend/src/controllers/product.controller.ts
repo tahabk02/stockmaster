@@ -156,7 +156,7 @@ export class ProductController {
             tags: ["NEW_ASSET", "PROVISIONING", brand].filter(Boolean)
           });
           await autoPost.populate("author", "name avatar jobTitle role");
-          io.emit("postCreated", autoPost);
+          io?.emit("postCreated", autoPost);
 
           await NotificationService.createNotification({
             userId: req.user._id,

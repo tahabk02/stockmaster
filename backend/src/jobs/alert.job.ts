@@ -43,6 +43,5 @@ export const inventoryWorker = new SafeWorker(
     }
 
     console.log(`[Job ${job.id}] ⚠️ Found ${lowStockItems.length} low stock items.`);
-  },
-  { connection: redisConfig },
+  }
 );
