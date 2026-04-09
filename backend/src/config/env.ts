@@ -36,7 +36,11 @@ const parsedEnv = envSchema.safeParse(process.env);
 
 if (!parsedEnv.success) {
   console.error("❌ Invalid environment variables:", JSON.stringify(parsedEnv.error.format(), null, 2));
-  process.exit(1);
+  if (!process.env.VERCEL) {
+    process.exit(1);
+  }
 }
 
-export const ENV = parsedEnv.data;
+// Fallback to empty object if validation failed on Vercel to prevent crash on module load, 
+// though downstream usage might still fail if critical vars are missing.
+export const ENV = parsedEnv.success ? parsedEnv.data : (envSchema.parse({}) as any); 

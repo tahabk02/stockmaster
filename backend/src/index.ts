@@ -6,26 +6,23 @@ dotenv.config({ path: path.resolve(__dirname, "../.env") }); // Look in backend 
 
 import http from "http";
 import { Server } from "socket.io";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import { registerModels } from "./models";
 import app from "./app"; // Import the configured app
 import { ENV } from "./config/env"; // Use the validated env
 import Logger from "./utils/logger";
-
 import { connectDatabase } from "./config/database";
 
 registerModels();
 
 // Infrastructure Initialized
 const PORT = ENV.PORT || 3000;
-const server = http.createServer(app);
-
 const IS_VERCEL = !!process.env.VERCEL;
 
 export let io: Server | null = null;
 
 if (!IS_VERCEL) {
+  const server = http.createServer(app);
   io = new Server(server, {
     cors: { origin: "*", methods: ["GET", "POST"] },
     pingTimeout: 60000,
@@ -117,15 +114,12 @@ if (!IS_VERCEL) {
       Logger.info(`🔌 [DISCONNECTED] User: ${userId}`);
     });
   });
-}
 
-// For local development
-if (!IS_VERCEL) {
   connectDatabase().then(() => {
     server.listen(Number(PORT), "0.0.0.0", () => Logger.info(`📡 Neural Core listening on port ${PORT}`));
   });
 } else {
-  // Ensure DB connects on serverless invocation
+  // Ensure DB connects on serverless invocation, but let it happen in background
   connectDatabase();
 }
 
