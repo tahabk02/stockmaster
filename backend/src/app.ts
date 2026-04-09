@@ -15,19 +15,30 @@ const app: Application = express();
 const allowedOrigins = [
   "https://stockmaster-6kas.vercel.app",
   "http://localhost:5173",
+  "http://localhost:3000",
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow if:
+    // 1. No origin (like mobile apps or curl)
+    // 2. Exact match in allowedOrigins
+    // 3. Vercel preview/production deployment (*.vercel.app)
+    // 4. Development environment
+    const isAllowedOrigin = origin && allowedOrigins.includes(origin);
+    const isVercelOrigin = origin && (origin.endsWith(".vercel.app") || origin.includes("vercel.app"));
+    const isDev = process.env.NODE_ENV === "development";
+
+    if (!origin || isAllowedOrigin || isVercelOrigin || isDev) {
       callback(null, true);
     } else {
+      console.warn(`[CORS] Rejected origin: ${origin}`);
       callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "x-tenant-id"]
 }));
 
 // Handle preflight requests

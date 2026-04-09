@@ -8,8 +8,7 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") }); // Look in backe
 
 const envSchema = z.object({
   PORT: z.string().default("3000").transform(Number),
-  MONGO_URI: z.string().url().optional().or(z.string().url()), // Allow either MONGO_URI or MONGODB_URI
-  MONGODB_URI: z.string().url().optional(),
+  MONGODB_URI: z.string().url().default("mongodb://localhost:27017/stockmaster-pro"),
   JWT_SECRET: z.string().min(10).default("super_secret_key_123"),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   REDIS_URL: z.string().default("redis://localhost:6379"),

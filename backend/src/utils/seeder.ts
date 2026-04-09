@@ -10,7 +10,7 @@ import path from "path";
 
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
-const MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/stockmaster";
+const MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/stockmaster-pro";
 
 async function seed() {
   try {

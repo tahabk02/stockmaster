@@ -1,34 +1,33 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import Logger from "../utils/logger";
-
-dotenv.config();
+import { ENV } from "./env";
 
 /**
  * Global cache for MongoDB connection to prevent leaks in serverless environments.
  */
-let isConnected: boolean = false;
+let cachedConnection: any = null;
 
 export async function connectDatabase() {
-  const uri = process.env.MONGO_URI || process.env.MONGODB_URI;
+  const uri = ENV.MONGODB_URI;
 
   if (!uri) {
     Logger.error("❌ MONGODB_URI is not defined in environment variables.");
     return;
   }
 
-  // Use cached connection if available
-  if (isConnected && mongoose.connection.readyState === 1) {
-    return mongoose.connection;
+  // Use cached connection if available and state is connected
+  if (cachedConnection && mongoose.connection.readyState === 1) {
+    return cachedConnection;
   }
 
   try {
     const db = await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
+      bufferCommands: false, // Recommended for serverless
     });
     
-    isConnected = db.connections[0].readyState === 1;
+    cachedConnection = db;
     Logger.info("✅ Connected to MongoDB Atlas (Cached)");
     return db;
   } catch (error: any) {
