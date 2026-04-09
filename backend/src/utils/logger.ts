@@ -26,13 +26,15 @@ const format = winston.format.combine(
   ),
 );
 
-const IS_VERCEL = !!process.env.VERCEL;
+const IS_VERCEL = !!process.env.VERCEL || !!process.env.VERCEL_ENV;
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 const transports: winston.transport[] = [
   new winston.transports.Console(),
 ];
 
-if (!IS_VERCEL && process.env.NODE_ENV !== "test") {
+// Only use file logging in local development
+if (!IS_VERCEL && !IS_PRODUCTION && process.env.NODE_ENV !== "test") {
   transports.push(
     new winston.transports.File({
       filename: "logs/error.log",

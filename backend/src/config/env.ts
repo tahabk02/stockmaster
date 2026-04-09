@@ -36,7 +36,8 @@ const parsedEnv = envSchema.safeParse(process.env);
 
 if (!parsedEnv.success) {
   console.error("❌ Invalid environment variables:", JSON.stringify(parsedEnv.error.format(), null, 2));
-  if (!process.env.VERCEL) {
+  const IS_VERCEL = !!process.env.VERCEL || !!process.env.VERCEL_ENV;
+  if (!IS_VERCEL) {
     process.exit(1);
   }
 }

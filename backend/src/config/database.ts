@@ -33,7 +33,8 @@ export async function connectDatabase() {
   } catch (error: any) {
     Logger.error("❌ MongoDB Connection Error: " + error.message);
     // Don't exit process in serverless, let the function retry
-    if (process.env.NODE_ENV !== "production") {
+    const IS_VERCEL = !!process.env.VERCEL || !!process.env.VERCEL_ENV;
+    if (process.env.NODE_ENV !== "production" && !IS_VERCEL) {
       process.exit(1);
     }
   }
