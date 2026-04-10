@@ -21,8 +21,7 @@ const app: Application = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
-  'https://stockmaster-6kas.vercel.app',
-  'https://stockmaster-36a3.vercel.app'
+  'https://stockmaster-6kas.vercel.app'
 ];
 
 app.use(cors({
