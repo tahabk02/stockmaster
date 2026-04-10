@@ -1,5 +1,4 @@
 import express, { Application } from "express";
-import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
@@ -11,30 +10,10 @@ import { handleStripeWebhook } from "./controllers/stripe.webhook.controller";
 
 const app: Application = express();
 
-// --- 1. DYNAMIC CORS & PREFLIGHT (VERCEL READY) ---
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  const isVercel = origin && origin.endsWith('.vercel.app');
-  const isLocal = origin && (origin.includes('localhost') || origin.includes('127.0.0.1'));
-
-  if (isVercel || isLocal) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,PATCH,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization');
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-  next();
-});
-
-// --- 2. STRIPE WEBHOOK (Needs raw body) ---
+// --- 1. STRIPE WEBHOOK (Needs raw body) ---
 app.post("/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
 
-// --- 3. SECURITY & LOGGING ---
+// --- 2. SECURITY & LOGGING ---
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" },
   contentSecurityPolicy: false,

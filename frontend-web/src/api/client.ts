@@ -2,14 +2,11 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 const api = axios.create({
-  baseURL: import.meta.env.DEV 
-    ? "http://127.0.0.1:3000/api" 
-    : "https://backend-stock-master-pro.vercel.app/api",
-  timeout: 60000, 
+  baseURL: 'https://stockmaster-36a3.vercel.app/api',
   withCredentials: true,
   headers: {
-    "Content-Type": "application/json",
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
 // إضافة التوكين أوتوماتيكياً
