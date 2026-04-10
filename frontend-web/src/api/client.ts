@@ -2,7 +2,9 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 const api = axios.create({
-  baseURL: 'https://stockmaster-36a3.vercel.app/api',
+  baseURL: import.meta.env.DEV 
+    ? "http://localhost:5000/api" 
+    : "https://stockmaster-36a3.vercel.app/api",
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
