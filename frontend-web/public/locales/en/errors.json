@@ -1,0 +1,7 @@
+{
+  "networkError": "Network Error",
+  "serverError": "Server Error",
+  "unauthorized": "Unauthorized",
+  "validation": "Invalid Data",
+  "invalidData": "Form Errors"
+}

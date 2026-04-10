@@ -26,8 +26,9 @@ import { Store as StoreIcon, Package as PackageIcon, ShoppingCart, ArrowRight, A
 
 const getID = (obj: any): string | null => {
   if (!obj) return null;
-  if (typeof obj === "string") return obj;
-  return (obj._id || obj.id || obj).toString();
+  if (typeof obj === "string") return obj.trim() || null;
+  const id = obj._id || obj.id;
+  return id ? id.toString() : null;
 };
 
 // --- HARD_SYSTEM_COMPONENTS ---
@@ -469,10 +470,10 @@ export const Community = () => {
                <div className="w-10 h-[1px] bg-rose-500" /> Hot_Signals
             </h3>
             <div className="space-y-6">
-               {["#FINANCE_SYNC", "#PROD_LATTICE", "#GLOBAL_FLEET", "#LEGAL_SHIELD"].map((tag, i) => (
-                 <div key={i} className="flex justify-between items-center group cursor-pointer">
+               {["#FINANCE_SYNC", "#PROD_LATTICE", "#GLOBAL_FLEET", "#LEGAL_SHIELD"].map((tag) => (
+                 <div key={tag} className="flex justify-between items-center group cursor-pointer">
                     <span className="text-[10px] font-black text-slate-500 group-hover:text-indigo-500 transition-colors tracking-widest italic">{tag}</span>
-                    <span className="text-[8px] font-black text-slate-400 px-2 py-1 bg-slate-100 dark:bg-white/5 rounded-lg border border-transparent dark:border-white/5">{120 + (i*42)} Signals</span>
+                    <span className="text-[8px] font-black text-slate-400 px-2 py-1 bg-slate-100 dark:bg-white/5 rounded-lg border border-transparent dark:border-white/5">{120} Signals</span>
                  </div>
                ))}
             </div>
@@ -696,7 +697,7 @@ const DiscussionTerminal = ({ postId, onClose, t }: any) => {
              {loading ? (
                <div className="h-full flex items-center justify-center opacity-20"><Cpu size={64} className="animate-spin text-indigo-600" /></div>
              ) : comments.map((c, i) => (
-               <div key={i} className="flex gap-6 group">
+               <div key={getID(c) || i} className="flex gap-6 group">
                   <div className="relative shrink-0">
                      <img src={c.author?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${getID(c.author)}`} className="w-14 h-14 rounded-2xl shadow-2xl object-cover border-2 border-white/10" alt="Avatar" />
                      <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-slate-950" />

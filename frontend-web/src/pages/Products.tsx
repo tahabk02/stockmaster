@@ -98,20 +98,23 @@ export const Products = () => {
   if (fetching) return <div className="py-40 flex flex-col items-center justify-center opacity-20"><Loader2 className="animate-spin text-indigo-600 mb-4" size={48} /><p className="font-black text-[10px] uppercase tracking-[0.5em]">{t('common.loading')}</p></div>;
 
   return (
-    <div className={cn("w-full space-y-6 pb-32 animate-reveal", isRtl ? 'text-right' : 'text-left')}>
+    <div className={cn("w-full space-y-6 pb-32 animate-reveal text-[var(--text)]", isRtl ? 'text-right' : 'text-left')}>
       <ProductInventoryHeader isAdmin={isAdmin} editingId={editingId} viewMode={viewMode} setViewMode={setViewMode} onOpenCategory={()=>setIsCatManagerOpen(true)} onOpenAdd={()=>{setEditingId(null); setBulkProducts([{ name: "", sku: "", price: "", quantity: "", category: "", image: "", gallery: [], description: "", location: "" }]); setIsModalOpen(true);}} t={t} />
       
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Category Sidebar */}
         <aside className="w-full lg:w-64 shrink-0 space-y-4">
-           <div className="bg-white dark:bg-slate-900/50 rounded-[2rem] border border-slate-200 dark:border-white/5 p-6 shadow-sm flex flex-col h-full lg:max-h-[70vh]">
+           <div className="theme-card p-6 shadow-sm flex flex-col h-full lg:max-h-[70vh]">
               <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 italic">{t('products.categories')}</p>
               
               <div className="relative group mb-4">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-all" size={14} />
+                <Search className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-all", isRtl ? "right-3" : "left-3")} size={14} />
                 <input 
-                  placeholder="Filter Tiers..." 
-                  className="w-full bg-slate-100 dark:bg-black/20 border-none rounded-xl py-2 pl-9 pr-4 text-[10px] font-black uppercase tracking-widest outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all shadow-inner"
+                  placeholder={t('products.filterPlaceholder')} 
+                  className={cn(
+                    "pro-input w-full py-2 text-[10px] font-black uppercase tracking-widest",
+                    isRtl ? "pr-9 pl-4 text-right" : "pl-9 pr-4 text-left"
+                  )}
                   value={categorySearch}
                   onChange={(e) => setCategorySearch(e.target.value)}
                 />
@@ -121,18 +124,20 @@ export const Products = () => {
                  <button 
                    onClick={() => setSelectedCategory("all")}
                    className={cn(
-                     "px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border-none text-left shrink-0",
+                     "px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border-none shrink-0",
+                     isRtl ? "text-right" : "text-left",
                      selectedCategory === "all" ? "bg-indigo-600 text-white shadow-lg" : "bg-transparent text-slate-500 hover:text-indigo-500"
                    )}
                  >
-                    Universal Access
+                    {t('products.allCategories')}
                  </button>
                  {categories.filter(c => c.name.toLowerCase().includes(categorySearch.toLowerCase())).map(c => (
                    <button 
                      key={c._id}
                      onClick={() => setSelectedCategory(c._id)}
                      className={cn(
-                       "px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border-none text-left shrink-0 truncate",
+                       "px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border-none shrink-0 truncate",
+                       isRtl ? "text-right" : "text-left",
                        selectedCategory === c._id ? "bg-indigo-600 text-white shadow-lg" : "bg-transparent text-slate-500 hover:text-indigo-500"
                      )}
                    >
@@ -145,7 +150,7 @@ export const Products = () => {
 
         <div className="flex-1 min-w-0">
           {filtered.length === 0 ? (
-            <div className="py-24 bg-white dark:bg-slate-900/50 rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-white/5 flex flex-col items-center justify-center opacity-30 grayscale"><BoxSelect size={64} strokeWidth={1} /><p className="font-black uppercase text-xs tracking-widest mt-4">{t('products.title')} {t('common.empty')}</p></div>
+            <div className="py-24 theme-card border-2 border-dashed flex flex-col items-center justify-center opacity-30 grayscale"><BoxSelect size={64} strokeWidth={1} /><p className="font-black uppercase text-xs tracking-widest mt-4">{t('products.title')} {t('common.empty')}</p></div>
           ) : viewMode === "GRID" ? (
             <ProductInventoryGrid products={filtered} isRtl={isRtl} t={t} onView={setSelectedProduct} onEdit={(p)=>{setEditingId(p._id); setBulkProducts([p]); setIsModalOpen(true);}} />
           ) : (
@@ -156,7 +161,7 @@ export const Products = () => {
 
       <AnimatePresence>{isModalOpen && <BulkAddModal editingId={editingId} bulkProducts={bulkProducts} categories={categories} isSubmitting={isSubmitting} isRtl={isRtl} onClose={()=>setIsModalOpen(false)} onSubmit={handleSubmit} onAddRow={()=>setBulkProducts([...bulkProducts, { name: "", sku: "", price: "", quantity: "", category: "", image: "", gallery: [], description: "", location: "" }])} onRemoveRow={(i)=>setBulkProducts(bulkProducts.filter((_, idx)=>idx!==i))} onBulkChange={(i,f,v)=>{const u=[...bulkProducts]; u[i][f]=v; setBulkProducts(u);}} onFileChange={handleFileChange} onRemoveGalleryImg={(pi, ii)=>{const u=[...bulkProducts]; u[pi].gallery=u[pi].gallery.filter((_:any,idx:number)=>idx!==ii); setBulkProducts(u);}} t={t} />}</AnimatePresence>
       <AnimatePresence>{isCatManagerOpen && <CategoryManager isOpen={isCatManagerOpen} onClose={()=>setIsCatManagerOpen(false)} onUpdate={fetchData} isRtl={isRtl} t={t} />}</AnimatePresence>
-      <AnimatePresence>{selectedProduct && <ProductDetailModal product={selectedProduct} isRtl={isRtl} currencySymbol="DH" onClose={()=>setSelectedProduct(null)} onAddToCart={()=>{}} t={t} />}</AnimatePresence>
+      <AnimatePresence>{selectedProduct && <ProductDetailModal product={selectedProduct} isRtl={isRtl} currencySymbol={t('common.currency')} onClose={()=>setSelectedProduct(null)} onAddToCart={()=>{}} t={t} />}</AnimatePresence>
     </div>
   );
 };

@@ -43,12 +43,12 @@ const ForensicReportModal = ({ isOpen, onClose, isRtl, t }: { isOpen: boolean; o
             initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
             className="bg-white dark:bg-[#020205] w-full max-w-5xl rounded-[2.5rem] shadow-3xl relative border border-white/5 my-auto overflow-hidden"
           >
-            <div className={cn("p-6 md:p-8 border-b border-white/5 flex justify-between items-center bg-slate-50/30 dark:bg-transparent", isRtl && "flex-row-reverse")}>
+            <div className={cn("p-6 md:p-8 border-b border-white/5 flex justify-between items-center bg-slate-50 dark:bg-transparent", isRtl && "flex-row-reverse")}>
                <div className={cn("flex items-center gap-4", isRtl && "flex-row-reverse")}>
                   <div className="p-3 bg-indigo-600 rounded-xl text-white shadow-xl rotate-3"><Fingerprint size={24} /></div>
                   <div className={isRtl ? "text-right" : "text-left"}>
-                     <h2 className="text-xl font-black italic uppercase text-indigo-950 dark:text-white leading-none">{t('dashboard.forensic.title')}</h2>
-                     <p className="text-[7px] font-black text-slate-400 uppercase tracking-widest mt-1">{t('dashboard.forensic.subtitle')}</p>
+                     <h2 className="text-xl font-black italic uppercase text-slate-900 dark:text-white leading-none">{t('dashboard.forensic.title')}</h2>
+                     <p className="text-[7px] font-black text-slate-500 uppercase tracking-widest mt-1">{t('dashboard.forensic.subtitle')}</p>
                   </div>
                </div>
                <button onClick={onClose} className="p-3 bg-slate-950 dark:bg-white text-white dark:text-slate-900 rounded-xl active:scale-90 transition-all border-none"><X size={20}/></button>
@@ -92,8 +92,8 @@ const ForensicReportModal = ({ isOpen, onClose, isRtl, t }: { isOpen: boolean; o
 };
 
 const ReportStatCard = ({ label, value, color }: any) => (
-  <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-white/5 shadow-sm">
-     <p className="text-[7px] font-black text-slate-400 uppercase mb-1">{label}</p>
+  <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200/60 dark:border-white/5 shadow-sm">
+     <p className="text-[7px] font-black text-slate-500 uppercase mb-1">{label}</p>
      <h4 className={`text-xl font-black italic tracking-tighter text-${color}-500`}>{value}</h4>
   </div>
 );
@@ -115,18 +115,18 @@ export const PredictiveEngine = ({ t, isRtl }: { t: any; isRtl: boolean }) => {
   const [isReportOpen, setIsReportOpen] = useState(false);
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-[1.5rem] p-5 border border-slate-200/60 dark:border-white/10 shadow-pro relative overflow-hidden group">
+    <div className="bg-white dark:bg-slate-900 rounded-[1.5rem] p-5 border border-slate-200/60 dark:border-white/10 shadow-sm relative overflow-hidden group">
       <div className="relative z-10 flex flex-col h-full">
         <div className={cn("flex justify-between items-start mb-4", isRtl && "flex-row-reverse")}>
           <div className={isRtl ? "text-right" : "text-left"}>
-            <h3 className="text-sm font-black text-indigo-950 dark:text-white uppercase italic tracking-tighter flex items-center gap-2">
+            <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase italic tracking-tighter flex items-center gap-2">
               <Brain size={14} className="text-indigo-600" /> {t('dashboard.predictions')}
             </h3>
-            <p className="text-[7px] font-black text-slate-400 uppercase tracking-widest mt-1">{t('dashboard.aiProtocol')}</p>
+            <p className="text-[7px] font-black text-slate-500 uppercase tracking-widest mt-1">{t('dashboard.aiProtocol')}</p>
           </div>
           <div className={cn("flex gap-1 p-0.5 bg-slate-50 dark:bg-slate-800 rounded-lg", isRtl && "flex-row-reverse")}>
             {['REVENUE', 'STOCK'].map((tab: any) => (
-              <button key={tab} onClick={() => setActiveTab(tab)} className={cn("px-3 py-1 rounded-md text-[7px] font-black transition-all border-none bg-transparent", activeTab === tab ? "bg-white dark:bg-white/10 text-indigo-600 dark:text-white shadow-sm" : "text-slate-400 hover:text-slate-600")}>{tab}</button>
+              <button key={tab} onClick={() => setActiveTab(tab)} className={cn("px-3 py-1 rounded-md text-[7px] font-black transition-all border-none bg-transparent", activeTab === tab ? "bg-white dark:bg-white/10 text-indigo-600 dark:text-white shadow-sm" : "text-slate-500 hover:text-slate-600")}>{tab}</button>
             ))}
           </div>
         </div>
@@ -154,8 +154,8 @@ export const PredictiveEngine = ({ t, isRtl }: { t: any; isRtl: boolean }) => {
 };
 
 const InsightCard = ({ label, value, color }: any) => (
-  <div className="bg-slate-50/50 dark:bg-slate-950/50 p-2.5 rounded-lg border border-slate-100 dark:border-white/5">
-     <p className="text-[6px] font-black text-slate-400 uppercase mb-0.5">{label}</p>
+  <div className="bg-slate-50 dark:bg-slate-950/50 p-2.5 rounded-lg border border-slate-200/60 dark:border-white/5">
+     <p className="text-[6px] font-black text-slate-500 uppercase mb-0.5">{label}</p>
      <p className={cn("text-xs font-black italic", `text-${color}-500`)}>{value}</p>
   </div>
 );

@@ -32,11 +32,11 @@ export const ForgotPassword = () => {
   const isRtl = i18n.language === 'ar';
 
   return (
-    <div className={cn("min-h-screen bg-[rgb(var(--background-rgb))] flex items-center justify-center p-4 relative font-sans", isRtl ? "rtl" : "ltr")}>
+    <div className={cn("min-h-screen bg-slate-50 dark:bg-[color:var(--bg)] flex items-center justify-center p-4 relative font-sans", isRtl ? "rtl" : "ltr")}>
       <div className={cn("absolute top-6 z-20", isRtl ? "left-6" : "right-6")}>
         <button 
           onClick={toggleTheme}
-          className="p-3 rounded-2xl bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 text-slate-500 dark:text-amber-400 hover:text-indigo-600 transition-all shadow-xl active:scale-95"
+          className="p-3 rounded-2xl bg-white dark:bg-white/5 border border-slate-200/60 dark:border-white/10 text-slate-500 dark:text-amber-400 hover:text-indigo-600 transition-all shadow-sm active:scale-95"
         >
           {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
         </button>
@@ -50,9 +50,9 @@ export const ForgotPassword = () => {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-slate-100 dark:border-slate-800 relative z-10"
+        className="w-full max-w-md bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-slate-200/60 dark:border-slate-800 relative z-10"
       >
-        <Link to="/login" className={cn("inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-indigo-600 transition-colors mb-8 group", isRtl && "flex-row-reverse")}>
+        <Link to="/login" className={cn("inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors mb-8 group", isRtl && "flex-row-reverse")}>
           <ArrowLeft size={14} className={cn("transition-transform", isRtl ? "rotate-180 group-hover:translate-x-1" : "group-hover:-translate-x-1")} /> {t('common.back')}
         </Link>
 
@@ -63,12 +63,12 @@ export const ForgotPassword = () => {
                 <Mail size={32} />
               </div>
               <h1 className="text-3xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none mb-4">Reset <span className="text-indigo-600 text-4xl">Access.</span></h1>
-              <p className="text-slate-500 font-bold text-sm leading-relaxed uppercase tracking-tight">Saisissez votre email pour recevoir les instructions de récupération.</p>
+              <p className="text-slate-600 dark:text-slate-500 font-bold text-sm leading-relaxed uppercase tracking-tight">Saisissez votre email pour recevoir les instructions de récupération.</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label className={cn("text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 block", isRtl && "text-right mr-1")}>Adresse Email</label>
+                <label className={cn("text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 block", isRtl && "text-right mr-1")}>Adresse Email</label>
                 <div className="relative group">
                   <Mail className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors", isRtl ? "right-4" : "left-4")} size={18} />
                   <input 
@@ -84,7 +84,7 @@ export const ForgotPassword = () => {
 
               <button 
                 disabled={loading}
-                className="w-full bg-indigo-600 text-white py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-[0.2em] shadow-xl shadow-indigo-500/20 hover:bg-slate-900 transition-all active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50"
+                className="w-full bg-indigo-600 text-white py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-[0.2em] shadow-xl shadow-indigo-500/20 hover:bg-slate-900 transition-all active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50 border-none"
               >
                 {loading ? <Loader2 className="animate-spin" size={18} /> : <>Envoyer les instructions <Send size={16} className={isRtl ? "rotate-180" : ""}/></>}
               </button>
@@ -96,7 +96,7 @@ export const ForgotPassword = () => {
               <ShieldCheck size={48} />
             </div>
             <h2 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic mb-4">Email Envoyé !</h2>
-            <p className="text-slate-500 font-bold text-sm uppercase leading-relaxed tracking-tight mb-10 px-4">
+            <p className="text-slate-600 dark:text-slate-500 font-bold text-sm uppercase leading-relaxed tracking-tight mb-10 px-4">
               Si un compte est associé à <strong>{email}</strong>, vous recevrez un lien de réinitialisation d'ici quelques instants.
             </p>
             <Link to="/login" className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-10 py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:text-white transition-all shadow-lg">

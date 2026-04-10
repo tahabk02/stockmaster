@@ -30,12 +30,12 @@ const MetricCard = ({ label, value, unit, icon: IconComponent, color, isRtl }: M
           <Icon size={22} />
         </div>
         <div className={isRtl ? 'text-right' : 'text-left'}>
-          <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1 transition-colors">{label}</p>
+          <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1 transition-colors">{label}</p>
           <div className={`flex items-baseline gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
             <h4 className="text-2xl font-black text-slate-900 dark:text-white italic tracking-tighter transition-colors">
               {typeof value === 'number' ? value.toLocaleString() : value}
             </h4>
-            <span className="text-slate-400 dark:text-slate-600 text-[10px] font-bold uppercase transition-colors">{unit}</span>
+            <span className="text-slate-500 dark:text-slate-600 text-[10px] font-bold uppercase transition-colors">{unit}</span>
           </div>
         </div>
       </div>

@@ -17,11 +17,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     // Smooth transition logic handled by CSS transition-colors
   }, [theme]);
 
-  // Sync with backend if user changes theme
+  // Sync with backend if user changes theme, or use localStorage for guests
   useEffect(() => {
-    if (!user) return;
     const isDark = theme === "dark";
-    api.patch("/users/preferences", { darkMode: isDark }).catch(() => {});
+    if (user) {
+      api.patch("/users/preferences", { darkMode: isDark }).catch(() => {});
+    } else {
+      localStorage.setItem("guest-theme", theme);
+    }
   }, [theme, user]);
 
   return <>{children}</>;

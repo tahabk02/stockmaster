@@ -15,7 +15,7 @@ export const AIIntelligence = () => {
   const isRtl = i18n.language === "ar";
   const [query, setQuery] = useState("");
   const [messages, setMessages] = useState<any[]>([
-    { role: "bot", content: "Neural Link established. Standby for query execution...", timestamp: new Date() }
+    { role: "bot", content: t('ai.chat.welcome'), timestamp: new Date() }
   ]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("STABLE");
@@ -45,7 +45,7 @@ export const AIIntelligence = () => {
       setMessages(prev => [...prev, botMsg]);
       setStatus("STABLE");
     } catch (error) {
-      toast.error("Neural Signal Interrupted");
+      toast.error(t('ai.intel.signal_interrupted'));
       setStatus("ERROR");
     } finally {
       setLoading(false);
@@ -65,16 +65,16 @@ export const AIIntelligence = () => {
               </div>
               <div>
                 <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-slate-900 dark:text-white">
-                  Neural <span className="text-indigo-600">Core.</span>
+                  {t('ai.intel.title')} <span className="text-indigo-600">{t('ai.intel.subtitle')}</span>
                 </h1>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mt-3 italic leading-none">Cognitive_Intelligence_v9.4</p>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mt-3 italic leading-none">{t('ai.intel.version')}</p>
               </div>
             </div>
           </div>
 
           <div className={cn("flex gap-4", isRtl && "flex-row-reverse")}>
-            <StatNode label="Status" val={status} color={status === 'ERROR' ? 'rose' : status === 'PROCESSING' ? 'amber' : 'emerald'} pulse />
-            <StatNode label="Model" val="Gemini 1.5 Pro" color="sky" />
+            <StatNode label={t('ai.intel.status')} val={t(`ai.intel.statuses.${status}`)} color={status === 'ERROR' ? 'rose' : status === 'PROCESSING' ? 'amber' : 'emerald'} pulse />
+            <StatNode label={t('ai.intel.model')} val="Gemini 1.5 Pro" color="sky" />
           </div>
         </div>
       </header>
@@ -88,7 +88,7 @@ export const AIIntelligence = () => {
             <div className="p-6 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02] flex justify-between items-center relative z-10">
                <div className="flex items-center gap-3">
                   <Terminal size={16} className="text-indigo-600" />
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Secure_Command_Terminal</span>
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('ai.intel.secure_terminal')}</span>
                </div>
                <ShieldCheck size={16} className="text-emerald-500" />
             </div>
@@ -111,7 +111,7 @@ export const AIIntelligence = () => {
                         ? "bg-indigo-600 text-white border-transparent" 
                         : "theme-card bg-white dark:bg-white/5 border-slate-100 dark:border-white/10")}>
                       <p className="text-sm font-medium leading-relaxed font-sans">{msg.content}</p>
-                      <p className={cn("text-[8px] font-black uppercase mt-3 opacity-40 italic", msg.role === 'user' ? "text-white" : "text-slate-500")}>
+                      <p className={cn("text-[8px] font-black uppercase mt-3 opacity-40 italic", msg.role === 'user' ? "text-white" : "text-slate-600 dark:text-slate-500")}>
                         {new Date(msg.timestamp).toLocaleTimeString()} // ID: {Math.random().toString(36).substr(7).toUpperCase()}
                       </p>
                     </div>
@@ -137,7 +137,7 @@ export const AIIntelligence = () => {
               <div className="relative group">
                 <input 
                   type="text" 
-                  placeholder="TRANSMIT_NEURAL_QUERY..." 
+                  placeholder={t('ai.intel.transmit_query')}
                   className="pro-input w-full pr-16 bg-white dark:bg-black/20"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
@@ -153,23 +153,23 @@ export const AIIntelligence = () => {
         {/* 3. SIDEBAR INSIGHTS */}
         <div className="xl:col-span-4 space-y-8">
            <InsightCard 
-              title="Supply Chain Node" 
+              title={t('ai.intel.insight_supply')}
               icon={TrendingUp} 
               color="emerald" 
-              desc="Neural forecasting suggests +14% velocity in current logistics lattice." 
+              desc={t('ai.intel.insight_supply_desc')}
            />
            <InsightCard 
-              title="Inventory Risk" 
+              title={t('ai.intel.insight_risk')}
               icon={AlertTriangle} 
               color="rose" 
-              desc="3 Nodes detected at critical threshold. Immediate replenishment required." 
+              desc={t('ai.intel.insight_risk_desc')}
            />
            <div className="theme-card p-8 bg-indigo-600 text-white relative overflow-hidden group">
               <Zap size={140} className="absolute -bottom-10 -right-10 opacity-10 group-hover:scale-110 transition-transform duration-700" />
-              <h3 className="text-xl font-black italic uppercase tracking-tighter mb-4 relative z-10">Logic Forge</h3>
-              <p className="text-[10px] font-bold opacity-80 leading-relaxed italic relative z-10 mb-6">Execute complex inventory simulations and risk assessments via terminal commands.</p>
+              <h3 className="text-xl font-black italic uppercase tracking-tighter mb-4 relative z-10">{t('ai.intel.logic_forge')}</h3>
+              <p className="text-[10px] font-bold opacity-80 leading-relaxed italic relative z-10 mb-6">{t('ai.intel.logic_forge_desc')}</p>
               <button className="w-full py-4 bg-white text-indigo-600 rounded-xl font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all active:scale-95 border-none shadow-xl">
-                 Open Simulations ↗
+                 {t('ai.intel.open_simulations')}
               </button>
            </div>
         </div>

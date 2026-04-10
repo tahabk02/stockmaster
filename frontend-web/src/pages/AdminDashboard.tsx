@@ -46,13 +46,13 @@ export const AdminDashboard = () => {
   const isRtl = i18n.language === 'ar';
 
   if (isLoading) return (
-    <div className="h-screen flex flex-col items-center justify-center bg-slate-950">
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-10" />
+    <div className="h-screen flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950">
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-5 dark:opacity-10" />
       <div className="relative">
-        <div className="w-32 h-32 border-2 border-dashed border-indigo-500/30 rounded-full animate-spin-slow" />
-        <Cpu size={48} className="absolute inset-0 m-auto text-indigo-500 animate-pulse" />
+        <div className="w-32 h-32 border-2 border-dashed border-indigo-500/20 rounded-full animate-spin-slow" />
+        <Cpu size={48} className="absolute inset-0 m-auto text-indigo-600 animate-pulse" />
       </div>
-      <p className="mt-12 font-black text-[12px] uppercase tracking-[1.5em] text-white animate-pulse italic mr-[-1.5em]">{t('admin.syncingLattice')}</p>
+      <p className="mt-12 font-black text-[12px] uppercase tracking-[1.5em] text-slate-600 dark:text-white animate-pulse italic mr-[-1.5em]">{t('admin.syncingLattice')}</p>
     </div>
   );
 
@@ -62,7 +62,7 @@ export const AdminDashboard = () => {
          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-indigo-600/5 rounded-full blur-[120px] -mr-96 -mt-96 opacity-50" />
       </div>
 
-      <header className="relative overflow-hidden rounded-[3rem] border border-white/5 bg-slate-950/40 backdrop-blur-3xl shadow-4xl p-1">
+      <header className="relative overflow-hidden rounded-[3rem] border border-slate-200/60 dark:border-white/5 bg-white dark:bg-slate-950/40 backdrop-blur-3xl shadow-sm dark:shadow-4xl p-1">
          <Scanline />
          <AdminHeaderHUD stats={stats} currentTime={currentTime} isLoading={isLoading} onRefetch={refetch} isRtl={isRtl} />
       </header>
@@ -70,20 +70,20 @@ export const AdminDashboard = () => {
       <KPIGrid kpis={kpis} colors={COLORS} isRtl={isRtl} />
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-         <div className="lg:col-span-2 relative overflow-hidden rounded-[3.5rem] border border-white/5 bg-white/5 backdrop-blur-xl shadow-2xl">
+         <div className="lg:col-span-2 relative overflow-hidden rounded-[3.5rem] border border-slate-200/60 dark:border-white/5 bg-white dark:bg-white/5 backdrop-blur-xl shadow-sm dark:shadow-2xl">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
             <RevenueAnalytics data={stats?.growthData || []} isRtl={isRtl} />
          </div>
-         <div className="relative overflow-hidden rounded-[3.5rem] border border-white/5 bg-white/5 backdrop-blur-xl shadow-2xl">
+         <div className="relative overflow-hidden rounded-[3.5rem] border border-slate-200/60 dark:border-white/5 bg-white dark:bg-white/5 backdrop-blur-xl shadow-sm dark:shadow-2xl">
             <ClusterTopology data={stats?.distribution || []} colors={COLORS} isRtl={isRtl} />
          </div>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 pb-10">
-         <div className="xl:col-span-2 relative overflow-hidden rounded-[3.5rem] border border-white/5 bg-white/5 backdrop-blur-xl shadow-2xl">
+         <div className="xl:col-span-2 relative overflow-hidden rounded-[3.5rem] border border-slate-200/60 dark:border-white/5 bg-white dark:bg-white/5 backdrop-blur-xl shadow-sm dark:shadow-2xl">
             <InfraTelemetry stats={stats} isRtl={isRtl} />
          </div>
-         <div className="relative overflow-hidden rounded-[3.5rem] border border-white/5 bg-indigo-600 shadow-4xl group">
+         <div className="relative overflow-hidden rounded-[3.5rem] border border-indigo-500/20 dark:border-white/5 bg-indigo-600 shadow-4xl group">
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] opacity-20" />
             <AdminCommandDeck isRtl={isRtl} />
          </div>

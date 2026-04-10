@@ -63,9 +63,31 @@ async function seed() {
     const productCount = await Product.countDocuments();
     if (productCount === 0) {
       console.log("📦 No products found. Seeding dummy data...");
+      
+      // Fetch some categories to use
+      const { Category } = await import("../models/Category");
+      const categoryMoteur = await Category.findOne({ name: "Moteur" });
+      const categoryFreinage = await Category.findOne({ name: "Freinage" });
+
       const dummyProducts = [
-        { name: "Moteur High-Performance v8", sku: "MOT-V8-001", price: 45000, quantity: 12, category: "Moteur", tenantId: "MAIN-PLATFORM", description: "Moteur de haute précision." },
-        { name: "Kit de Freinage Ceramic", sku: "BRK-CER-099", price: 8500, quantity: 25, category: "Freinage", tenantId: "MAIN-PLATFORM", description: "Système de freinage haute température." }
+        { 
+          name: "Moteur High-Performance v8", 
+          sku: "MOT-V8-001", 
+          price: 45000, 
+          quantity: 12, 
+          category: categoryMoteur ? categoryMoteur._id : null, 
+          tenantId: "MAIN-PLATFORM", 
+          description: "Moteur de haute précision." 
+        },
+        { 
+          name: "Kit de Freinage Ceramic", 
+          sku: "BRK-CER-099", 
+          price: 8500, 
+          quantity: 25, 
+          category: categoryFreinage ? categoryFreinage._id : null, 
+          tenantId: "MAIN-PLATFORM", 
+          description: "Système de freinage haute température." 
+        }
       ];
       await Product.insertMany(dummyProducts);
       console.log("✅ Dummy products inserted.");

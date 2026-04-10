@@ -73,13 +73,13 @@ export const AuditLogs = () => {
   const handleExport = () => {
     const loadId = toast.loading(t('audit.export.loading'));
     try {
-      const csv = "Date,Time,Agent,Action,Details\n" + 
+      const csv = `${t('audit.export.csvHeaders')}\n` + 
         filtered.map(l => `${new Date(l.createdAt).toLocaleDateString()},${new Date(l.createdAt).toLocaleTimeString()},${l.userId?.name || t('audit.table.system')},${l.action},${l.details}`).join("\n");
       const blob = new Blob([csv], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Forensic-Audit-${Date.now()}.csv`;
+      a.download = `Audit-${Date.now()}.csv`;
       a.click();
       toast.success(t('audit.export.success'), { id: loadId });
     } catch (err) {
@@ -99,12 +99,12 @@ export const AuditLogs = () => {
   const isRtl = i18n.language === 'ar';
 
   return (
-    <div className={cn("w-full space-y-6 pb-16 px-4 md:px-6 animate-reveal text-slate-900 dark:text-slate-200", isRtl ? 'text-right font-ar' : 'text-left font-sans')}>
+    <div className={cn("w-full space-y-6 pb-16 px-4 md:px-6 animate-reveal text-[var(--text)]", isRtl ? 'text-right font-ar' : 'text-left font-sans')}>
       
       {/* 1. FORENSIC COMMAND HUD */}
       <header className="relative group">
-         <div className="absolute inset-0 bg-indigo-600/20 rounded-[2.5rem] blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-         <div className="bg-slate-950 dark:bg-black/40 backdrop-blur-3xl border border-white/10 p-6 md:p-10 rounded-[2.5rem] shadow-4xl relative overflow-hidden flex flex-col lg:flex-row justify-between items-center gap-8">
+         <div className="absolute inset-0 bg-indigo-600/10 rounded-[2.5rem] blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+         <div className="bg-slate-900 dark:bg-black/40 backdrop-blur-3xl border border-slate-200/50 dark:border-white/10 p-6 md:p-10 rounded-[2.5rem] shadow-4xl relative overflow-hidden flex flex-col lg:flex-row justify-between items-center gap-8">
             <div className="absolute inset-0 grid-pattern opacity-[0.05] pointer-events-none" />
             <div className="scanline" />
 
@@ -118,19 +118,19 @@ export const AuditLogs = () => {
                <div className="text-center md:text-left">
                   <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
                      <PulseNode color="indigo" />
-                     <span className="text-[9px] font-black uppercase tracking-[0.4em] text-indigo-400 italic">{t('audit.subtitle')}</span>
+                     <span className="text-[9px] font-black uppercase tracking-[0.4em] text-indigo-500 italic">{t('audit.subtitle')}</span>
                   </div>
-                  <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic leading-none text-white flex flex-wrap gap-x-4 justify-center md:justify-start">
+                  <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic leading-none text-white dark:text-white flex flex-wrap gap-x-4 justify-center md:justify-start">
                      {t('audit.title').split(' ')[0]} <span className="text-indigo-500 underline decoration-indigo-500/30 underline-offset-4 decoration-4">{t('audit.title').split(' ')[1]}</span>
                   </h1>
-                  <p className="text-slate-400 font-bold uppercase text-[9px] tracking-[0.4em] mt-4 opacity-60 max-w-lg leading-relaxed">
+                  <p className="text-slate-400 dark:text-slate-400 font-bold uppercase text-[9px] tracking-[0.4em] mt-4 opacity-60 max-w-lg leading-relaxed">
                      {t('audit.desc')}
                   </p>
                </div>
             </div>
 
             <div className="flex flex-wrap justify-center gap-6 shrink-0 relative z-10 w-full lg:w-auto">
-               <div className="bg-white/5 backdrop-blur-2xl border border-white/10 p-5 rounded-[2rem] flex items-center gap-10 shadow-3xl group/stats hover:bg-white/10 transition-colors w-full md:w-auto justify-center">
+               <div className="bg-white/5 dark:bg-white/5 backdrop-blur-2xl border border-white/10 p-5 rounded-[2rem] flex items-center gap-10 shadow-3xl group/stats hover:bg-white/10 transition-colors w-full md:w-auto justify-center">
                   <div className="text-center">
                      <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-1 group-hover/stats:text-emerald-400 transition-colors">{t('audit.stats.integrity')}</p>
                      <div className="flex items-center gap-2 justify-center">
@@ -151,7 +151,7 @@ export const AuditLogs = () => {
       </header>
 
       {/* 2. REGISTRY INTELLIGENCE FILTERS */}
-      <div className={cn("flex flex-col md:flex-row gap-4 bg-white/5 dark:bg-slate-900/40 backdrop-blur-3xl p-3 rounded-[2.2rem] border border-slate-200/50 dark:border-white/10 shadow-pro group transition-all", isRtl && "md:flex-row-reverse")}>
+      <div className={cn("flex flex-col md:flex-row gap-4 bg-[var(--card)] backdrop-blur-3xl p-3 rounded-[2.2rem] border border-[var(--border)] shadow-pro group transition-all", isRtl && "md:flex-row-reverse")}>
         <div className="relative flex-1 group/input">
           <div className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/input:text-indigo-500 transition-all z-10", isRtl ? "right-6" : "left-6")}>
             <Search size={18} strokeWidth={2.5} />
@@ -159,13 +159,13 @@ export const AuditLogs = () => {
           <input
             type="text"
             placeholder={t('audit.filter.placeholder')}
-            className={cn("w-full bg-slate-100/50 dark:bg-black/40 border-none rounded-[1.8rem] py-4 text-[11px] font-black uppercase tracking-[0.3em] text-slate-950 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500 transition-all shadow-inner", isRtl ? "pr-16 pl-6" : "pl-16 pr-6")}
+            className={cn("w-full bg-[var(--bg-soft)] border-none rounded-[1.8rem] py-4 text-[11px] font-black uppercase tracking-[0.3em] text-[var(--text)] outline-none focus:ring-2 focus:ring-indigo-500 transition-all shadow-inner", isRtl ? "pr-16 pl-6" : "pl-16 pr-6")}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <div className={cn("flex flex-wrap md:flex-nowrap gap-3", isRtl && "flex-row-reverse")}>
-           <button onClick={handleExport} className="flex-1 md:flex-none bg-white dark:bg-white/5 px-6 py-4 rounded-[1.8rem] border border-slate-200 dark:border-white/10 hover:border-indigo-500/50 transition-all shadow-sm active:scale-90 flex items-center justify-center gap-3 group/btn">
+           <button onClick={handleExport} className="flex-1 md:flex-none bg-[var(--card)] px-6 py-4 rounded-[1.8rem] border border-[var(--border)] hover:border-indigo-500/50 transition-all shadow-sm active:scale-90 flex items-center justify-center gap-3 group/btn">
               <Download size={18} strokeWidth={2.5} className="group-hover/btn:scale-110 transition-transform" />
               <span className="text-[10px] font-black uppercase tracking-widest whitespace-nowrap">{t('common.export')}</span>
            </button>
@@ -173,25 +173,25 @@ export const AuditLogs = () => {
               <ShieldAlert size={18} strokeWidth={2.5} className="group-hover/btn:rotate-12 transition-transform" />
               <span className="text-[10px] font-black uppercase tracking-widest whitespace-nowrap">{t('audit.purge.button')}</span>
            </button>
-           <button onClick={fetchLogs} className="bg-white dark:bg-white/5 p-4 rounded-[1.8rem] border border-slate-200 dark:border-white/10 hover:border-indigo-500/50 transition-all group/refresh shadow-sm active:scale-90">
+           <button onClick={fetchLogs} className="bg-[var(--card)] p-4 rounded-[1.8rem] border border-[var(--border)] hover:border-indigo-500/50 transition-all group/refresh shadow-sm active:scale-90">
               <RefreshCcw className={cn("text-slate-400 group-hover/refresh:text-indigo-500 group-hover/refresh:rotate-180 transition-all duration-700", loading && "animate-spin")} size={20} strokeWidth={2.5} />
            </button>
         </div>
       </div>
 
       {/* 3. FORENSIC SIGNAL STREAM */}
-      <div className="bg-white/5 dark:bg-slate-900/60 backdrop-blur-3xl rounded-[2.5rem] border border-slate-200/50 dark:border-white/10 shadow-3xl overflow-hidden relative">
+      <div className="theme-card overflow-hidden relative">
          <div className="absolute inset-0 grid-pattern opacity-[0.02] pointer-events-none" />
          
          <div className="overflow-x-auto custom-scrollbar">
-            <table className={`w-full text-left border-collapse ${isRtl ? 'text-right' : 'text-left'}`}>
+            <table className={cn("pro-table", isRtl ? 'text-right' : 'text-left')}>
                <thead>
-                  <tr className="bg-slate-50 dark:bg-slate-950/80 border-b border-slate-200 dark:border-white/5 text-[9px] font-black uppercase text-slate-500 dark:text-slate-400 tracking-[0.2em] italic">
-                     <th className="p-6 w-40">{t('audit.table.timing')}</th>
-                     <th className="p-6">{t('audit.table.agent')}</th>
-                     <th className="p-6">{t('audit.table.protocol')}</th>
-                     <th className="p-6">{t('audit.table.payload')}</th>
-                     <th className="p-6 text-right">{t('audit.table.node')}</th>
+                  <tr className="italic">
+                     <th className="w-40">{t('audit.table.timing')}</th>
+                     <th>{t('audit.table.agent')}</th>
+                     <th>{t('audit.table.protocol')}</th>
+                     <th>{t('audit.table.payload')}</th>
+                     <th className="text-right">{t('audit.table.node')}</th>
                   </tr>
                </thead>
                <tbody className="divide-y divide-slate-100 dark:divide-white/5">
@@ -202,7 +202,7 @@ export const AuditLogs = () => {
                               <div className="relative mb-6 flex justify-center">
                                  <Loader2 size={60} className="animate-spin text-indigo-500 opacity-50"/>
                                  <div className="absolute inset-0 flex items-center justify-center">
-                                    <Scan size={24} className="text-white animate-pulse" />
+                                    <Scan size={24} className="dark:text-white animate-pulse" />
                                  </div>
                               </div>
                               <p className="text-[10px] font-black uppercase tracking-[0.8em] text-indigo-500 animate-pulse">{t('audit.table.scanning')}</p>
@@ -229,7 +229,7 @@ export const AuditLogs = () => {
                         >
                            <td className="p-6">
                               <div className="flex flex-col relative z-10">
-                                 <span className="text-[12px] font-black text-slate-950 dark:text-white mb-1 leading-none group-hover:text-indigo-500 transition-colors">{new Date(log.createdAt).toLocaleTimeString()}</span>
+                                 <span className="text-[12px] font-black text-[var(--text)] mb-1 leading-none group-hover:text-indigo-500 transition-colors">{new Date(log.createdAt).toLocaleTimeString()}</span>
                                  <div className="flex items-center gap-2 opacity-40 group-hover:opacity-100 transition-opacity">
                                     <Clock size={8} />
                                     <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest">{new Date(log.createdAt).toLocaleDateString()}</span>
@@ -242,7 +242,7 @@ export const AuditLogs = () => {
                                     {log.userId?.name?.charAt(0) || t('audit.table.system').charAt(0)}
                                  </div>
                                  <div className="flex flex-col">
-                                    <span className="font-black text-[12px] text-slate-950 dark:text-white uppercase italic tracking-tighter truncate max-w-[150px] group-hover:text-indigo-500 transition-colors leading-none mb-1">{log.userId?.name || t('audit.table.system')}</span>
+                                    <span className="font-black text-[12px] text-[var(--text)] uppercase italic tracking-tighter truncate max-w-[150px] group-hover:text-indigo-500 transition-colors leading-none mb-1">{log.userId?.name || t('audit.table.system')}</span>
                                     <div className="flex items-center gap-2 opacity-30 group-hover:opacity-100 transition-opacity">
                                        <Fingerprint size={8} />
                                        <span className="text-[6px] font-black uppercase tracking-widest">{log.userId?.role || 'L0'}</span>
@@ -262,7 +262,7 @@ export const AuditLogs = () => {
                            </td>
                            <td className="p-6 max-w-md">
                               <div className="relative z-10 group/payload">
-                                 <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 italic leading-relaxed group-hover:text-slate-950 dark:group-hover:text-slate-200 transition-colors line-clamp-2">
+                                 <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 italic leading-relaxed group-hover:text-[var(--text)] transition-colors line-clamp-2">
                                     <span className="text-indigo-500/40 mr-1">»</span>
                                     {log.details}
                                  </p>
@@ -270,7 +270,7 @@ export const AuditLogs = () => {
                            </td>
                            <td className="p-6 text-right">
                               <div className="relative z-10">
-                                 <span className="text-[8px] font-black text-slate-400 uppercase bg-slate-100 dark:bg-white/5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 tracking-[0.1em] group-hover:text-white group-hover:bg-slate-950 dark:group-hover:bg-indigo-600 transition-all duration-500">
+                                 <span className="text-[8px] font-black text-slate-400 uppercase bg-[var(--bg-soft)] px-3 py-1.5 rounded-lg border border-[var(--border)] tracking-[0.1em] group-hover:text-white group-hover:bg-slate-900 dark:group-hover:bg-indigo-600 transition-all duration-500">
                                     {log.method}
                                  </span>
                               </div>

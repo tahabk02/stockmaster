@@ -34,7 +34,7 @@ export const BulkAddModal = (props: BulkAddModalProps) => {
   } = props;
 
   return (
-    <div className="fixed inset-0 z-[150] flex items-center justify-center p-3 bg-slate-950/90 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 bg-slate-950/90 backdrop-blur-md overflow-y-auto">
       <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} className="bg-white dark:bg-slate-900 w-full max-w-6xl rounded-[2rem] p-6 md:p-10 shadow-2xl relative my-auto border border-slate-200 dark:border-white/5 transition-colors">
         <button onClick={onClose} className="absolute top-6 right-6 p-2 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-full hover:bg-rose-500 hover:text-white transition-all shadow-lg border-none bg-transparent active:scale-90"><X size={20} /></button>
         

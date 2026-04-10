@@ -78,7 +78,7 @@ const RootRedirect = () => {
 
 function App() {
   const { user, token } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     if (token && user) {
@@ -87,6 +87,22 @@ function App() {
     }
     return () => { if (!localStorage.getItem("token")) socketService.clear(); };
   }, [token, user]);
+
+  // --- GLOBAL LANGUAGE SYNCHRONIZATION EFFECT ---
+  useEffect(() => {
+    const lng = i18n.language || "en";
+    const dir = lng === "ar" ? "rtl" : "ltr";
+    
+    // 1. Update DOM attributes
+    document.documentElement.dir = dir;
+    document.documentElement.lang = lng;
+    
+    // 2. Update Document Title
+    document.title = `${t("common:system_name", "StockMaster Pro")} | ${t("nav:dashboard")}`;
+
+    // 3. Persist to LocalStorage
+    localStorage.setItem("i18nextLng", lng);
+  }, [i18n.language, t]);
 
   return (
     <>

@@ -40,9 +40,16 @@ export class ProductController {
 
       console.log(`[Product BI] Applied filter:`, JSON.stringify(filter));
 
-      const products = await Product.find(filter)
-        .populate("category")
-        .sort({ createdAt: -1 });
+      let products;
+      try {
+        products = await Product.find(filter)
+          .populate("category")
+          .sort({ createdAt: -1 });
+      } catch (populateError: any) {
+        console.error("[Product BI] Populate error (likely legacy string categories):", populateError.message);
+        // Fallback: Fetch without populate to avoid 500 error
+        products = await Product.find(filter).sort({ createdAt: -1 });
+      }
 
       console.log(`[Product BI] Found ${products.length} products in database.`);
 
@@ -76,7 +83,13 @@ export class ProductController {
         ? { _id: id } 
         : { _id: id, tenantId };
 
-      const product = await Product.findOne(filter).populate("category");
+      let product;
+      try {
+        product = await Product.findOne(filter).populate("category");
+      } catch (populateError: any) {
+        console.error("[Product BI] getById populate error:", populateError.message);
+        product = await Product.findOne(filter);
+      }
 
       if (!product) {
         return res.status(404).json({ success: false, message: "Asset not found in registry" });

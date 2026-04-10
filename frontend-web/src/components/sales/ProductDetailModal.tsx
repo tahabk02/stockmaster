@@ -30,7 +30,7 @@ export const ProductDetailModal = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-[#020205]/95 backdrop-blur-3xl overflow-y-auto custom-scrollbar">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#020205]/95 backdrop-blur-3xl overflow-y-auto custom-scrollbar">
        <div className="absolute inset-0 grid-pattern opacity-[0.05] pointer-events-none" />
        
        <motion.div 

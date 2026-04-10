@@ -1,0 +1,7 @@
+{
+  "networkError": "Erreur Réseau",
+  "serverError": "Erreur Serveur",
+  "unauthorized": "Non autorisé",
+  "validation": "Données invalides",
+  "invalidData": "Erreurs de formulaire"
+}

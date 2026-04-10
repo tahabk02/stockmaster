@@ -19,10 +19,10 @@ export const GlassCard = ({
 }: GlassCardProps) => {
   const variants = {
     default:
-      "bg-white/80 dark:bg-slate-900/60 border-slate-200/50 dark:border-white/5",
-    dark: "bg-slate-950/90 border-white/10 text-white",
+      "bg-white/70 dark:bg-slate-900/60 border-slate-200/60 dark:border-white/10 shadow-sm",
+    dark: "bg-slate-950/90 border-white/10 text-white shadow-pro",
     gradient:
-      "bg-gradient-to-br from-indigo-600/90 to-violet-700/90 border-white/10 text-white shadow-3xl shadow-indigo-500/20",
+      "bg-gradient-to-br from-indigo-600/90 to-violet-700/90 border-white/10 text-white shadow-md shadow-indigo-500/20",
   };
 
   const Wrapper = animate ? motion.div : "div";

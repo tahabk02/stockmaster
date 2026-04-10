@@ -160,13 +160,13 @@ export const FinancialIntelligence = () => {
 
   if (loading)
     return (
-      <div className="h-[calc(100vh-100px)] w-full flex flex-col items-center justify-center bg-slate-950">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-10" />
+      <div className="h-[calc(100vh-100px)] w-full flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-5 dark:opacity-10" />
         <div className="relative">
           <div className="w-32 h-32 border-2 border-dashed border-indigo-500/30 rounded-full animate-spin-slow" />
           <Terminal size={48} className="absolute inset-0 m-auto text-indigo-500 animate-pulse" />
         </div>
-        <p className="text-[12px] font-black uppercase tracking-[1.5em] text-white animate-pulse italic mt-12 mr-[-1.5em]">{t('fiscal.booting')}</p>
+        <p className="text-[12px] font-black uppercase tracking-[1.5em] text-slate-600 dark:text-white animate-pulse italic mt-12 mr-[-1.5em]">{t('fiscal.booting')}</p>
       </div>
     );
 
@@ -174,7 +174,7 @@ export const FinancialIntelligence = () => {
     <div className={cn("w-full p-2 md:p-4 space-y-8 pb-32 animate-reveal relative min-h-screen text-slate-900 dark:text-slate-200", isRtl ? "text-right" : "text-left")}>
       
       {/* 1. HARD SYSTEM HUD HEADER */}
-      <header className="group relative theme-card p-8 md:p-12 rounded-[2.5rem] overflow-hidden accent-fiscal transition-all duration-700">
+      <header className="group relative bg-white dark:bg-slate-950/40 border border-slate-200/60 dark:border-white/5 p-8 md:p-12 rounded-[2.5rem] overflow-hidden transition-all duration-700 shadow-sm dark:shadow-4xl">
          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] pointer-events-none" />
          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/10 dark:bg-indigo-600/10 rounded-full -mr-64 -mt-64 blur-[120px] pointer-events-none" />
          <Scanline />
@@ -197,7 +197,7 @@ export const FinancialIntelligence = () => {
                   </div>
                </div>
 
-               <nav className={cn("flex bg-slate-50 dark:bg-black/20 p-1 rounded-2xl border border-slate-100 dark:border-white/5 shadow-inner w-fit", isRtl && "flex-row-reverse mx-auto xl:mx-0")}>
+               <nav className={cn("flex bg-slate-50 dark:bg-black/20 p-1 rounded-2xl border border-slate-200/60 dark:border-white/5 shadow-inner w-fit", isRtl && "flex-row-reverse mx-auto xl:mx-0")}>
                   {(["CORE", "LEDGER", "AI"] as const).map(tab => (
                     <button key={tab} onClick={() => setActiveTab(tab)} className={cn("px-8 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all border-none relative overflow-hidden group/btn shadow-sm", activeView === tab ? "bg-white dark:bg-white/10 text-slate-900 dark:text-white shadow-md scale-105" : "text-slate-500 hover:text-slate-900 dark:hover:text-white bg-transparent")}>
                        <span className="relative z-10">{tab === "CORE" ? t('fiscal.telemetry') : tab === "LEDGER" ? t('fiscal.forensicLogs') : t('fiscal.neuralProjection')}</span>
@@ -207,7 +207,7 @@ export const FinancialIntelligence = () => {
             </div>
 
             <div className={cn("flex flex-wrap gap-4 relative z-10 w-full xl:w-auto", isRtl && "flex-row-reverse justify-center")}>
-               <div className={cn("bg-white dark:bg-white/5 backdrop-blur-2xl border border-slate-100 dark:border-white/10 p-6 rounded-[2rem] flex items-center gap-8 shadow-sm dark:shadow-3xl hover:border-emerald-500/30 transition-all", isRtl && "flex-row-reverse")}>
+               <div className={cn("bg-white dark:bg-white/5 backdrop-blur-2xl border border-slate-200/60 dark:border-white/10 p-6 rounded-[2rem] flex items-center gap-8 shadow-sm dark:shadow-3xl hover:border-emerald-500/30 transition-all", isRtl && "flex-row-reverse")}>
                   <div className="text-center space-y-1">
                      <p className="text-[7px] font-black text-slate-500 uppercase tracking-widest">{t('fiscal.resonanceIndex')}</p>
                      <p className="text-4xl font-black text-emerald-500 italic leading-none tabular-nums">A+</p>
@@ -221,7 +221,7 @@ export const FinancialIntelligence = () => {
                   </div>
                </div>
                <div className={cn("flex xl:flex-col gap-2", isRtl && "flex-row-reverse")}>
-                  <button onClick={fetchFinance} className="p-5 bg-white dark:bg-white/5 hover:bg-emerald-500 rounded-2xl border border-slate-100 dark:border-white/10 text-slate-400 dark:text-white transition-all active:scale-90 shadow-sm dark:shadow-xl group/sync">
+                  <button onClick={fetchFinance} className="p-5 bg-white dark:bg-white/5 hover:bg-emerald-500 rounded-2xl border border-slate-200/60 dark:border-white/10 text-slate-400 dark:text-white transition-all active:scale-90 shadow-sm dark:shadow-xl group/sync">
                      <RefreshCcw size={20} className="group-hover/sync:rotate-180 transition-transform duration-1000" />
                   </button>
                   <button onClick={() => setShowExport(true)} className="p-5 bg-emerald-500 text-white rounded-2xl font-black transition-all shadow-lg shadow-emerald-500/20 active:scale-95 hover:bg-emerald-600">
@@ -246,16 +246,16 @@ export const FinancialIntelligence = () => {
 
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
                {/* 3. TEMPORAL TRAJECTORY CHART */}
-               <div className="xl:col-span-8 bg-white/5 dark:bg-slate-950 backdrop-blur-3xl p-8 md:p-12 rounded-[3rem] border border-white/10 shadow-4xl relative overflow-hidden group">
+               <div className="xl:col-span-8 bg-white dark:bg-slate-950 backdrop-blur-3xl p-8 md:p-12 rounded-[3rem] border border-slate-200/60 dark:border-white/10 shadow-sm dark:shadow-4xl relative overflow-hidden group">
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent animate-pulse" />
                   <div className={cn("flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 relative z-10", isRtl && "md:flex-row-reverse")}>
                      <div className={isRtl ? "text-right" : "text-left"}>
                         <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-950 dark:text-white leading-none">{t('fiscal.temporalFlux')}</h3>
                         <p className="text-[8px] font-black text-slate-500 uppercase tracking-[0.5em] mt-3 italic">{t('fiscal.holographicActive')}</p>
                      </div>
-                     <div className={cn("flex bg-black/20 p-1 rounded-xl border border-white/5", isRtl && "flex-row-reverse")}>
+                     <div className={cn("flex bg-slate-100 dark:bg-black/20 p-1 rounded-xl border border-slate-200/60 dark:border-white/5", isRtl && "flex-row-reverse")}>
                         {["6M", "1Y", "ALL"].map((range: any) => (
-                          <button key={range} onClick={() => setTimeRange(range)} className={cn("px-5 py-2 text-[9px] font-black rounded-lg transition-all uppercase tracking-widest border-none", timeRange === range ? "bg-white text-slate-950 shadow-xl" : "text-slate-500 hover:text-white bg-transparent")}>{range}</button>
+                          <button key={range} onClick={() => setTimeRange(range)} className={cn("px-5 py-2 text-[9px] font-black rounded-lg transition-all uppercase tracking-widest border-none", timeRange === range ? "bg-white text-slate-950 shadow-sm" : "text-slate-500 hover:text-slate-900 dark:hover:text-white bg-transparent")}>{range}</button>
                         ))}
                      </div>
                   </div>
@@ -267,8 +267,8 @@ export const FinancialIntelligence = () => {
                               <linearGradient id="hardProfit" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#10b981" stopOpacity={0.3} /><stop offset="95%" stopColor="#10b981" stopOpacity={0} /></linearGradient>
                               <linearGradient id="hardRev" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#6366f1" stopOpacity={0.1} /><stop offset="95%" stopColor="#6366f1" stopOpacity={0.02} /></linearGradient>
                            </defs>
-                           <CartesianGrid strokeDasharray="5 5" vertical={false} stroke="white" opacity={0.05} />
-                           <XAxis dataKey="period" axisLine={false} tickLine={false} tick={{ fontSize: 9, fontWeight: "900", fill: "#64748b" }} style={{ textTransform: 'uppercase' }} dy={15} />
+                           <CartesianGrid strokeDasharray="5 5" vertical={false} stroke="currentColor" opacity={0.05} />
+                           <XAxis dataKey="period" axisLine={false} tickLine={false} tick={{ fontSize: 9, fontWeight: "900", fill: "currentColor" }} style={{ textTransform: 'uppercase' }} dy={15} className="text-slate-400" />
                            <YAxis hide />
                            <Tooltip content={<CustomTooltip t={t} />} cursor={{ stroke: "rgba(99, 102, 241, 0.2)", strokeWidth: 2 }} />
                            <Bar dataKey="revenue" fill="url(#hardRev)" radius={[8, 8, 0, 0]} barSize={40} />
@@ -279,7 +279,7 @@ export const FinancialIntelligence = () => {
                </div>
 
                {/* 4. VECTOR DIAGNOSTIC HUD */}
-               <div className="xl:col-span-4 bg-white/5 dark:bg-slate-950 backdrop-blur-3xl p-8 rounded-[3rem] border border-white/10 shadow-4xl flex flex-col items-center justify-center relative overflow-hidden">
+               <div className="xl:col-span-4 bg-white dark:bg-slate-950 backdrop-blur-3xl p-8 rounded-[3rem] border border-slate-200/60 dark:border-white/10 shadow-sm dark:shadow-4xl flex flex-col items-center justify-center relative overflow-hidden">
                   <Scanline />
                   <div className="absolute top-10 text-center w-full">
                      <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-indigo-500 mb-2 italic">{t('fiscal.vectorDiagnostics')}</h4>
@@ -288,8 +288,8 @@ export const FinancialIntelligence = () => {
                   <div className="w-full h-[320px] mt-12">
                      <ResponsiveContainer width="100%" height="100%">
                         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
-                           <PolarGrid stroke="white" opacity={0.05} />
-                           <PolarAngleAxis dataKey="subject" tick={{ fill: "#64748b", fontSize: 8, fontWeight: "900" }} />
+                           <PolarGrid stroke="currentColor" opacity={0.1} className="text-slate-300 dark:text-white" />
+                           <PolarAngleAxis dataKey="subject" tick={{ fill: "currentColor", fontSize: 8, fontWeight: "900" }} className="text-slate-400" />
                            <Radar name="Strategy" dataKey="A" stroke="#6366f1" strokeWidth={2} fill="#6366f1" fillOpacity={0.1} />
                         </RadarChart>
                      </ResponsiveContainer>
@@ -303,7 +303,7 @@ export const FinancialIntelligence = () => {
 
             {/* 5. CAPITAL BURN & NEURAL ALLOCATION */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-               <div className="lg:col-span-1 bg-white/5 dark:bg-slate-950 backdrop-blur-3xl p-10 rounded-[3rem] border border-white/10 shadow-4xl relative overflow-hidden">
+               <div className="lg:col-span-1 bg-white dark:bg-slate-950 backdrop-blur-3xl p-10 rounded-[3rem] border border-slate-200/60 dark:border-white/10 shadow-sm dark:shadow-4xl relative overflow-hidden">
                   <h3 className={cn("text-xl font-black uppercase italic tracking-tighter mb-10 flex items-center gap-4 text-slate-950 dark:text-white", isRtl && "flex-row-reverse")}>
                     <div className="p-2.5 bg-amber-500/10 rounded-xl border border-amber-500/20"><Flame className="text-amber-500" size={24} /></div>
                     {t('fiscal.burnTelemetry')}
@@ -348,8 +348,8 @@ export const FinancialIntelligence = () => {
         )}
 
         {activeView === "LEDGER" && (
-          <motion.div key="ledger" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} className="bg-white/5 dark:bg-slate-950 backdrop-blur-3xl rounded-[3rem] border border-white/10 shadow-4xl overflow-hidden relative">
-             <div className={cn("p-12 border-b border-white/10 flex flex-col md:flex-row items-center justify-between gap-8 relative z-10", isRtl && "md:flex-row-reverse")}>
+          <motion.div key="ledger" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} className="bg-white dark:bg-slate-950 backdrop-blur-3xl rounded-[3rem] border border-slate-200/60 dark:border-white/10 shadow-sm dark:shadow-4xl overflow-hidden relative">
+             <div className={cn("p-12 border-b border-slate-100 dark:border-white/10 flex flex-col md:flex-row items-center justify-between gap-8 relative z-10", isRtl && "md:flex-row-reverse")}>
                 <div className={cn("flex items-center gap-6", isRtl && "flex-row-reverse")}>
                    <div className="p-5 bg-indigo-600 rounded-[2rem] text-white shadow-xl rotate-6 border border-white/20"><Database size={32} /></div>
                    <div className={isRtl ? "text-right" : "text-left"}>
@@ -359,13 +359,13 @@ export const FinancialIntelligence = () => {
                 </div>
                 <div className="relative group w-full md:w-[400px]">
                    <Search className={cn("absolute top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-500 transition-all", isRtl ? "right-6" : "left-6")} size={20} />
-                   <input placeholder={t('fiscal.scanTraceId')} className={cn("w-full bg-black/20 border border-white/5 rounded-[2rem] py-5 text-[11px] font-black uppercase tracking-widest outline-none focus:ring-4 focus:ring-indigo-500/10 transition-all italic shadow-inner text-white", isRtl ? "pr-16 text-right" : "pl-16 pr-6")} />
+                   <input placeholder={t('fiscal.scanTraceId')} className={cn("w-full bg-slate-50 dark:bg-black/20 border border-slate-200/60 dark:border-white/5 rounded-[2rem] py-5 text-[11px] font-black uppercase tracking-widest outline-none focus:ring-4 focus:ring-indigo-500/10 transition-all italic shadow-inner text-slate-900 dark:text-white", isRtl ? "pr-16 text-right" : "pl-16 pr-6")} />
                 </div>
              </div>
              <div className="overflow-x-auto custom-scrollbar relative z-10">
                 <table className={cn("w-full border-collapse min-w-[1100px]", isRtl ? "text-right" : "text-left")}>
                    <thead>
-                      <tr className="bg-white/[0.03] text-[10px] font-black uppercase text-slate-500 tracking-[0.3em] border-b border-white/5 italic">
+                      <tr className="bg-slate-50 dark:bg-white/[0.03] text-[10px] font-black uppercase text-slate-500 tracking-[0.3em] border-b border-slate-100 dark:border-white/5 italic">
                          <th className="p-10 text-center w-24">IDX</th>
                          <th className="p-10">{t('fiscal.temporalNode')}</th>
                          <th className="p-10">{t('fiscal.registryRef')}</th>
@@ -373,9 +373,9 @@ export const FinancialIntelligence = () => {
                          <th className="p-10 text-center">{t('fiscal.logicStatus')}</th>
                       </tr>
                    </thead>
-                   <tbody className="divide-y divide-white/5">
+                   <tbody className="divide-y divide-slate-100 dark:divide-white/5">
                       {history.map((h, i) => (
-                        <tr key={i} className="hover:bg-white/[0.02] transition-all group cursor-default">
+                        <tr key={i} className="bg-white dark:bg-transparent hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-all group cursor-default">
                            <td className="p-10 text-center font-black text-[10px] text-slate-600 opacity-40">#{(i+1).toString().padStart(3, '0')}</td>
                            <td className="p-10"><span className="text-sm font-black text-slate-950 dark:text-white uppercase italic tracking-tighter">{h.period}</span></td>
                            <td className="p-10 font-mono text-[11px] font-black text-indigo-500 uppercase bg-indigo-500/5 px-4 py-1.5 rounded-lg w-fit border border-indigo-500/10">0X-REF-{(i+100).toString(16).toUpperCase()}</td>

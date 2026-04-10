@@ -29,7 +29,7 @@ export const NeonInput = ({
         <input
           {...props}
           className={cn(
-            "w-full bg-slate-50 dark:bg-black/40 border border-transparent rounded-2xl py-4 text-xs font-bold text-slate-900 dark:text-white outline-none transition-all shadow-inner",
+            "w-full bg-slate-50 dark:bg-black/40 border border-slate-200/60 dark:border-transparent rounded-2xl py-4 text-xs font-bold text-slate-900 dark:text-white outline-none transition-all shadow-sm dark:shadow-inner",
             "focus:bg-white dark:focus:bg-slate-900 focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/10",
             icon && (isRtl ? "pr-12 pl-4" : "pl-12 pr-4"),
             isRtl && "text-right",

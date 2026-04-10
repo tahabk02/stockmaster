@@ -27,19 +27,29 @@ export const SecuritySettings = ({ t, isRtl }: any) => {
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [passwords, setPasswords] = useState({ current: "", new: "", confirm: "" });
+  const [loading, setLoading] = useState(false);
 
-  const handleUpdatePassword = () => {
+  const handleUpdatePassword = async () => {
+    if (!passwords.current || !passwords.new || !passwords.confirm) {
+      return toast.error("Missing Data: All sequences required.");
+    }
     if (passwords.new !== passwords.confirm) {
       return toast.error("Logic Mismatch: Passwords do not align.");
     }
-    toast.promise(
-      new Promise((resolve) => setTimeout(resolve, 1500)),
-      {
-        loading: 'Re-encrypting Lattice...',
-        success: 'Logic Hardened Successfully',
-        error: 'Encryption Failure'
-      }
-    );
+    
+    setLoading(true);
+    try {
+      await api.put("/auth/change-password", {
+        oldPassword: passwords.current,
+        newPassword: passwords.new
+      });
+      toast.success('Logic Hardened Successfully');
+      setPasswords({ current: "", new: "", confirm: "" });
+    } catch (e: any) {
+      toast.error(e.response?.data?.message || 'Encryption Failure');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

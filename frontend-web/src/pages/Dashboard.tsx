@@ -17,7 +17,7 @@ import { PredictiveEngine } from "../components/dashboard/PredictiveEngine";
 import { LegalHealthHUD } from "../components/dashboard/LegalHealthHUD";
 
 export const Dashboard = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(["dashboard", "common", "errors"]);
   const { user } = useAuth();
   const { tenant } = useTenant();
   const [loading, setLoading] = useState(true);
@@ -40,22 +40,37 @@ export const Dashboard = () => {
       const orders = orderRes.data.data || [];
       setSystemHealth(healthRes.data.data);
       const last7Days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - (6 - i)); return d.toISOString().split("T")[0]; });
-      const chartData = last7Days.map((date) => ({ name: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"][new Date(date).getDay()], value: orders.filter((o: any) => o.createdAt.startsWith(date)).reduce((a: number, o: any) => a + (o.totalPrice || 0), 0) }));
+      
+      const dayNames = [
+        t('common:days.sun'),
+        t('common:days.mon'),
+        t('common:days.tue'),
+        t('common:days.wed'),
+        t('common:days.thu'),
+        t('common:days.fri'),
+        t('common:days.sat')
+      ];
+
+      const chartData = last7Days.map((date) => ({ 
+        name: dayNames[new Date(date).getDay()], 
+        value: orders.filter((o: any) => o.createdAt.startsWith(date)).reduce((a: number, o: any) => a + (o.totalPrice || 0), 0) 
+      }));
+
       setStats({ revenue: orders.reduce((a: number, o: any) => a + (o.totalPrice || 0), 0), ordersCount: orders.length, productsCount: products.length, stockValue: products.reduce((a: number, p: any) => a + p.price * p.quantity, 0), recentOrders: orders.slice(0, 5), chartData: chartData as any });
-    } catch (e) { toast.error(t('errors.networkError')); } finally { setLoading(false); }
+    } catch (e) { toast.error(t('errors:networkError')); } finally { setLoading(false); }
   };
 
   const isRtl = i18n.language === "ar";
   if (loading) return (
-    <div className="h-[calc(100vh-150px)] flex flex-col items-center justify-center space-y-8 relative overflow-hidden">
+    <div className="h-[calc(100vh-150px)] flex flex-col items-center justify-center space-y-8 relative overflow-hidden bg-slate-50 dark:bg-slate-950">
        <div className="absolute inset-0 grid-pattern opacity-[0.03] pointer-events-none" />
        <div className="relative">
           <div className="w-24 h-24 border-2 border-dashed border-indigo-500/20 rounded-full animate-spin-slow" />
           <Cpu size={40} className="absolute inset-0 m-auto text-indigo-600 animate-pulse" />
        </div>
        <div className="flex flex-col items-center gap-3">
-          <p className="text-[10px] font-black uppercase tracking-[1em] text-slate-500 animate-pulse italic">{t('common.loading')}</p>
-          <div className="w-48 h-1 bg-white/5 rounded-full overflow-hidden">
+          <p className="text-[10px] font-black uppercase tracking-[1em] text-slate-600 dark:text-slate-500 animate-pulse italic">{t('common:loading')}</p>
+          <div className="w-48 h-1 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
              <motion.div animate={{ x: [-200, 200] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} className="w-1/2 h-full bg-indigo-600/40 blur-sm" />
           </div>
        </div>
@@ -63,14 +78,17 @@ export const Dashboard = () => {
   );
 
   return (
-    <div className={cn("w-full space-y-6 pb-12 animate-reveal text-slate-900 dark:text-slate-100 relative", isRtl ? "text-right" : "text-left")}>
+    <div 
+      className={cn("w-full space-y-6 pb-12 animate-reveal relative", isRtl ? "text-right" : "text-left")}
+      style={{ color: 'var(--text)' }}
+    >
       {/* Ambient Backdrop - Ultra Pro Detail */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1]">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/5 blur-[120px] rounded-full animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-500/5 blur-[120px] rounded-full animate-pulse-slow" />
       </div>
 
-      <DashboardHUD t={t} isVendor={isVendor} currentTime={currentTime} stockValue={stats.stockValue} isRtl={isRtl} storeName={tenant?.name} />
+      <DashboardHUD isVendor={isVendor} currentTime={currentTime} stockValue={stats.stockValue} isRtl={isRtl} storeName={tenant?.name} />
 
       <DashboardStatCards stats={stats} systemHealth={systemHealth} t={t} />
 

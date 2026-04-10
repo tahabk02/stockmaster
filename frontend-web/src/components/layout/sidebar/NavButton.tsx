@@ -37,7 +37,7 @@ export const NavButton = ({
       className={cn(
         "w-full flex items-center gap-2.5 px-4 py-2 rounded-xl transition-all duration-300 group relative mb-1 border border-transparent overflow-visible bg-transparent",
         active
-          ? "bg-white dark:bg-white/10 text-indigo-600 dark:text-white border-slate-100 dark:border-white/10 shadow-sm z-20"
+          ? "bg-white dark:bg-white/10 text-indigo-600 dark:text-white border-slate-200/60 dark:border-white/10 shadow-sm z-20"
           : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5",
         isRtl && "flex-row-reverse",
       )}

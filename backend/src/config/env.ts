@@ -8,7 +8,8 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") }); // Look in backe
 
 const envSchema = z.object({
   PORT: z.string().default("3000").transform(Number),
-  MONGODB_URI: z.string().url().default("mongodb://localhost:27017/stockmaster-pro"),
+  MONGODB_URI: z.string().optional(),
+  MONGO_URI: z.string().optional(),
   JWT_SECRET: z.string().min(10).default("super_secret_key_123"),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   REDIS_URL: z.string().default("redis://localhost:6379"),
@@ -16,20 +17,73 @@ const envSchema = z.object({
   // SMTP Config
   MAIL_HOST: z.string().default("smtp.mailtrap.io"),
   MAIL_PORT: z.string().default("2525").transform(Number),
-  MAIL_USER: z.string().optional(),
-  MAIL_PASS: z.string().optional(),
+  MAIL_USER: z.string().optional().transform(v => v === 'PLACEHOLDER' ? undefined : v),
+  MAIL_PASS: z.string().optional().transform(v => v === 'PLACEHOLDER' ? undefined : v),
 
   // Cloudinary
-  CLOUDINARY_CLOUD_NAME: z.string().optional(),
-  CLOUDINARY_API_KEY: z.string().optional(),
-  CLOUDINARY_API_SECRET: z.string().optional(),
+  CLOUDINARY_CLOUD_NAME: z.string().optional().transform(v => v === 'PLACEHOLDER' ? undefined : v),
+  CLOUDINARY_API_KEY: z.string().optional().transform(v => v === 'PLACEHOLDER' ? undefined : v),
+  CLOUDINARY_API_SECRET: z.string().optional().transform(v => v === 'PLACEHOLDER' ? undefined : v),
   
   // Stripe
-  STRIPE_SECRET_KEY: z.string().optional(),
-  STRIPE_WEBHOOK_SECRET: z.string().optional(),
+  STRIPE_SECRET_KEY: z.string().optional().transform(v => v === 'PLACEHOLDER' ? undefined : v),
+  STRIPE_WEBHOOK_SECRET: z.string().optional().transform(v => v === 'PLACEHOLDER' ? undefined : v),
 
   // Gemini API
-  GEMINI_API_KEY: z.string().optional(),
+  GEMINI_API_KEY: z.string().optional().transform(v => (v === 'PLACEHOLDER' || v?.startsWith('YOUR_')) ? undefined : v),
+}).transform((data) => {
+  const rawUri = data.MONGODB_URI || data.MONGO_URI || "mongodb://localhost:27017/stockmaster";
+  
+  // Robust URI processing
+  let processedUri = rawUri;
+  try {
+    const schemeMatch = rawUri.match(/^([^:]+):\/\//);
+    if (schemeMatch) {
+      const scheme = schemeMatch[1];
+      let rest = rawUri.substring(scheme.length + 3);
+
+      let credentials = "";
+      let hostAndPath = rest;
+      if (rest.includes("@")) {
+        const lastAtIndex = rest.lastIndexOf("@");
+        credentials = rest.substring(0, lastAtIndex);
+        hostAndPath = rest.substring(lastAtIndex + 1);
+      }
+
+      if (credentials && credentials.includes(":")) {
+        const colonIndex = credentials.indexOf(":");
+        const username = credentials.substring(0, colonIndex);
+        const password = credentials.substring(colonIndex + 1);
+        credentials = `${username}:${encodeURIComponent(password)}`;
+      }
+
+      let host = hostAndPath;
+      let options = "";
+      if (hostAndPath.includes("/")) {
+        const firstSlashIndex = hostAndPath.indexOf("/");
+        host = hostAndPath.substring(0, firstSlashIndex);
+        const pathAndOptions = hostAndPath.substring(firstSlashIndex);
+        const questionMarkIndex = pathAndOptions.indexOf("?");
+        if (questionMarkIndex !== -1) {
+          options = pathAndOptions.substring(questionMarkIndex);
+        }
+      } else if (hostAndPath.includes("?")) {
+        const questionMarkIndex = hostAndPath.indexOf("?");
+        host = hostAndPath.substring(0, questionMarkIndex);
+        options = hostAndPath.substring(questionMarkIndex);
+      }
+
+      const credsPart = credentials ? `${credentials}@` : "";
+      processedUri = `${scheme}://${credsPart}${host}/stockmaster-pro${options}`;
+    }
+  } catch (error) {
+    console.error("Error processing MongoDB URI:", error);
+  }
+
+  return {
+    ...data,
+    DATABASE_URL: processedUri,
+  };
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

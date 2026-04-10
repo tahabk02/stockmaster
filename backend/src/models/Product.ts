@@ -10,7 +10,7 @@ const ProductSchema = new Schema(
     quantity: { type: Number, required: true, default: 0 },
     image: { type: String, default: "" }, 
     gallery: { type: [String], default: [] }, // New: multiple images
-    category: { type: Schema.Types.Mixed, ref: "Category", required: false },
+    category: { type: Schema.Types.ObjectId, ref: "Category", required: false },
     supplierId: { type: Schema.Types.ObjectId, ref: "Supplier", required: false },
     brand: { type: String, default: "" }, // New: for marketplace feel
     location: { type: String, default: "" }, // New: Room/Aisle/Shelf (Salle/Rayon)

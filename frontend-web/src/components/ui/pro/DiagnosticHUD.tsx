@@ -46,10 +46,10 @@ export const DiagnosticHUD = () => {
   return (
     <div className="fixed inset-0 pointer-events-none z-[180] overflow-hidden select-none">
       <div className="absolute top-24 left-8 space-y-6 hidden xl:block">
-        <div className="p-5 bg-white/5 dark:bg-slate-950/40 backdrop-blur-2xl border-l-2 border-indigo-500 rounded-r-xl space-y-5 shadow-2xl">
-          <div className="flex items-center gap-3 border-b border-white/5 pb-2">
+        <div className="p-5 bg-white/40 dark:bg-slate-950/40 backdrop-blur-2xl border-l-2 border-indigo-500 rounded-r-xl space-y-5 shadow-lg dark:shadow-2xl">
+          <div className="flex items-center gap-3 border-b border-black/5 dark:border-white/5 pb-2">
              <ShieldAlert size={12} className="text-indigo-500" />
-             <span className="text-[8px] font-black text-white/60 tracking-widest uppercase italic">Diagnostic_Lattice</span>
+             <span className="text-[8px] font-black text-slate-500 dark:text-white/60 tracking-widest uppercase italic">Diagnostic_Lattice</span>
           </div>
           <HUDMetric label="SYSTEM_LOAD" value="44.2%" />
           <HUDMetric label="NEURAL_FLUX" value="0.002ms" color="emerald" />
@@ -58,7 +58,7 @@ export const DiagnosticHUD = () => {
         
         <div className="space-y-2 pl-2">
           {logs.map((log, i) => (
-            <div key={log + i} className="text-[7px] font-black text-indigo-400/50 uppercase italic flex items-center gap-3">
+            <div key={log + i} className="text-[7px] font-black text-indigo-500/50 dark:text-indigo-400/50 uppercase italic flex items-center gap-3">
               <TerminalIcon size={8} className="opacity-50" /> {log}
             </div>
           ))}
@@ -66,12 +66,12 @@ export const DiagnosticHUD = () => {
       </div>
 
       <div className="absolute top-24 right-8 hidden xl:block text-right">
-         <div className="p-5 bg-white/5 dark:bg-slate-950/40 backdrop-blur-2xl border-r-2 border-rose-500 rounded-l-xl space-y-5 shadow-2xl">
+         <div className="p-5 bg-white/40 dark:bg-slate-950/40 backdrop-blur-2xl border-r-2 border-rose-500 rounded-l-xl space-y-5 shadow-lg dark:shadow-2xl">
             <div className="space-y-2">
                <p className="text-[6px] font-black text-slate-500 uppercase tracking-[0.4em]">Node_Identity</p>
                <p className="text-[10px] font-black text-slate-950 dark:text-white italic tracking-tighter">AXIS_ZENITH_0x82A</p>
             </div>
-            <div className="w-full h-px bg-white/5" />
+            <div className="w-full h-px bg-black/5 dark:bg-white/5" />
             <div className="space-y-2">
                <p className="text-[6px] font-black text-slate-500 uppercase tracking-[0.4em]">Internal_Clock</p>
                <div className="flex items-center justify-end gap-3 text-rose-500">
@@ -79,11 +79,11 @@ export const DiagnosticHUD = () => {
                   <span className="text-[10px] font-black italic">{time.toLocaleTimeString()}</span>
                </div>
             </div>
-            <div className="w-full h-px bg-white/5" />
+            <div className="w-full h-px bg-black/5 dark:bg-white/5" />
             <div className="space-y-2">
                <p className="text-[6px] font-black text-slate-500 uppercase tracking-[0.4em]">Encryption</p>
                <div className="flex items-center justify-end gap-2">
-                  <span className="text-[8px] font-black text-emerald-500 uppercase italic">Active_Lattice</span>
+                  <span className="text-[8px] font-black text-emerald-600 dark:text-emerald-500 uppercase italic">Active_Lattice</span>
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]" />
                </div>
             </div>

@@ -80,7 +80,7 @@ const NeuralChat = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void 
           animate={{ x: 0 }} 
           exit={{ x: "100%" }}
           transition={{ type: "spring", damping: 25, stiffness: 200 }}
-          className="fixed top-0 right-0 h-full w-full md:w-[450px] bg-slate-900/90 backdrop-blur-2xl z-[200] border-l border-white/10 shadow-2xl flex flex-col overflow-hidden"
+          className="fixed top-0 right-0 h-full w-full md:w-[450px] bg-slate-900/90 backdrop-blur-2xl z-[80] border-l border-white/10 shadow-2xl flex flex-col overflow-hidden"
         >
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none" />
           

@@ -9,9 +9,7 @@ import {
   Loader2,
   LogIn,
   AlertCircle,
-  LayoutDashboard,
   ArrowLeft,
-  CheckCircle,
   Sun,
   Moon,
   ShieldCheck,
@@ -24,7 +22,7 @@ import { cn } from "../lib/utils";
 import { toast } from "react-hot-toast";
 
 export const Login: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(["auth", "common"]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -37,7 +35,7 @@ export const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    const loadId = toast.loading("Authenticating Neural Signature...");
+    const loadId = toast.loading(t("login.authenticating"));
     setLoading(true);
     try {
       const { data } = await api.post("/auth/login", {
@@ -49,17 +47,14 @@ export const Login: React.FC = () => {
       localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user, data.token);
 
-      // Pre-fetch tenant data if vendor
       if (data.user.role === "VENDOR" || data.user.role === "ADMIN") {
         await fetchTenant();
       }
 
-      toast.success("Authorization Granted.", { id: loadId });
-
-      // Smart Redirection: Always go to private area if logged in
+      toast.success(t("login.success"), { id: loadId });
       navigate("/dashboard");
     } catch (err: any) {
-      const msg = err.response?.data?.message || t("errors.unauthorized");
+      const msg = err.response?.data?.message || t("errors.unauthorized", { ns: "errors" });
       setError(msg);
       toast.error(msg, { id: loadId });
     } finally {
@@ -72,15 +67,16 @@ export const Login: React.FC = () => {
   return (
     <div
       className={cn(
-        "min-h-screen flex bg-[rgb(var(--background-rgb))] font-sans transition-colors duration-500 relative",
+        "min-h-screen flex transition-colors duration-500 relative",
         isRtl ? "flex-row-reverse" : "flex-row",
       )}
+      style={{ backgroundColor: 'var(--bg)', color: 'var(--text)' }}
     >
       {/* Theme Toggle */}
       <div className={cn("absolute top-6 z-20", isRtl ? "left-6" : "right-6")}>
         <button
           onClick={toggleTheme}
-          className="p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 text-slate-500 dark:text-amber-400 hover:text-indigo-600 transition-all shadow-xl active:scale-95"
+          className="p-3 rounded-2xl bg-[var(--card)] border border-[var(--border)] text-slate-500 dark:text-amber-400 hover:text-indigo-600 transition-all shadow-sm active:scale-95"
         >
           {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
         </button>
@@ -95,7 +91,7 @@ export const Login: React.FC = () => {
           <Link
             to="/home"
             className={cn(
-              "inline-flex items-center gap-2 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-white mb-8 transition-colors group",
+              "inline-flex items-center gap-2 text-slate-500 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-white mb-8 transition-colors group",
               isRtl && "flex-row-reverse",
             )}
           >
@@ -109,7 +105,7 @@ export const Login: React.FC = () => {
               )}
             />
             <span className="text-sm font-bold uppercase tracking-widest">
-              {t("common.back")}
+              {t("common:back")}
             </span>
           </Link>
 
@@ -123,10 +119,11 @@ export const Login: React.FC = () => {
               <ShieldCheck className="text-white" size={28} />
             </div>
             <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 transition-colors uppercase">
-              Terminal <span className="text-indigo-500">Access.</span>
+              {t("login.title").split(" ")[0]}{" "}
+              <span className="text-indigo-500">{t("login.title").split(" ")[1]}</span>
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 font-medium italic">
-              Secure entry into the commerce cluster.
+            <p className="text-slate-600 dark:text-slate-400 font-medium italic">
+              {t("login.subtitle")}
             </p>
           </div>
 
@@ -145,11 +142,11 @@ export const Login: React.FC = () => {
             <div className="space-y-2">
               <label
                 className={cn(
-                  "text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1 block",
+                  "text-[10px] font-black text-slate-500 dark:text-slate-500 uppercase tracking-widest ml-1 block",
                   isRtl && "text-right mr-1",
                 )}
               >
-                Operational Email
+                {t("login.emailLabel")}
               </label>
               <div className="relative">
                 <Mail
@@ -161,9 +158,9 @@ export const Login: React.FC = () => {
                 />
                 <input
                   type="email"
-                  placeholder="stockmaster@enterprise.com"
+                  placeholder={t("login.emailPlaceholder")}
                   className={cn(
-                    "w-full p-4 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-slate-900 dark:text-white",
+                    "w-full p-4 pro-input outline-none",
                     isRtl ? "pr-12 pl-4 text-right" : "pl-12 pr-4",
                   )}
                   value={email}
@@ -181,14 +178,14 @@ export const Login: React.FC = () => {
                   isRtl && "flex-row-reverse",
                 )}
               >
-                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                  Access Cipher
+                <label className="text-[10px] font-black text-slate-500 dark:text-slate-500 uppercase tracking-widest">
+                  {t("login.passwordLabel")}
                 </label>
                 <Link
                   to="/forgot-password"
-                  className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-indigo-600 transition-colors"
+                  className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-indigo-600 transition-colors"
                 >
-                  Recover ?
+                  {t("login.forgotPassword")}
                 </Link>
               </div>
               <div className="relative">
@@ -201,9 +198,9 @@ export const Login: React.FC = () => {
                 />
                 <input
                   type="password"
-                  placeholder="••••••••••••"
+                  placeholder={t("login.passwordPlaceholder")}
                   className={cn(
-                    "w-full p-4 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-slate-900 dark:text-white",
+                    "w-full p-4 pro-input outline-none",
                     isRtl ? "pr-12 pl-4 text-right" : "pl-12 pr-4",
                   )}
                   value={password}
@@ -218,7 +215,7 @@ export const Login: React.FC = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:text-white transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50"
+                className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:text-white transition-all shadow-md flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50 border-none"
               >
                 {loading ? (
                   <Loader2 className="animate-spin" size={24} />
@@ -226,7 +223,7 @@ export const Login: React.FC = () => {
                   <>
                     {" "}
                     <LogIn size={20} />{" "}
-                    <span className="uppercase">Initiate Session</span>{" "}
+                    <span className="uppercase">{t("login.submit")}</span>{" "}
                   </>
                 )}
               </button>
@@ -238,12 +235,12 @@ export const Login: React.FC = () => {
                 isRtl && "text-right",
               )}
             >
-              New to the cluster?{" "}
+              {t("login.noAccount")}{" "}
               <Link
                 to="/register"
                 className="text-indigo-600 dark:text-indigo-400 hover:underline italic font-black"
               >
-                Register Node
+                {t("login.registerLink")}
               </Link>
             </p>
           </form>
@@ -275,28 +272,28 @@ export const Login: React.FC = () => {
               </div>
               <div className={isRtl ? "text-right" : "text-left"}>
                 <h3 className="text-white text-3xl font-black uppercase italic tracking-tighter">
-                  Vendor Hub
+                  {t("login.vendorHub")}
                 </h3>
                 <p className="text-indigo-300 text-[10px] font-black uppercase tracking-[0.3em] mt-1">
-                  Multi-Store Orchestration
+                  {t("login.multiStore")}
                 </p>
               </div>
             </div>
             <div className={cn("grid grid-cols-2 gap-8", isRtl && "rtl")}>
               <div>
                 <p className="text-slate-300 text-[10px] font-black uppercase mb-2 tracking-widest opacity-60">
-                  Registry Health
+                  {t("login.registryHealth")}
                 </p>
                 <p className="text-white text-3xl font-black italic tracking-tighter">
-                  NOMINAL
+                  {t("login.nominal")}
                 </p>
               </div>
               <div>
                 <p className="text-slate-300 text-[10px] font-black uppercase mb-2 tracking-widest opacity-60">
-                  Lattice Sync
+                  {t("login.latticeSync")}
                 </p>
                 <p className="text-white text-3xl font-black italic tracking-tighter">
-                  100%
+                  {t("login.complete")}
                 </p>
               </div>
             </div>

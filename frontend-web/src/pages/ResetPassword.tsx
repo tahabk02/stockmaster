@@ -41,7 +41,7 @@ export const ResetPassword = () => {
   const isRtl = i18n.language === 'ar';
 
   return (
-    <div className={cn("min-h-screen bg-[rgb(var(--background-rgb))] flex items-center justify-center p-4 font-sans", isRtl ? "rtl" : "ltr")}>
+    <div className={cn("min-h-screen bg-slate-50 dark:bg-[color:var(--bg)] flex items-center justify-center p-4 font-sans", isRtl ? "rtl" : "ltr")}>
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-[10%] -right-[10%] w-[40%] h-[40%] bg-indigo-500/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-[10%] -left-[10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
@@ -50,7 +50,7 @@ export const ResetPassword = () => {
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="w-full max-w-md bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-slate-100 dark:border-slate-800 relative z-10"
+        className="w-full max-w-md bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-slate-200/60 dark:border-slate-800 relative z-10"
       >
         {!success ? (
           <>
@@ -59,13 +59,13 @@ export const ResetPassword = () => {
                 <Lock size={32} />
               </div>
               <h1 className="text-3xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none mb-4">Secure <span className="text-emerald-500 text-4xl">Reset.</span></h1>
-              <p className="text-slate-500 font-bold text-sm leading-relaxed uppercase tracking-tight">Choisissez un nouveau mot de passe fort pour protéger votre accès.</p>
+              <p className="text-slate-600 dark:text-slate-500 font-bold text-sm leading-relaxed uppercase tracking-tight">Choisissez un nouveau mot de passe fort pour protéger votre accès.</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className={cn("text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 block", isRtl && "text-right mr-1")}>{t('team.table.password') || 'New Password'}</label>
+                  <label className={cn("text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 block", isRtl && "text-right mr-1")}>{t('team.table.password') || 'New Password'}</label>
                   <div className="relative group">
                     <Lock className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors", isRtl ? "right-4" : "left-4")} size={18} />
                     <input 
@@ -87,7 +87,7 @@ export const ResetPassword = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className={cn("text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 block", isRtl && "text-right mr-1")}>{t('common.confirm')} {t('team.table.password')}</label>
+                  <label className={cn("text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 block", isRtl && "text-right mr-1")}>{t('common.confirm')} {t('team.table.password')}</label>
                   <div className="relative">
                     <Lock className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400", isRtl ? "right-4" : "left-4")} size={18} />
                     <input 
@@ -104,7 +104,7 @@ export const ResetPassword = () => {
 
               <button 
                 disabled={loading}
-                className="w-full bg-slate-950 dark:bg-white text-white dark:text-slate-900 py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-[0.2em] shadow-xl hover:bg-indigo-600 hover:text-white transition-all active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50"
+                className="w-full bg-slate-950 dark:bg-white text-white dark:text-slate-900 py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-[0.2em] shadow-xl hover:bg-indigo-600 hover:text-white transition-all active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50 border-none"
               >
                 {loading ? <Loader2 className="animate-spin" size={18} /> : <>{t('common.update')} <ArrowRight size={16} className={isRtl ? "rotate-180" : ""}/></>}
               </button>
@@ -116,10 +116,10 @@ export const ResetPassword = () => {
               <ShieldCheck size={48} />
             </div>
             <h2 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic mb-4">Accès Rétabli !</h2>
-            <p className="text-slate-500 font-bold text-sm uppercase leading-relaxed tracking-tight mb-10 px-4">
+            <p className="text-slate-600 dark:text-slate-500 font-bold text-sm uppercase leading-relaxed tracking-tight mb-10 px-4">
               Votre mot de passe a été mis à jour avec succès. Vous pouvez maintenant vous connecter.
             </p>
-            <Link to="/login" className="bg-indigo-600 text-white px-10 py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-slate-950 transition-all shadow-lg block text-center">
+            <Link to="/login" className="bg-indigo-600 text-white px-10 py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-slate-950 transition-all shadow-lg block text-center border-none">
               {t('nav.auth') || 'Login'}
             </Link>
           </div>

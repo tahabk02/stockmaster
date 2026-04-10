@@ -84,7 +84,7 @@ export const Sales = () => {
   const handleCheckout = async (extraData?: any) => {
     if (cart.length === 0) return;
     setProcessing(true);
-    const toastId = toast.loading("Broadcasting Commitment Protocol...");
+    const toastId = toast.loading(t('sales.messages.processing'));
     try {
       await api.post("/orders", { 
         items: cart.map(i => ({ productId: i._id, quantity: i.cartQty, price: i.price })), 
@@ -98,7 +98,7 @@ export const Sales = () => {
           lattice_version: "9.4"
         }
       });
-      toast.success("Deployment Signal Confirmed.", { id: toastId });
+      toast.success(t('sales.messages.success'), { id: toastId });
       setCart([]); setSelectedCustomer(null); setShowCheckout(false); loadTerminalData();
     } catch (e: any) { 
       toast.error(e.response?.data?.message || t('errors.serverError'), { id: toastId }); 
@@ -137,7 +137,7 @@ export const Sales = () => {
         <div className={cn("flex items-center gap-10", isRtl && "flex-row-reverse")}>
            <div className={cn("flex flex-col min-w-0", isRtl && "text-right")}>
               <h2 className="text-xl font-black uppercase italic text-slate-900 dark:text-white tracking-tighter leading-none truncate">
-                 Signal <span className="text-emerald-600">Hub.</span>
+                 {t('sales.title')}
               </h2>
               <div className={cn("flex items-center gap-2 mt-2", isRtl && "flex-row-reverse")}>
                  <div className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse" />
@@ -175,7 +175,7 @@ export const Sales = () => {
                  <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping absolute inset-0" />
                  <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full relative" />
               </div>
-              <span className="text-[8px] font-black uppercase text-emerald-600 tracking-[0.4em] italic leading-none">Lattice_Sync_Ok</span>
+              <span className="text-[8px] font-black uppercase text-emerald-600 tracking-[0.4em] italic leading-none">{t('sales.latticeSyncOk')}</span>
            </div>
            
            <button 
@@ -202,7 +202,7 @@ export const Sales = () => {
                 <div className="relative flex-[3] group">
                    <Search className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600 transition-colors", isRtl ? "right-6" : "left-6")} size={20} />
                    <input 
-                      placeholder={activeTab === 'TERMINAL' ? "SCAN_PRODUCT_LATTICE_NODE..." : "SCAN_TRANSACTION_ID_TRACE..."} 
+                      placeholder={activeTab === 'TERMINAL' ? t('sales.searchPlaceholder') : t('sales.registrySearchPlaceholder')} 
                       className={cn("pro-input w-full", isRtl ? "pr-16 text-right" : "pl-16 pr-6")} 
                       value={searchTerm} 
                       onChange={(e)=>setSearchTerm(e.target.value)} 
@@ -212,7 +212,7 @@ export const Sales = () => {
                    <div className="relative flex-1 group">
                       <MapPin className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors", isRtl ? "right-6" : "left-6")} size={20} />
                       <input 
-                         placeholder="ZONE_ID..." 
+                         placeholder={t('sales.locationPlaceholder')} 
                          className={cn("pro-input w-full", isRtl ? "pr-16 text-right" : "pl-16 pr-6")} 
                          value={locationSearch} 
                          onChange={(e)=>setLocationSearch(e.target.value)} 
@@ -228,19 +228,19 @@ export const Sales = () => {
                       <div className="relative flex-1 max-w-xs group">
                         <TagIcon className={cn("absolute top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-all", isRtl ? "right-4" : "left-4")} size={14} />
                         <input 
-                          placeholder="FILTER_TIER..." 
+                          placeholder={t('sales.tierPlaceholder')} 
                           className={cn("w-full bg-slate-100 dark:bg-white/5 border-none rounded-xl py-2 text-[9px] font-black uppercase tracking-widest outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all shadow-inner", isRtl ? "pr-10 text-right" : "pl-10")}
                           value={categorySearch}
                           onChange={(e) => setCategorySearch(e.target.value)}
                         />
                       </div>
-                      <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest italic">{filteredCategories.length} Tiers Intercepted</span>
+                      <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest italic">{filteredCategories.length} {t('sales.tiersIntercepted')}</span>
                     </div>
                     <button 
                       onClick={() => setIsCatExpanded(!isCatExpanded)}
                       className="px-4 py-2 bg-indigo-600/10 text-indigo-600 rounded-xl text-[8px] font-black uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all border-none"
                     >
-                      {isCatExpanded ? "Compact View" : "Expand All"}
+                      {isCatExpanded ? t('sales.compactView') : t('sales.expandAll')}
                     </button>
                   </div>
 
@@ -250,7 +250,7 @@ export const Sales = () => {
                         initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
                         className={cn("flex gap-4 overflow-x-auto no-scrollbar pb-2 w-full", isRtl && "flex-row-reverse")}
                       >
-                          <CategoryCard id="all" name="Universal_Access" icon={Layers} selected={selectedCategory === "all"} onClick={setSelectedCategory} />
+                          <CategoryCard id="all" name={t('sales.universalAccess')} icon={Layers} selected={selectedCategory === "all"} onClick={setSelectedCategory} />
                           {filteredCategories.map(c => <CategoryCard key={c._id} id={c._id} name={c.name} icon={Layers} selected={selectedCategory === c._id} onClick={setSelectedCategory} />)}
                       </motion.div>
                     ) : (
@@ -259,7 +259,7 @@ export const Sales = () => {
                         className="bg-white/50 dark:bg-black/20 p-6 rounded-[2rem] border border-slate-100 dark:border-white/5 shadow-inner"
                       >
                         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 max-h-[300px] overflow-y-auto custom-scrollbar pr-2">
-                           <CategoryCard id="all" name="Universal_Access" icon={Layers} selected={selectedCategory === "all"} onClick={setSelectedCategory} />
+                           <CategoryCard id="all" name={t('sales.universalAccess')} icon={Layers} selected={selectedCategory === "all"} onClick={setSelectedCategory} />
                            {filteredCategories.map(c => <CategoryCard key={c._id} id={c._id} name={c.name} icon={Layers} selected={selectedCategory === c._id} onClick={setSelectedCategory} />)}
                         </div>
                       </motion.div>
@@ -278,7 +278,7 @@ export const Sales = () => {
                      <div className="w-24 h-24 border-2 border-dashed border-indigo-500/20 rounded-full animate-spin-slow" />
                      <Cpu size={48} className="absolute inset-0 m-auto text-indigo-600 animate-pulse" />
                   </div>
-                  <p className="font-black text-[10px] uppercase tracking-[1em] text-slate-500 italic animate-pulse">Syncing_Lattice_Telemetry...</p>
+                  <p className="font-black text-[10px] uppercase tracking-[1em] text-slate-500 italic animate-pulse">{t('sales.syncingTelemetry')}</p>
                </div>
              ) : activeTab === "TERMINAL" ? (
                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8 pb-32">
@@ -321,7 +321,7 @@ export const Sales = () => {
                        <div className={cn("flex flex-col md:flex-row items-start lg:items-center gap-8 lg:gap-16 w-full lg:w-auto", isRtl && "md:flex-row-reverse")}>
                           <div className={cn("flex flex-col", isRtl ? "items-end" : "items-start")}>
                              <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-3 italic">
-                                <Database size={12}/> Ledger_Valuation
+                                <Database size={12}/> {t('sales.ledgerValuation')}
                              </span>
                              <span className="text-4xl font-black text-indigo-600 italic tracking-tighter leading-none">
                                 {(o.totalPrice || 0).toLocaleString()} <span className="text-base not-italic opacity-40 uppercase tracking-widest">{currencySymbol}</span>
@@ -345,21 +345,21 @@ export const Sales = () => {
           {isCartOpen && activeTab === 'TERMINAL' && (
             <motion.aside initial={{ x: isRtl ? -400 : 400, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: isRtl ? -400 : 400, opacity: 0 }} className={cn("fixed md:relative inset-y-0 right-0 z-40 w-full md:w-[350px] xl:w-[420px] bg-white dark:bg-[#111b21] flex flex-col shrink-0 shadow-4xl transition-all border-l border-slate-100 dark:border-white/5", isRtl && "left-0 right-auto border-r border-l-0")}>
                <div className={cn("p-8 border-b border-slate-100 dark:border-white/5 flex justify-between items-center bg-slate-50/50 dark:bg-[#202c33]/50", isRtl && "flex-row-reverse")}>
-                  <div className={cn("flex items-center gap-4", isRtl && "flex-row-reverse")}><div className="p-3 bg-indigo-600 rounded-2xl text-white shadow-2xl shrink-0 rotate-3"><ShoppingBag size={22} /></div><div className={cn("flex flex-col min-w-0", isRtl && "text-right")}><h2 className="text-sm font-black uppercase italic tracking-tighter text-slate-950 dark:text-white truncate">Order Buffer</h2><span className="text-[8px] font-black text-indigo-500 uppercase tracking-[0.4em] truncate mt-1">Registry_Active</span></div></div>
+                  <div className={cn("flex items-center gap-4", isRtl && "flex-row-reverse")}><div className="p-3 bg-indigo-600 rounded-2xl text-white shadow-2xl shrink-0 rotate-3"><ShoppingBag size={22} /></div><div className={cn("flex flex-col min-w-0", isRtl && "text-right")}><h2 className="text-sm font-black uppercase italic tracking-tighter text-slate-950 dark:text-white truncate">{t('sales.cartTitle')}</h2><span className="text-[8px] font-black text-indigo-500 uppercase tracking-[0.4em] truncate mt-1">{t('sales.registryActive')}</span></div></div>
                   <button onClick={() => setIsCartOpen(false)} className="p-3 text-slate-400 hover:text-rose-500 transition-all border-none bg-transparent active:scale-90"><X size={24}/></button>
                </div>
                <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar bg-slate-50/30 dark:bg-black/20">
-                  {cart.length === 0 ? <div className="h-full flex flex-col items-center justify-center opacity-10"><ShoppingCart size={100} strokeWidth={1} className="text-indigo-600 animate-pulse" /><p className="font-black uppercase text-xs tracking-[0.6em] mt-8 text-center italic">Awaiting Signal...</p></div> : cart.map((item, idx) => <CartItem key={item._id} item={item} idx={idx} isRtl={isRtl} currencySymbol={currencySymbol} onUpdateQty={(id, qty) => setCart(cart.map(i => i._id === id ? { ...i, cartQty: qty } : i))} onRemove={(id) => setCart(cart.filter(i => i._id !== id))} onAddToCart={addToCart} />)}
+                  {cart.length === 0 ? <div className="h-full flex flex-col items-center justify-center opacity-10"><ShoppingCart size={100} strokeWidth={1} className="text-indigo-600 animate-pulse" /><p className="font-black uppercase text-xs tracking-[0.6em] mt-8 text-center italic">{t('sales.awaitingSignal')}</p></div> : cart.map((item, idx) => <CartItem key={item._id} item={item} idx={idx} isRtl={isRtl} currencySymbol={currencySymbol} onUpdateQty={(id, qty) => setCart(cart.map(i => i._id === id ? { ...i, cartQty: qty } : i))} onRemove={(id) => setCart(cart.filter(i => i._id !== id))} onAddToCart={addToCart} />)}
                </div>
                <div className="p-8 bg-white dark:bg-[#202c33] border-t border-slate-100 dark:border-white/5 space-y-8 shadow-4xl relative overflow-hidden">
                   <div className="absolute inset-0 grid-pattern opacity-[0.02] pointer-events-none" />
                   <div className="space-y-4 relative z-10">
-                     <div className={cn("flex justify-between items-center text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]", isRtl && "flex-row-reverse")}><span>Lattice Valuation</span><span>{subtotal.toLocaleString()} {currencySymbol}</span></div>
-                     <div className={cn("flex justify-between items-end pt-6 border-t border-slate-200 dark:border-white/10", isRtl && "flex-row-reverse")}><div className={cn("flex flex-col", isRtl && "items-end")}><span className="text-[9px] font-black uppercase text-indigo-500 tracking-[0.5em] mb-2 italic">Total Signal</span><span className="text-4xl font-black text-slate-950 dark:text-white italic tracking-tighter leading-none drop-shadow-sm">{totalOrder.toLocaleString()}</span></div><span className="text-sm font-black text-slate-400 mb-1 ml-3 uppercase">{currencySymbol}</span></div>
+                     <div className={cn("flex justify-between items-center text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]", isRtl && "flex-row-reverse")}><span>{t('sales.subtotal')}</span><span>{subtotal.toLocaleString()} {currencySymbol}</span></div>
+                     <div className={cn("flex justify-between items-end pt-6 border-t border-slate-200 dark:border-white/10", isRtl && "flex-row-reverse")}><div className={cn("flex flex-col", isRtl && "items-end")}><span className="text-[9px] font-black uppercase text-indigo-500 tracking-[0.5em] mb-2 italic">{t('sales.totalSignal')}</span><span className="text-4xl font-black text-slate-950 dark:text-white italic tracking-tighter leading-none drop-shadow-sm">{totalOrder.toLocaleString()}</span></div><span className="text-sm font-black text-slate-400 mb-1 ml-3 uppercase">{currencySymbol}</span></div>
                   </div>
                   <button onClick={() => setShowCheckout(true)} disabled={cart.length === 0} className="w-full bg-indigo-600 text-white py-7 rounded-[2rem] font-black uppercase text-[11px] tracking-[0.4em] shadow-2xl hover:bg-slate-950 transition-all active:scale-95 disabled:opacity-30 border-none group relative overflow-hidden">
                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                     <span className="relative z-10 flex items-center justify-center gap-3">COMMIT SIGNAL <Zap size={16} fill="currentColor" className="group-hover:rotate-12 transition-transform" /></span>
+                     <span className="relative z-10 flex items-center justify-center gap-3">{t('sales.commitSignal')} <Zap size={16} fill="currentColor" className="group-hover:rotate-12 transition-transform" /></span>
                   </button>
                </div>
             </motion.aside>

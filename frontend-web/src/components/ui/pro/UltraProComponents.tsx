@@ -31,11 +31,11 @@ export const MagneticWrapper = ({ children, strength = 0.2 }: any) => {
 // --- ZENITH COMMAND PANEL ---
 export const CommandPanel = ({ children, title, icon: Icon, className }: any) => (
   <div className={cn(
-    "relative overflow-hidden rounded-[2rem] border border-black/5 dark:border-white/10",
-    "bg-white/40 dark:bg-slate-950/20 backdrop-blur-3xl shadow-pro",
+    "relative overflow-hidden rounded-[2rem] border border-slate-200/60 dark:border-white/10",
+    "bg-white/70 dark:bg-slate-950/20 backdrop-blur-3xl shadow-sm dark:shadow-pro",
     className
   )}>
-    <div className="flex items-center justify-between px-6 py-3 border-b border-black/5 dark:border-white/5 bg-white/20 dark:bg-white/[0.02]">
+    <div className="flex items-center justify-between px-6 py-3 border-b border-slate-200/60 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02]">
       <div className="flex items-center gap-3">
         {Icon && <Icon size={14} className="text-indigo-500" />}
         <span className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em] italic">{title}</span>
@@ -58,7 +58,7 @@ export const SovereignTicker = () => {
   }, []);
 
   return (
-    <div className="w-full bg-slate-950/80 backdrop-blur-md border-y border-white/5 py-4 overflow-hidden flex whitespace-nowrap z-50">
+    <div className="w-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-y border-slate-200/60 dark:border-white/5 py-4 overflow-hidden flex whitespace-nowrap z-50">
       <motion.div 
         animate={{ x: [0, -2000] }}
         transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
@@ -68,15 +68,15 @@ export const SovereignTicker = () => {
           <div key={i} className="flex gap-16 items-center">
             <div className="flex items-center gap-4">
               <Hash size={10} className="text-indigo-500" />
-              <span className="text-[9px] font-black text-white/40 uppercase italic tracking-tighter">BLOCK_0x{time.toString(16).slice(-6).toUpperCase()}</span>
+              <span className="text-[9px] font-black text-slate-500 dark:text-white/40 uppercase italic tracking-tighter">BLOCK_0x{time.toString(16).slice(-6).toUpperCase()}</span>
             </div>
             <div className="flex items-center gap-4">
               <Globe size={10} className="text-emerald-500" />
-              <span className="text-[9px] font-black text-white/40 uppercase italic tracking-tighter">NODE_SYNC_STABLE</span>
+              <span className="text-[9px] font-black text-slate-500 dark:text-white/40 uppercase italic tracking-tighter">NODE_SYNC_STABLE</span>
             </div>
             <div className="flex items-center gap-4">
               <Clock size={10} className="text-rose-500" />
-              <span className="text-[9px] font-black text-white/40 uppercase italic tracking-tighter">UNIX_{Math.floor(time/1000)}</span>
+              <span className="text-[9px] font-black text-slate-500 dark:text-white/40 uppercase italic tracking-tighter">UNIX_{Math.floor(time/1000)}</span>
             </div>
             <span className="text-indigo-600 font-black text-[10px] opacity-20 tracking-[1em]">/////////////////////</span>
           </div>
@@ -94,9 +94,9 @@ export const BentoBox = ({ children, className, title, subtitle, icon: Icon, del
     transition={{ duration: 0.8, delay }}
     viewport={{ once: true }}
     className={cn(
-      "relative overflow-hidden p-10 group transition-all duration-700 shadow-xl",
-      "bg-white dark:bg-[#0C0C1A] border border-slate-200 dark:border-white/5",
-      "hover:border-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-500/10",
+      "relative overflow-hidden p-10 group transition-all duration-700 shadow-sm dark:shadow-xl",
+      "bg-white dark:bg-[#0C0C1A] border border-slate-200/60 dark:border-white/5",
+      "hover:border-indigo-500/40 hover:shadow-md dark:hover:shadow-indigo-500/10",
       className
     )}
   >
@@ -115,19 +115,19 @@ export const BentoBox = ({ children, className, title, subtitle, icon: Icon, del
     <div className="relative z-10 h-full flex flex-col justify-between">
       <div className="space-y-6">
         <div className="flex justify-between items-start">
-          <div className={cn("w-12 h-12 chamfer-sm flex items-center justify-center transition-all duration-500 shadow-inner bg-slate-100 dark:bg-white/5", `text-${color}-600 dark:text-${color}-400 group-hover:bg-${color}-600 group-hover:text-white`)}>
+          <div className={cn("w-12 h-12 chamfer-sm flex items-center justify-center transition-all duration-500 shadow-inner bg-slate-50 dark:bg-white/5", `text-${color}-600 dark:text-${color}-400 group-hover:bg-${color}-600 group-hover:text-white`)}>
             {Icon && <Icon size={24} />}
           </div>
-          <span className="font-mono text-[8px] font-black text-slate-400 dark:text-white/20 uppercase tracking-widest">FEAT_0x{(delay * 100).toFixed(0)}</span>
+          <span className="font-mono text-[8px] font-black text-slate-500 dark:text-white/20 uppercase tracking-widest">FEAT_0x{(delay * 100).toFixed(0)}</span>
         </div>
         <div>
           <h3 className="font-mono text-base font-bold text-slate-900 dark:text-white mb-2 uppercase italic">{title}</h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-sans">{subtitle}</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">{subtitle}</p>
         </div>
       </div>
       
       <div className="mt-8 flex justify-between items-end">
-         <div className="inline-block font-mono text-[8px] px-3 py-1 border border-slate-200 dark:border-white/5 rounded-sm text-slate-400 dark:text-slate-600 uppercase tracking-widest group-hover:border-indigo-500/30 group-hover:text-indigo-500 transition-colors">
+         <div className="inline-block font-mono text-[8px] px-3 py-1 border border-slate-200/60 dark:border-white/5 rounded-sm text-slate-500 dark:text-slate-600 uppercase tracking-widest group-hover:border-indigo-500/30 group-hover:text-indigo-500 transition-colors">
             Node_Sync_Active
          </div>
          <ArrowUpRight size={18} className="text-slate-300 dark:text-slate-700 group-hover:text-indigo-500 transition-colors" />

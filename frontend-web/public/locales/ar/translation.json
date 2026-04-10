@@ -25,7 +25,58 @@
     "empty": "فراغ",
     "invalidInput": "عدم تطابق منطقي",
     "download": "جاري التحميل",
-    "lead": "المهلة"
+    "lead": "المهلة",
+    "confirmLogout": "هل أنت متأكد أنك تريد إنهاء الجلسة؟",
+    "agent": "وكيل_معتمد",
+    "system_name": "ستوك ماستر",
+    "system_version": "CORE_LATTICE_V5",
+    "logo": "الشعار",
+    "languages": {
+      "en": "المنطق_الإنجليزية",
+      "fr": "المنطق_الفرنسية",
+      "ar": "المنطق_العربية"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "الوصول إلى المحطة.",
+      "subtitle": "دخول آمن إلى المجموعة التجارية.",
+      "emailLabel": "البريد الإلكتروني العملياتي",
+      "emailPlaceholder": "stockmaster@enterprise.com",
+      "passwordLabel": "شفرة الوصول",
+      "passwordPlaceholder": "••••••••••••",
+      "forgotPassword": "استعادة ؟",
+      "submit": "بدء الجلسة",
+      "noAccount": "جديد في المجموعة؟",
+      "registerLink": "تسجيل عقدة",
+      "authenticating": "جاري مصادقة التوقيع العصبي...",
+      "success": "تم منح التفويض.",
+      "vendorHub": "محور الموردين",
+      "multiStore": "تنسيق المتاجر المتعددة",
+      "registryHealth": "صحة السجل",
+      "nominal": "إسمي",
+      "latticeSync": "مزامنة الشبكة",
+      "complete": "100%"
+    },
+    "register": {
+      "title": "تسجيل عقدة.",
+      "subtitle": "انضم إلى الشبكة التجارية العالمية.",
+      "accountType": "نوع الحساب",
+      "client": "عميل",
+      "vendor": "مورد",
+      "nameLabel": "هوية الكيان",
+      "namePlaceholder": "جون دو",
+      "emailLabel": "البريد الإلكتروني العملياتي",
+      "emailPlaceholder": "contact@enterprise.com",
+      "passwordLabel": "شفرة الوصول",
+      "passwordPlaceholder": "••••••••••••",
+      "confirmPasswordLabel": "تأكيد الشفرة",
+      "submit": "تهيئة العقدة",
+      "haveAccount": "مفهرس بالفعل؟",
+      "loginLink": "الوصول إلى المحطة",
+      "registering": "جاري تهيئة العقدة...",
+      "success": "تم تهيئة العقدة بنجاح."
+    }
   },
   "nav": {
     "dashboard": "لوحة القيادة",
@@ -57,13 +108,17 @@
     "scanner": "الماسح الضوئي",
     "reels": "إشارات ريلز",
     "intelligence": "الذكاء الاستراتيجي",
+    "legal_ai": "مستشار الذكاء الاصطناعي القانوني",
+    "plans": "خطط الاشتراك",
     "sections": {
       "core": "الذكاء المركزي",
       "admin": "نظام التحكم",
       "ops": "العمليات الصناعية",
       "commercial": "الأصول التجارية",
       "growth": "النمو",
-      "infra": "البنية التحتية"
+      "infra": "البنية التحتية",
+      "network": "الشبكة العصبية",
+      "system": "نواة النظام"
     },
     "finance_intel": "الذكاء المالي",
     "quality": "قمة الجودة",
@@ -90,6 +145,18 @@
     "activeSignals": "الإشارات النشطة",
     "assetDensity": "كثافة الأصول",
     "systemHealth": "صحة النظام",
+    "nodeRegister": "سجل_العقدة",
+    "marketSync": "مزامنة_السوق",
+    "systemCore": "نواة_النظام",
+    "dataStream": "تدفق_البيانات",
+    "secureV4": "آمن_v4",
+    "primeSignal": "إشارة_ممتازة",
+    "optimalV4": "مثالي_v4",
+    "trends": {
+      "optimal": "مثالي",
+      "active": "نشط",
+      "stable": "مستقر"
+    },
     "predictions": "التوقعات",
     "aiProtocol": "بروتوكول الذكاء الاصطناعي v9.0",
     "recentSignals": "الإشارات الأخيرة",
@@ -237,7 +304,7 @@
       "orderCommits": "تأكيدات الطلب",
       "riskTelemetry": "قياس المخاطر عن بعد",
       "historyLogs": "سجلات تاريخ الإشارة",
-      "noHistorical": "لم يتم العثور على إشارات تاريخية",
+      "noHistorical": "لم يتم العور على إشارات تاريخية",
       "modInit": "بدء التعديل"
     }
   },
@@ -310,7 +377,7 @@
       "type": "نوع الإشارة",
       "orderId": "مجموعة الطلب",
       "condition": "حالة الأصل",
-      "asset": "اختيار الأصل",
+      "asset": "اختر الأصل",
       "signature": "توقيع العيب"
     },
     "status": {

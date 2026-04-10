@@ -147,6 +147,13 @@ export const createPost = async (req: any, res: Response) => {
 
     if (file && file.startsWith("data:")) {
       const isVideo = type === "VIDEO" || isReel;
+      
+      // Safety Check for Cloudinary
+      if (!cloudinary.config().api_key) {
+        console.error("❌ CLOUDINARY_FAILURE: Missing API configuration.");
+        return res.status(500).json({ message: "Media storage is not configured on this server node." });
+      }
+
       const uploadRes = await cloudinary.uploader.upload(file, {
         folder: `stockmaster/community/${tenantId}/posts`,
         resource_type: isVideo ? "video" : "image",
@@ -337,6 +344,12 @@ export const createStory = async (req: any, res: Response) => {
     const tenantId = req.user?.tenantId || "GLOBAL";
     const { file, type } = req.body;
     const isVideo = type === "VIDEO";
+
+    // Safety Check for Cloudinary
+    if (!cloudinary.config().api_key) {
+      console.error("❌ CLOUDINARY_FAILURE: Missing API configuration.");
+      return res.status(500).json({ message: "Media storage is not configured." });
+    }
 
     const uploadRes = await cloudinary.uploader.upload(file, {
       folder: `stockmaster/community/${tenantId}/stories`,

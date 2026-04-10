@@ -1,0 +1,7 @@
+{
+  "networkError": "خطأ في الشبكة",
+  "serverError": "خطأ في الخادم",
+  "unauthorized": "غير مصرح به",
+  "validation": "بيانات غير صالحة",
+  "invalidData": "أخطاء في النموذج"
+}

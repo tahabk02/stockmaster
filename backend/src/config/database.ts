@@ -2,40 +2,75 @@ import mongoose from "mongoose";
 import Logger from "../utils/logger";
 import { ENV } from "./env";
 
-/**
- * Global cache for MongoDB connection to prevent leaks in serverless environments.
- */
-let cachedConnection: any = null;
+// 1. Déclarer l-interface dial l-cache f global
+interface MongooseCache {
+  conn: any;
+  promise: any;
+}
+
+declare global {
+  var mongooseCache: MongooseCache;
+}
+
+// 2. Initialize l-cache f l-objet global
+let cached = global.mongooseCache;
+
+if (!cached) {
+  cached = global.mongooseCache = { conn: null, promise: null };
+}
 
 export async function connectDatabase() {
-  const uri = ENV.MONGODB_URI;
+  const uri = ENV.DATABASE_URL;
 
   if (!uri) {
-    Logger.error("❌ MONGODB_URI is not defined in environment variables.");
-    return;
+    Logger.error("❌ DATABASE_URL (MONGODB_URI or MONGO_URI) is not defined.");
+    return null;
   }
 
-  // Use cached connection if available and state is connected
-  if (cachedConnection && mongoose.connection.readyState === 1) {
-    return cachedConnection;
+  // Extract DB Name for logging
+  let dbName = "unknown";
+  try {
+    const urlParts = uri.split("/");
+    const lastPart = urlParts[urlParts.length - 1];
+    dbName = lastPart.split("?")[0] || "stockmaster-pro";
+  } catch (e) {
+    dbName = "stockmaster-pro";
+  }
+
+  // Si déjà connecté, return l-connection
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  // Si ma-khdamach l-connection, n-creer-ha
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 10000, // Zid l-waqt chwiya l-vercel
+    };
+
+    Logger.info(`🔄 Connecting to MongoDB [${dbName}]...`);
+    cached.promise = mongoose.connect(uri, opts).then((mongoose) => {
+      return mongoose;
+    });
   }
 
   try {
-    const db = await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-      bufferCommands: false, // Recommended for serverless
-    });
-    
-    cachedConnection = db;
-    Logger.info("✅ Connected to MongoDB Atlas (Cached)");
-    return db;
-  } catch (error: any) {
-    Logger.error("❌ MongoDB Connection Error: " + error.message);
-    // Don't exit process in serverless, let the function retry
-    const IS_VERCEL = !!process.env.VERCEL || !!process.env.VERCEL_ENV;
-    if (process.env.NODE_ENV !== "production" && !IS_VERCEL) {
-      process.exit(1);
+    cached.conn = await cached.promise;
+    Logger.info(`✅ Connected to MongoDB: [${dbName}] (Persistent)`);
+  } catch (e: any) {
+    cached.promise = null; // Reset l-promise f halat l-ghalat
+    Logger.error("❌ MongoDB Connection Error: " + e.message);
+
+    // Debug specific l-Vercel
+    if (e.message.includes("selection timeout")) {
+      Logger.error(
+        "💡 Tip: Check if MongoDB Atlas IP Whitelist allows 0.0.0.0/0",
+      );
     }
+
+    return null;
   }
+
+  return cached.conn;
 }

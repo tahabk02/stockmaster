@@ -1,13 +1,16 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ENV } from "../config/env";
 
-const genAI = new GoogleGenerativeAI(ENV.GEMINI_API_KEY || "");
+const genAI = ENV.GEMINI_API_KEY ? new GoogleGenerativeAI(ENV.GEMINI_API_KEY) : null;
 
 export class AIService {
   /**
    * Diagnostic de Produit (Analyse de Performance)
    */
   static async generateDiagnostic(product: any, lang: string = 'fr') {
+    if (!genAI) {
+      return { status: "WARNING", advice: "AI Service Not Configured. Check your API Key.", riskLevel: 0 };
+    }
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     
     const prompt = `
@@ -38,6 +41,9 @@ export class AIService {
    * Neural Chat (Context Aware)
    */
   static async processNeuralQuery(query: string, contextData: any, lang: string = 'fr') {
+    if (!genAI) {
+      return { response: "AI_OFFLINE: Service not configured. Please provide a valid GEMINI_API_KEY.", timestamp: new Date() };
+    }
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     
     const prompt = `
@@ -54,7 +60,12 @@ export class AIService {
       return { response: result.response.text(), timestamp: new Date() };
     } catch (error: any) {
       console.error("Neural Chat Error:", error.message);
-      throw error;
+      // Don't throw to prevent 500 error in controller, instead return a system error message
+      return { 
+        response: `Neural Link Error: ${error.message}. Moteur IA indisponible temporairement.`, 
+        timestamp: new Date(),
+        isError: true 
+      };
     }
   }
 
@@ -62,6 +73,9 @@ export class AIService {
    * Prévision de Rupture (Analyse de Flux)
    */
   static async getGlobalInsights(tenantData: any) {
+    if (!genAI) {
+      return "SaaS Analytics Offline: AI configuration missing.";
+    }
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const prompt = `Analyse ces données SaaS : ${JSON.stringify(tenantData)}. Donne 3 insights clés sur la rentabilité et les risques de stock.`;
     

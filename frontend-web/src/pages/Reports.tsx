@@ -88,12 +88,12 @@ export const Reports = () => {
   };
 
   if (loading) return (
-    <div className="h-screen flex flex-col items-center justify-center bg-slate-950">
+    <div className="h-screen flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950">
        <div className="relative">
           <div className="w-32 h-32 border-2 border-dashed border-indigo-500/30 rounded-full animate-spin-slow" />
           <Terminal size={48} className="absolute inset-0 m-auto text-indigo-500 animate-pulse" />
        </div>
-       <p className="mt-12 text-[12px] font-black uppercase tracking-[1.5em] text-white animate-pulse italic mr-[-1.5em]">BOOTING_DECISION_KERNEL</p>
+       <p className="mt-12 text-[12px] font-black uppercase tracking-[1.5em] text-slate-600 dark:text-white animate-pulse italic mr-[-1.5em]">BOOTING_DECISION_KERNEL</p>
     </div>
   );
 
@@ -104,7 +104,7 @@ export const Reports = () => {
       
       {/* 1. MASTER ANALYTICS HUD HEADER */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-3 p-8 md:p-10 bg-slate-950 text-white rounded-[3rem] shadow-4xl relative overflow-hidden border border-white/10 group">
+        <div className="lg:col-span-3 p-8 md:p-10 bg-white dark:bg-slate-950 text-slate-900 dark:text-white rounded-[3rem] shadow-sm dark:shadow-4xl relative overflow-hidden border border-slate-200/60 dark:border-white/10 group">
            <GridPattern />
            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-indigo-600/10 via-transparent to-transparent pointer-events-none" />
            <Scanline />
@@ -112,32 +112,32 @@ export const Reports = () => {
            <div className={cn("relative z-10 flex flex-col md:flex-row justify-between items-start gap-8", isRtl && "md:flex-row-reverse")}>
               <div className={isRtl ? "text-right" : "text-left"}>
                 <div className={cn("flex items-center gap-4 mb-6", isRtl && "flex-row-reverse")}>
-                   <div className="px-3 py-1.5 bg-indigo-600/20 border border-indigo-500/30 rounded-xl flex items-center gap-3">
+                   <div className="px-3 py-1.5 bg-indigo-600/10 dark:bg-indigo-600/20 border border-indigo-500/20 dark:border-indigo-500/30 rounded-xl flex items-center gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping shadow-[0_0_8px_#6366f1]" />
-                      <span className="text-[8px] font-black text-indigo-400 uppercase tracking-[0.4em]">{t('reports.node')}: {(tenant?.name || "STOCKMASTER").toUpperCase()}_9.4</span>
+                      <span className="text-[8px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-[0.4em]">{t('reports.node')}: {(tenant?.name || "STOCKMASTER").toUpperCase()}_9.4</span>
                    </div>
-                   <div className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl flex items-center gap-3">
+                   <div className="px-3 py-1.5 bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/10 rounded-xl flex items-center gap-3">
                       <Terminal size={10} className="text-slate-400" />
                       <span className="text-[8px] font-black text-slate-400 uppercase tracking-[0.3em]">{t('reports.stable')}</span>
                    </div>
                 </div>
                 
-                <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic leading-[0.8] text-white">
+                <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic leading-[0.8] text-slate-900 dark:text-white">
                   {t('reports.title')}_<br />
-                  <span className="text-indigo-500 drop-shadow-[0_0_20px_rgba(99,102,241,0.5)]">{t('reports.subtitle')}.</span>
+                  <span className="text-indigo-600 drop-shadow-[0_0_20px_rgba(99,102,241,0.5)]">{t('reports.subtitle')}.</span>
                 </h1>
               </div>
 
               <div className={cn("flex flex-col gap-4 shrink-0", isRtl && "items-end")}>
-                 <div className={cn("flex bg-black/40 backdrop-blur-md p-1.5 rounded-2xl border border-white/10 shadow-inner", isRtl && "flex-row-reverse")}>
+                 <div className={cn("flex bg-slate-100 dark:bg-black/40 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200/60 dark:border-white/10 shadow-inner", isRtl && "flex-row-reverse")}>
                     {['7d', '30d', '90d'].map(range => (
-                      <button key={range} onClick={() => setDateRange(range)} className={cn("px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border-none relative overflow-hidden", dateRange === range ? "bg-white text-slate-950 shadow-2xl scale-105" : "text-slate-500 hover:text-white")}>
+                      <button key={range} onClick={() => setDateRange(range)} className={cn("px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border-none relative overflow-hidden", dateRange === range ? "bg-white text-slate-950 shadow-md scale-105" : "text-slate-500 hover:text-slate-900 dark:hover:text-white")}>
                         <span className="relative z-10">{range}</span>
                         {dateRange === range && <div className="absolute inset-0 bg-indigo-500/10 animate-pulse" />}
                       </button>
                     ))}
                  </div>
-                 <button onClick={handleExport} disabled={isExporting} className="bg-white text-slate-950 px-8 py-4 rounded-2xl font-black uppercase text-[11px] tracking-[0.3em] shadow-4xl hover:bg-indigo-600 hover:text-white transition-all active:scale-95 flex items-center justify-center gap-4 border-none italic group">
+                 <button onClick={handleExport} disabled={isExporting} className="bg-slate-900 dark:bg-white text-white dark:text-slate-950 px-8 py-4 rounded-2xl font-black uppercase text-[11px] tracking-[0.3em] shadow-4xl hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-500 transition-all active:scale-95 flex items-center justify-center gap-4 border-none italic group">
                     {isExporting ? <Loader2 className="animate-spin" size={18} /> : <Download size={18} className="group-hover:translate-y-0.5 transition-transform" />} {t('common.export')}
                  </button>
               </div>
@@ -158,13 +158,13 @@ export const Reports = () => {
       </div>
 
       {/* 2. TAB NAVIGATION DECK */}
-      <div className={cn("flex items-center gap-2 p-2 bg-white/10 dark:bg-slate-950/40 backdrop-blur-3xl rounded-[2.5rem] border border-slate-200 dark:border-white/5 shadow-2xl w-fit mx-auto lg:mx-0", isRtl && "flex-row-reverse")}>
+      <div className={cn("flex items-center gap-2 p-2 bg-white dark:bg-slate-950/40 backdrop-blur-3xl rounded-[2.5rem] border border-slate-200 dark:border-white/5 shadow-sm dark:shadow-2xl w-fit mx-auto lg:mx-0", isRtl && "flex-row-reverse")}>
          {[
            { id: 'financial', icon: <DollarSign size={14}/>, label: t('settings.billing') },
            { id: 'inventory', icon: <Package size={14}/>, label: t('nav.inventory') },
            { id: 'strategic', icon: <Target size={14}/>, label: t('nav.intelligence') }
          ].map(tab => (
-           <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={cn("px-8 py-4 rounded-[1.8rem] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 transition-all border-none relative overflow-hidden", activeReportTab === tab.id ? 'bg-indigo-600 text-white shadow-4xl scale-105' : 'text-slate-500 hover:bg-white dark:hover:bg-slate-800')}>
+           <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={cn("px-8 py-4 rounded-[1.8rem] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 transition-all border-none relative overflow-hidden", activeReportTab === tab.id ? 'bg-indigo-600 text-white shadow-4xl scale-105' : 'text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800')}>
               <span className="relative z-10 flex items-center gap-3">{tab.icon} {tab.label}</span>
               {activeReportTab === tab.id && <div className="absolute inset-0 bg-white/10 animate-pulse" />}
            </button>
