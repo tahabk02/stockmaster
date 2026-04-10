@@ -53,6 +53,9 @@ app.use("/api", forensicAuditMiddleware);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // --- 7. ROUTES ---
+app.get('/', (req, res) => {
+  res.json({ status: 'online', message: 'StockMaster Pro API is Live', version: '1.0.0' });
+});
 app.use("/api", apiRoutes);
 app.use("/", apiRoutes); 
 
