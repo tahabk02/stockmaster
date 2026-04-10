@@ -33,19 +33,16 @@ const transports: winston.transport[] = [
   new winston.transports.Console(),
 ];
 
-// Completely disable file logging for Vercel and Production to avoid ENOENT errors
+// 🚫 BLOCK FILE LOGGING IN PRODUCTION/VERCEL
+// Only use file logging in local non-production development
 if (!IS_VERCEL && !IS_PRODUCTION && process.env.NODE_ENV !== "test") {
-  try {
-    transports.push(
-      new winston.transports.File({
-        filename: "logs/error.log",
-        level: "error",
-      }),
-      new winston.transports.File({ filename: "logs/all.log" }),
-    );
-  } catch (e) {
-    console.warn("⚠️ Failed to initialize file logging, falling back to console only.");
-  }
+  transports.push(
+    new winston.transports.File({
+      filename: "logs/error.log",
+      level: "error",
+    }),
+    new winston.transports.File({ filename: "logs/all.log" }),
+  );
 }
 
 const Logger = winston.createLogger({
@@ -56,7 +53,7 @@ const Logger = winston.createLogger({
 });
 
 if (IS_VERCEL) {
-  Logger.info("🚀 PROTOCOL 9.2: Stateless Neural Core Active (No-Log-Dir Mode)");
+  console.log("🚀 StockMaster Pro: Production Shield Active");
 }
 
 export default Logger;

@@ -12,34 +12,10 @@ import { handleStripeWebhook } from "./controllers/stripe.webhook.controller";
 const app: Application = express();
 
 // --- 1. ROBUST CORS CONFIGURATION ---
-const allowedOrigins = [
-  "https://stockmaster-6kas.vercel.app",
-  "https://stockmaster-6kas.vercel.app/",
-  "http://localhost:5173",
-  "http://localhost:3000",
-];
-
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow if:
-    // 1. No origin (like mobile apps or curl)
-    // 2. Exact match in allowedOrigins
-    // 3. Vercel preview/production deployment (*.vercel.app)
-    // 4. Development environment
-    const isAllowedOrigin = !origin || allowedOrigins.includes(origin);
-    const isVercelOrigin = origin && (origin.endsWith(".vercel.app") || origin.includes("vercel.app"));
-    const isDev = process.env.NODE_ENV === "development";
-
-    if (isAllowedOrigin || isVercelOrigin || isDev) {
-      callback(null, true);
-    } else {
-      console.warn(`[CORS] Rejected origin: ${origin}`);
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: 'https://stockmaster-6kas.vercel.app',
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "x-tenant-id"]
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 
 // Handle preflight requests

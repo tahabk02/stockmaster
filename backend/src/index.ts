@@ -129,11 +129,15 @@ if (!IS_VERCEL) {
   });
 
   connectDatabase().then(() => {
-    server.listen(Number(PORT), "0.0.0.0", () => Logger.info(`📡 Neural Core listening on port ${PORT}`));
+    server.listen(Number(PORT), "0.0.0.0", () => {
+      Logger.info(`📡 Neural Core listening on port ${PORT}`);
+      if (IS_VERCEL) console.log("🚀 StockMaster Pro: Vercel Stateless Mode Active");
+    });
   });
 } else {
   // Ensure DB connects on serverless invocation, but let it happen in background
   connectDatabase();
+  console.log("🚀 StockMaster Pro: Vercel Stateless Mode Active");
 }
 
 export default app;
