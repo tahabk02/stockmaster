@@ -72,10 +72,12 @@ export class AuthController {
 
   // --- LOGIN LOGIC ---
   static login = async (req: Request, res: Response) => {
+    console.log(`[Auth] 🛡️ LOGIN_SEQUENCE_INITIATED for: ${req.body?.email}`);
     try {
       // 1. Validation du format des données
       const validation = loginSchema.safeParse(req.body);
       if (!validation.success) {
+        console.warn("[Auth] ❌ Validation failed:", validation.error.format());
         return res.status(400).json({
           success: false,
           message: "Format invalide",
@@ -85,6 +87,7 @@ export class AuthController {
 
       const { email, password } = validation.data;
       const normalizedEmail = email.toLowerCase().trim();
+      console.log(`[Auth] 🔍 Searching for user: ${normalizedEmail}`);
 
       // 2. Recherche de l'utilisateur (on force l'inclusion du password)
       const user = await User.findOne({ email: normalizedEmail }).select(
@@ -92,19 +95,28 @@ export class AuthController {
       );
 
       if (!user) {
-        console.log(`[Auth] Utilisateur non trouvé : ${normalizedEmail}`);
+        console.log(`[Auth] ❌ Utilisateur non trouvé : ${normalizedEmail}`);
         return res
           .status(401)
           .json({ success: false, message: "Identifiants invalides" });
       }
 
+      console.log(`[Auth] 👤 User found: ${user.email} (ID: ${user._id})`);
+
       // 3. Vérification du mot de passe
-      let isMatch = await bcrypt.compare(password, user.password);
+      console.log("[Auth] 🔑 Verifying password...");
+      let isMatch = false;
+      try {
+        isMatch = await bcrypt.compare(password, user.password);
+      } catch (bcryptErr: any) {
+        console.error("[Auth] 💥 Bcrypt comparison error:", bcryptErr.message);
+        throw new Error(`Bcrypt error: ${bcryptErr.message}`);
+      }
 
       // logic Auto-Fix : Si le mot de passe est en clair (non haché), on le hache proprement
       if (!isMatch && password === user.password) {
         console.log(
-          `[Auth] Migration du mot de passe en clair vers Hash pour : ${user.email}`,
+          `[Auth] 🛠️ Migration du mot de passe en clair vers Hash pour : ${user.email}`,
         );
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
@@ -113,33 +125,43 @@ export class AuthController {
       }
 
       if (!isMatch) {
-        console.log(`[Auth] Mot de passe incorrect pour : ${normalizedEmail}`);
+        console.log(`[Auth] ❌ Mot de passe incorrect pour : ${normalizedEmail}`);
         await AuditLog.create({
           tenantId: user.tenantId,
           userId: user._id,
           action: "LOGIN_FAILED",
           details: `Tentative échouée: ${normalizedEmail}`,
-        });
+        }).catch(err => console.error("[Auth] AuditLog failed:", err.message));
+        
         return res
           .status(401)
           .json({ success: false, message: "Identifiants invalides" });
       }
 
+      console.log("[Auth] ✅ Password matched. Generating token...");
+
       // 4. Succès : Mise à jour du Last Login et Génération du Token
       user.lastLogin = new Date();
-      await user.save();
+      await user.save().catch(err => console.error("[Auth] User save failed:", err.message));
 
-      const token = AuthService.generateToken(user);
+      let token;
+      try {
+        token = AuthService.generateToken(user);
+        console.log("[Auth] 🎫 Token generated successfully");
+      } catch (tokenErr: any) {
+        console.error("[Auth] 💥 Token generation error:", tokenErr.message);
+        throw new Error(`Token generation failed: ${tokenErr.message}`);
+      }
 
       await AuditLog.create({
         tenantId: user.tenantId,
         userId: user._id,
         action: "LOGIN_SUCCESS",
         details: "Connexion réussie",
-      });
+      }).catch(err => console.error("[Auth] AuditLog Success failed:", err.message));
 
       console.log(
-        `[Auth] ✅ Connexion réussie : ${user.email} (Role: ${user.role})`,
+        `[Auth] 🚀 LOGIN_COMPLETE : ${user.email} (Role: ${user.role})`,
       );
 
       return res.status(200).json({
@@ -154,10 +176,15 @@ export class AuthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Login Error:", error);
+      console.error("❌ CRITICAL LOGIN ERROR:", error);
       return res
         .status(500)
-        .json({ success: false, message: "Erreur serveur" });
+        .json({ 
+          success: false, 
+          message: "Erreur serveur", 
+          debug: process.env.NODE_ENV === 'development' ? error.message : undefined,
+          stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        });
     }
   };
 

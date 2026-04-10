@@ -46,8 +46,7 @@ export async function connectDatabase() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
-      serverSelectionTimeoutMS: 10000, // Zid l-waqt chwiya l-vercel
-      dbName: "stockmaster", // Explicit target override
+      serverSelectionTimeoutMS: 15000, // Increased for serverless stability
     };
 
     Logger.info(`🚀 PROTOCOL 9.2: Data Source targeted at [${dbName}]`);

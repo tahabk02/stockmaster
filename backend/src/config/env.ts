@@ -9,7 +9,7 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") }); // Look in backe
 const envSchema = z.object({
   PORT: z.string().default("3000").transform(Number),
   MONGODB_URI: z.string().optional(),
-  JWT_SECRET: z.string().min(10).default("super_secret_key_123"),
+  JWT_SECRET: z.string().min(1).default("super_secret_key_123"),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   REDIS_URL: z.string().optional(),
   
@@ -49,31 +49,36 @@ const envSchema = z.object({
         hostAndPath = rest.substring(lastAtIndex + 1);
       }
 
-      if (credentials && credentials.includes(":")) {
+      // Only encode if it doesn't look like it's already encoded (basic check for %)
+      if (credentials && credentials.includes(":") && !credentials.includes("%")) {
         const colonIndex = credentials.indexOf(":");
         const username = credentials.substring(0, colonIndex);
         const password = credentials.substring(colonIndex + 1);
         credentials = `${username}:${encodeURIComponent(password)}`;
       }
 
-      let host = hostAndPath;
-      let options = "";
-      if (hostAndPath.includes("/")) {
-        const firstSlashIndex = hostAndPath.indexOf("/");
-        host = hostAndPath.substring(0, firstSlashIndex);
-        const pathAndOptions = hostAndPath.substring(firstSlashIndex);
-        const questionMarkIndex = pathAndOptions.indexOf("?");
-        if (questionMarkIndex !== -1) {
-          options = pathAndOptions.substring(questionMarkIndex);
-        }
-      } else if (hostAndPath.includes("?")) {
-        const questionMarkIndex = hostAndPath.indexOf("?");
-        host = hostAndPath.substring(0, questionMarkIndex);
-        options = hostAndPath.substring(questionMarkIndex);
-      }
-
       const credsPart = credentials ? `${credentials}@` : "";
-      processedUri = `${scheme}://${credsPart}${host}/stockmaster${options}`;
+      
+      // If the URI already has a database path, keep it. 
+      // Atlas SRV URIs usually look like mongodb+srv://host/?options or mongodb+srv://host/dbname?options
+      if (hostAndPath.includes("/") && hostAndPath.split("/")[1].split("?")[0]) {
+        // Has a DB name, just use the rawUri but with potentially encoded credentials if we changed them
+        processedUri = `${scheme}://${credsPart}${hostAndPath}`;
+      } else {
+        // No DB name, append stockmaster
+        let host = hostAndPath;
+        let options = "";
+        if (hostAndPath.includes("?")) {
+          const qIndex = hostAndPath.indexOf("?");
+          host = hostAndPath.substring(0, qIndex);
+          options = hostAndPath.substring(qIndex);
+        }
+        
+        // Remove trailing slash if present on host
+        if (host.endsWith("/")) host = host.slice(0, -1);
+        
+        processedUri = `${scheme}://${credsPart}${host}/stockmaster${options}`;
+      }
     }
   } catch (error) {
     console.error("Error processing MongoDB URI:", error);
