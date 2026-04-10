@@ -3,18 +3,18 @@ import { createClient } from "redis";
 import { ENV } from "./env";
 import Logger from "../utils/logger";
 
-const REDIS_ENABLED = ENV.NODE_ENV !== "development" || !!ENV.REDIS_URL;
+const REDIS_ENABLED = !!ENV.REDIS_URL && (ENV.NODE_ENV !== "development" || ENV.REDIS_URL !== "redis://localhost:6379");
 
 /**
  * BullMQ Connection Options
  */
 const getRedisConfig = (): ConnectionOptions => {
   // Try individual variables first, then fallback to URL
-  const host = process.env.REDIS_HOST || "localhost";
+  const host = process.env.REDIS_HOST;
   const port = parseInt(process.env.REDIS_PORT || "6379");
   const password = process.env.REDIS_PASSWORD;
 
-  if (process.env.REDIS_HOST) {
+  if (host) {
     return {
       host,
       port,
@@ -35,9 +35,6 @@ const getRedisConfig = (): ConnectionOptions => {
       maxRetriesPerRequest: null,
     };
   } catch (e) {
-    if (REDIS_ENABLED) {
-      Logger.warn("⚠️ Invalid REDIS_URL format and no REDIS_HOST provided, falling back to defaults.");
-    }
     return {
       host: "localhost",
       port: 6379,

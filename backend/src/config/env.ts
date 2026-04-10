@@ -9,10 +9,9 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") }); // Look in backe
 const envSchema = z.object({
   PORT: z.string().default("3000").transform(Number),
   MONGODB_URI: z.string().optional(),
-  MONGO_URI: z.string().optional(),
   JWT_SECRET: z.string().min(10).default("super_secret_key_123"),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
-  REDIS_URL: z.string().default("redis://localhost:6379"),
+  REDIS_URL: z.string().optional(),
   
   // SMTP Config
   MAIL_HOST: z.string().default("smtp.mailtrap.io"),
@@ -32,7 +31,7 @@ const envSchema = z.object({
   // Gemini API
   GEMINI_API_KEY: z.string().optional().transform(v => (v === 'PLACEHOLDER' || v?.startsWith('YOUR_')) ? undefined : v),
 }).transform((data) => {
-  const rawUri = data.MONGODB_URI || data.MONGO_URI || "mongodb://localhost:27017/stockmaster";
+  const rawUri = data.MONGODB_URI || "mongodb://localhost:27017/stockmaster";
   
   // Robust URI processing
   let processedUri = rawUri;
