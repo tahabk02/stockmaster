@@ -26,11 +26,11 @@ app.use(cors({
     // 2. Exact match in allowedOrigins
     // 3. Vercel preview/production deployment (*.vercel.app)
     // 4. Development environment
-    const isAllowedOrigin = origin && allowedOrigins.includes(origin);
+    const isAllowedOrigin = !origin || allowedOrigins.includes(origin);
     const isVercelOrigin = origin && (origin.endsWith(".vercel.app") || origin.includes("vercel.app"));
     const isDev = process.env.NODE_ENV === "development";
 
-    if (!origin || isAllowedOrigin || isVercelOrigin || isDev) {
+    if (isAllowedOrigin || isVercelOrigin || isDev) {
       callback(null, true);
     } else {
       console.warn(`[CORS] Rejected origin: ${origin}`);
@@ -43,7 +43,7 @@ app.use(cors({
 }));
 
 // Handle preflight requests
-app.options("*", cors() as any);
+app.options("*", cors());
 
 // --- 2. STRIPE WEBHOOK (Needs raw body) ---
 app.post("/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
