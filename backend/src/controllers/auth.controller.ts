@@ -176,14 +176,19 @@ export class AuthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ CRITICAL LOGIN ERROR:", error);
+      console.error('--- LOGIN ERROR DEBUG ---');
+      console.error('Error Name:', error.name);
+      console.error('Error Message:', error.message);
+      console.error('Stack:', error.stack);
+      console.error('--- END DEBUG ---');
+      
       return res
         .status(500)
         .json({ 
           success: false, 
           message: "Erreur serveur", 
-          debug: process.env.NODE_ENV === 'development' ? error.message : undefined,
-          stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+          debug: error.message,
+          error_name: error.name
         });
     }
   };

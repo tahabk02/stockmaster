@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
@@ -8,9 +9,36 @@ import { errorMiddleware } from "./middlewares/error.middleware";
 import { apiLimiter } from "./middlewares/rateLimit.middleware";
 import { handleStripeWebhook } from "./controllers/stripe.webhook.controller"; 
 
+console.log('--- 🛡️ Neural Core Initialization ---');
+console.log('Checking Environment Variables:');
+console.log('MONGODB_URI:', process.env.MONGODB_URI ? 'LOADED' : 'MISSING');
+console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'LOADED' : 'MISSING');
+console.log('-------------------------------------');
+
 const app: Application = express();
 
-// --- 1. STRIPE WEBHOOK (Needs raw body) ---
+// --- 1. CORS CONFIGURATION ---
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://stockmaster-6kas.vercel.app',
+  'https://stockmaster-36a3.vercel.app'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin) || origin.includes('localhost') || origin.includes('127.0.0.1')) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS Not Allowed by StockMaster Policy'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Content-Type', 'Date', 'X-Api-Version', 'Authorization']
+}));
+
+// --- 2. STRIPE WEBHOOK (Needs raw body) ---
 app.post("/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
 
 // --- 2. SECURITY & LOGGING ---
