@@ -1,5 +1,18 @@
 import dotenv from "dotenv";
 import path from "path";
+
+// --- 🛡️ ERROR BOUNDARY ---
+process.on("uncaughtException", (err) => {
+  console.error("❌ UNCAUGHT EXCEPTION:", err.message);
+  console.error(err.stack);
+  // In serverless, we don't necessarily want to exit(1) as it might kill the warm instance unnecessarily,
+  // but for fatal start-up errors, it's safer.
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("❌ UNHANDLED REJECTION at:", promise, "reason:", reason);
+});
+
 // Load env vars before anything else
 dotenv.config(); // Look in CWD
 dotenv.config({ path: path.resolve(__dirname, "../.env") }); // Look in backend root relative to src or dist

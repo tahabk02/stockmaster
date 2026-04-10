@@ -49,42 +49,39 @@ export const redisConfig: ConnectionOptions = getRedisConfig();
  * General Purpose Redis Client (redis v4+)
  */
 const getRedisUrl = () => {
-  const url = ENV.REDIS_URL || "redis://localhost:6379";
-  return url.includes("://") ? url : `redis://${url}`;
+  return ENV.REDIS_URL || "redis://localhost:6379";
 };
 
-export const redisClient = createClient({
+export const redisClient = createClient(REDIS_ENABLED ? {
   url: getRedisUrl(),
   socket: {
     reconnectStrategy: (retries) => {
-      // Exponential backoff with a cap of 10 seconds, but only if REDIS_ENABLED
-      if (!REDIS_ENABLED && retries > 2) return false; // Stop trying quickly in dev if it fails
+      // Exponential backoff with a cap of 10 seconds
+      if (retries > 5) return false; // Stop after 5 attempts if failing
       return Math.min(retries * 500, 10000);
     }
   }
-});
+} : undefined);
 
 // Handle initial connection errors and runtime errors
-redisClient.on("error", (err) => {
-  if (REDIS_ENABLED) {
+if (REDIS_ENABLED) {
+  redisClient.on("error", (err) => {
     Logger.error(`❌ Redis Error: ${err.message}`);
-  }
-});
+  });
 
-redisClient.on("connect", () => {
-  Logger.info("⚡ Redis Connected Successfully");
-});
+  redisClient.on("connect", () => {
+    Logger.info("⚡ Redis Connected Successfully");
+  });
 
-redisClient.on("reconnecting", () => {
-  if (REDIS_ENABLED) {
+  redisClient.on("reconnecting", () => {
     Logger.warn("🔄 Redis Reconnecting...");
-  }
-});
+  });
+}
 
 // Non-blocking connection attempt
 (async () => {
   if (!REDIS_ENABLED) {
-    Logger.warn("⚠️ Redis is disabled or missing in development. Mocking operations.");
+    Logger.warn("⚠️ Redis is BYPASSED (No REDIS_URL or local dev without active redis).");
     return;
   }
   
@@ -94,6 +91,7 @@ redisClient.on("reconnecting", () => {
     }
   } catch (error: any) {
     Logger.error(`❌ Initial Redis Connection Failed: ${error.message}`);
+    Logger.warn("💡 App will continue without Redis features.");
   }
 })();
 
