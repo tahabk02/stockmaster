@@ -6,9 +6,12 @@ import Order from "../models/Order";
 import Stripe from "stripe";
 import { AuditService, AuditAction } from "../services/audit.service";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+const stripeKey = process.env.STRIPE_SECRET_KEY || "sk_test_placeholder";
+const stripe = new Stripe(stripeKey, {
   apiVersion: "2026-01-28.clover" as any,
 });
+
+const isStripeConfigured = !!process.env.STRIPE_SECRET_KEY;
 
 const plansConfig = {
   PRO: {
@@ -121,6 +124,9 @@ export class SaaSController {
 
   // Create Stripe Checkout Session
   static createCheckoutSession = async (req: any, res: Response) => {
+    if (!isStripeConfigured) {
+      return res.status(503).json({ success: false, message: "Le service de paiement n'est pas configuré sur ce déploiement." });
+    }
     const { planName } = req.body;
     const tenantId = req.user.tenantId;
     const userEmail = req.user.email;
@@ -180,6 +186,9 @@ export class SaaSController {
 
   // Create Payment Intent for Embedded Payment
   static createPaymentIntent = async (req: any, res: Response) => {
+    if (!isStripeConfigured) {
+      return res.status(503).json({ success: false, message: "Le service de paiement n'est pas configuré." });
+    }
     const { planName } = req.body;
     const plan = (plansConfig as any)[planName];
 

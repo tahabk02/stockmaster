@@ -27,23 +27,10 @@ const format = winston.format.combine(
 );
 
 const IS_VERCEL = !!process.env.VERCEL || !!process.env.VERCEL_ENV;
-const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 const transports: winston.transport[] = [
   new winston.transports.Console(),
 ];
-
-// 🚫 BLOCK FILE LOGGING IN PRODUCTION/VERCEL
-// Only use file logging in local non-production development
-if (!IS_VERCEL && !IS_PRODUCTION && process.env.NODE_ENV !== "test") {
-  transports.push(
-    new winston.transports.File({
-      filename: "logs/error.log",
-      level: "error",
-    }),
-    new winston.transports.File({ filename: "logs/all.log" }),
-  );
-}
 
 const Logger = winston.createLogger({
   level: process.env.NODE_ENV === "development" ? "debug" : "info",
