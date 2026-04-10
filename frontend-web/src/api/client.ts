@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 
 const api = axios.create({
   baseURL: import.meta.env.DEV 
-    ? "http://localhost:5000/api" 
+    ? "http://localhost:3000/api" 
     : "https://stockmaster-36a3.vercel.app/api",
   withCredentials: true,
   headers: {
