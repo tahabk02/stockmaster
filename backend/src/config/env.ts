@@ -74,7 +74,7 @@ const envSchema = z.object({
       }
 
       const credsPart = credentials ? `${credentials}@` : "";
-      processedUri = `${scheme}://${credsPart}${host}/stockmaster-pro${options}`;
+      processedUri = `${scheme}://${credsPart}${host}/stockmaster${options}`;
     }
   } catch (error) {
     console.error("Error processing MongoDB URI:", error);

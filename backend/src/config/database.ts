@@ -32,9 +32,9 @@ export async function connectDatabase() {
   try {
     const urlParts = uri.split("/");
     const lastPart = urlParts[urlParts.length - 1];
-    dbName = lastPart.split("?")[0] || "stockmaster-pro";
+    dbName = lastPart.split("?")[0] || "stockmaster";
   } catch (e) {
-    dbName = "stockmaster-pro";
+    dbName = "stockmaster";
   }
 
   // Si déjà connecté, return l-connection
@@ -47,8 +47,10 @@ export async function connectDatabase() {
     const opts = {
       bufferCommands: false,
       serverSelectionTimeoutMS: 10000, // Zid l-waqt chwiya l-vercel
+      dbName: "stockmaster", // Explicit target override
     };
 
+    Logger.info(`🚀 PROTOCOL 9.2: Data Source targeted at [${dbName}]`);
     Logger.info(`🔄 Connecting to MongoDB [${dbName}]...`);
     cached.promise = mongoose.connect(uri, opts).then((mongoose) => {
       return mongoose;

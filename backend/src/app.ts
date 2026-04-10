@@ -14,6 +14,7 @@ const app: Application = express();
 // --- 1. ROBUST CORS CONFIGURATION ---
 const allowedOrigins = [
   "https://stockmaster-6kas.vercel.app",
+  "https://stockmaster-6kas.vercel.app/",
   "http://localhost:5173",
   "http://localhost:3000",
 ];
