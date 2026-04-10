@@ -7,8 +7,7 @@ import {
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { cn } from "../lib/utils";
-import axios from "axios";
-import { useAuth } from "../store/auth.slice";
+import api from "../api/client";
 
 const StatusCard = ({ title, value, icon: Icon, subtext, status = "good", delay = 0 }: any) => (
   <motion.div 
@@ -70,7 +69,6 @@ const TerminalLog = ({ logs }: { logs: string[] }) => (
 
 export const SystemStatus = () => {
   const { t, i18n } = useTranslation();
-  const { token } = useAuth();
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [logs, setLogs] = useState<string[]>([]);
@@ -78,9 +76,7 @@ export const SystemStatus = () => {
 
   const fetchHealth = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/system/health`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const response = await api.get("/system/health");
       if (response.data.success) {
         setData(response.data.data);
         addLog(`Health check passed. Latency: ${response.data.data.db.latency}`);

@@ -2,7 +2,9 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 const api = axios.create({
-  baseURL: "https://backend-stock-master-pro.vercel.app/api",
+  baseURL: import.meta.env.DEV 
+    ? "http://127.0.0.1:3000/api" 
+    : "https://backend-stock-master-pro.vercel.app/api",
   timeout: 60000, 
   withCredentials: true,
   headers: {

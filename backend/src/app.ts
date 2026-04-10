@@ -11,15 +11,50 @@ import { handleStripeWebhook } from "./controllers/stripe.webhook.controller";
 
 const app: Application = express();
 
-// --- 1. ROBUST CORS CONFIGURATION ---
+// --- 1. NUCLEAR CORS & PREFLIGHT CONFIGURATION ---
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'https://stockmaster-6kas.vercel.app',
+  'https://stockmaster-36a3.vercel.app'
+];
+
 app.use(cors({
-  origin: 'https://stockmaster-6kas.vercel.app',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin) || origin.includes('localhost') || origin.includes('127.0.0.1')) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS Not Allowed by StockMaster Policy'));
+    }
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 }));
 
-// Handle preflight requests
-app.options("*", cors());
+// Universal Preflight Handler
+app.options('*', (req, res) => {
+  const origin = req.headers.origin;
+  if (origin && (allowedOrigins.includes(origin) || origin.includes('localhost') || origin.includes('127.0.0.1'))) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,PATCH,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.status(200).send();
+});
+
+// Manual Header Fallback for extra safety
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && (allowedOrigins.includes(origin) || origin.includes('localhost') || origin.includes('127.0.0.1'))) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 // --- 2. STRIPE WEBHOOK (Needs raw body) ---
 app.post("/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
