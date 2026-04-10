@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ShieldCheck, Lock, Fingerprint, Smartphone, History, Zap, ShieldAlert, KeyRound, Monitor, Eye, EyeOff } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { toast } from "react-hot-toast";
+import api from "../../api/client";
 
 const SecurityNode = ({ label, value, icon: Icon, isRtl, actionLabel, onAction }: any) => (
   <div className={cn("flex items-center justify-between p-6 bg-slate-50 dark:bg-slate-950/50 rounded-2xl border border-slate-100 dark:border-white/5 hover:border-indigo-500/30 transition-all group", isRtl && "flex-row-reverse")}>
