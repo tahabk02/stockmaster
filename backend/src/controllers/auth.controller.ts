@@ -164,6 +164,14 @@ export class AuthController {
         `[Auth] 🚀 LOGIN_COMPLETE : ${user.email} (Role: ${user.role})`,
       );
 
+      // --- 🆕 SECURE COOKIE PROTOCOL ---
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true, // Required for sameSite: 'none'
+        sameSite: "none", // Required for cross-site Vercel deployment
+        maxAge: 24 * 60 * 60 * 1000, // 24h
+      });
+
       return res.status(200).json({
         success: true,
         token,

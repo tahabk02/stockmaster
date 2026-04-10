@@ -23,29 +23,35 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // 1. إذا لم يستجب السيرفر أصلاً (Network Error)
+    console.error("--- API RESPONSE ERROR ---");
+    
+    // 1. Network Error (No response)
     if (!error.response) {
-      console.error("CRITICAL: Network Error. Server at", error.config?.baseURL, "is unreachable.");
+      console.error("TYPE: Network_Error / unreachable");
+      console.error("BASE_URL:", error.config?.baseURL);
+      console.error("MESSAGE:", error.message);
       toast.error("Le serveur est injoignable. Vérifiez votre connexion.");
       return Promise.reject({ message: "Serveur hors ligne" });
     }
 
-    console.error(`API Error [${error.response.status}]:`, error.response.data);
+    const { status, data } = error.response;
+    console.error(`STATUS: ${status}`);
+    console.error("DATA:", data);
 
-    // 2. إذا انتهت الجلسة (401)
-    if (error.response.status === 401) {
-      console.warn("Session expirée...");
-      localStorage.clear(); // مسح كل البيانات لضمان نظافة الجلسة
+    // 2. Specific Logic based on status
+    if (status === 401) {
+      console.warn("ACTION: Session expired, clearing local storage");
+      localStorage.clear();
       if (window.location.pathname !== "/login") {
         window.location.href = "/login";
       }
+    } else if (status === 403) {
+      console.error("ACTION: Forbidden access - missing permissions");
+    } else if (status === 500) {
+      console.error("ACTION: Internal Server Error - check backend logs");
     }
 
-    // 3. إذا كانت الصلاحية ناقصة (403)
-    if (error.response.status === 403) {
-      console.error("Accès refusé - Droits insuffisants");
-    }
-
+    console.error("--- END API ERROR ---");
     return Promise.reject(error);
   },
 );
